@@ -3,4 +3,14 @@
     <string name="google_button">Authorize</string>
     <string name="hello_string1">Welcome to Koshelok</string>
     <string name="hello_string2">Here you can manage your finance</string>
+    <string name="title_wallet">КошелОК</string>
+    <string name="title_settings">Настройки</string>
+    <string name="name_wallet">Кошелёк1</string>
+    <string name="count_money">0 ₽</string>
+    <string name="count_money_income">10 ₽</string>
+    <string name="count_money_expenses">12 000 ₽</string>
+    <string name="title_income">Доход</string>
+    <string name="title_expenses">Расход</string>
+    <string name="btn_add_operation">Добавить операцию</string>
+    <string name="closing_warning">Нажмите ещё раз, чтобы выйти из приложения</string>
 </resources>
