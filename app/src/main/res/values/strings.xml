@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SiriusKoshelok</string>
+    <string name="google_button">Authorize</string>
+    <string name="hello_string1">Welcome to Koshelok</string>
+    <string name="hello_string2">Here you can manage your finance</string>
     <string name="title_wallet">КошелОК</string>
     <string name="title_settings">Настройки</string>
     <string name="name_wallet">Кошелёк1</string>
