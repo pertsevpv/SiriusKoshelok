@@ -136,7 +136,6 @@
                     tools:ignore="MissingConstraints" />
             </RelativeLayout>
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -150,7 +149,6 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="MissingConstraints" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
