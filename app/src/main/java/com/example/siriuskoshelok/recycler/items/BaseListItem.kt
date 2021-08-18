@@ -6,4 +6,6 @@ val OPERATION = 1
 abstract class BaseListItem {
 
     abstract fun getType(): Int
+
+    abstract fun getDateLong(): Long
 }

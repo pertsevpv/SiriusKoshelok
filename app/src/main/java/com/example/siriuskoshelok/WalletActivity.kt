@@ -9,8 +9,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.entity.EXTENDED_OPERATION_TYPE
+import com.example.siriuskoshelok.entity.OPERATION_TYPE
+import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.OperationAdapter
 import com.example.siriuskoshelok.recycler.OperationDecoration
+import java.util.*
 
 class WalletActivity : AppCompatActivity() {
 
@@ -28,19 +32,31 @@ class WalletActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
-        btnAddOperation.setOnClickListener {
-            Toast.makeText(this, R.string.btn_add_operation, Toast.LENGTH_SHORT).show()
-        }
 
         operationAdapter = OperationAdapter()/*.apply {
             setHasStableIds(true)
         }*/
         recycler.apply {
-            layoutManager = LinearLayoutManager(this@WalletActivity)
+            layoutManager = LinearLayoutManager(this@WalletActivity).apply {
+                reverseLayout = true
+                stackFromEnd = true
+            }
             adapter = operationAdapter
             addItemDecoration(OperationDecoration())
         }
         operationAdapter.setData(OperationsDataSet.list)
+        var cnt = 0
+        btnAddOperation.setOnClickListener {
+            operationAdapter.insertOperation(
+                Operation(
+                    100.0,
+                    OPERATION_TYPE.INCOME,
+                    EXTENDED_OPERATION_TYPE.SALARY,
+                    Date(3 * 86400 * 1000L + 3 * cnt * 60 * 60 * 1000)
+                )
+            )
+            cnt++
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -11,11 +11,12 @@ class HeaderHolder(private val root: View) : RecyclerView.ViewHolder(root) {
     private val headerText: TextView = root.findViewById(R.id.header_date)
 
     // FIXME: 18.08.2021 use decorations and string resources
-    fun bind(date: String) {
-        headerText.text = when (date) {
+    fun bind(date: Date) {
+        val dateStr = date.dayAndMonth()
+        headerText.text = when (dateStr) {
             Date().dayAndMonth() -> "Today"
             Date(System.currentTimeMillis() - 86400 * 1000L).dayAndMonth() -> "Yesterday"
-            else -> date
+            else -> dateStr
         }
     }
 }
