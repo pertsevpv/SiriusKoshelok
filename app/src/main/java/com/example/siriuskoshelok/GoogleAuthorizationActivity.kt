@@ -42,7 +42,7 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
 
     private fun toNextActivity() {
         if (account == null) return
-        val intent = Intent(this, FourthActivity::class.java)
+        val intent = Intent(this, WalletActivity::class.java)
         intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
