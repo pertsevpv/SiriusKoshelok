@@ -6,8 +6,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.recycler.OperationAdapter
+import com.example.siriuskoshelok.recycler.OperationDecoration
 
 class WalletActivity : AppCompatActivity() {
+
+    private val recycler by lazy(LazyThreadSafetyMode.NONE) {
+        findViewById<RecyclerView>(R.id.operations_recycler_view)
+    }
+
+    private lateinit var operationAdapter: OperationAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
@@ -19,6 +31,16 @@ class WalletActivity : AppCompatActivity() {
         btnAddOperation.setOnClickListener {
             Toast.makeText(this, R.string.btn_add_operation, Toast.LENGTH_SHORT).show()
         }
+
+        operationAdapter = OperationAdapter()/*.apply {
+            setHasStableIds(true)
+        }*/
+        recycler.apply {
+            layoutManager = LinearLayoutManager(this@WalletActivity)
+            adapter = operationAdapter
+            addItemDecoration(OperationDecoration())
+        }
+        operationAdapter.setData(OperationsDataSet.list)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
