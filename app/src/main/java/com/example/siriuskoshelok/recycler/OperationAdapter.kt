@@ -1,10 +1,8 @@
 package com.example.siriuskoshelok.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
@@ -14,7 +12,6 @@ import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.*
 import com.example.siriuskoshelok.data.OperationsDataSet
 import java.lang.Exception
-import java.util.*
 import kotlin.collections.ArrayList
 
 class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

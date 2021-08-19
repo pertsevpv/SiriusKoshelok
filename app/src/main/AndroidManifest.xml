@@ -11,20 +11,16 @@
         android:theme="@style/Theme.SiriusKoshelok">
         <activity
             android:name=".ui.operation.AddOperationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:noHistory="true"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.operation.AddCategoryActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:noHistory="true" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.operation.AddTypeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:noHistory="true"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.operation.AddSumActivity"
             android:windowSoftInputMode="adjustResize"
-            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity android:name=".ui.google.GoogleAuthorizationActivity" />

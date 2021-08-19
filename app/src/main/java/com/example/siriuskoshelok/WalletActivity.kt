@@ -47,7 +47,6 @@ class WalletActivity : AppCompatActivity() {
         btnAddOperation.setOnClickListener {
             CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
-            finish()
             this.startActivity(intent)
         }
     }

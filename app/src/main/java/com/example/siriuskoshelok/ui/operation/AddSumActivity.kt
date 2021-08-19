@@ -19,6 +19,7 @@ class AddSumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sum)
+        val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_sum)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -28,8 +29,14 @@ class AddSumActivity : AppCompatActivity() {
         btnAddSum.setOnClickListener {
             if (editSum.text.isNotEmpty()) {
                 CurrentOp.currentOperation!!.money = editSum.text.toString().toInt()
-                val intent = Intent(this, AddTypeActivity::class.java)
-                finish()
+                val intent =
+                    Intent(
+                        this,
+                        if (!isEdit) AddTypeActivity::class.java
+                        else AddOperationActivity::class.java
+                    )
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                if (isEdit) finish()
                 startActivity(intent)
             }
         }
