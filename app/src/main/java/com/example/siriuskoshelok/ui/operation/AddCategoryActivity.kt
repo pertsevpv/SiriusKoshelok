@@ -41,23 +41,23 @@ class AddCategoryActivity : AppCompatActivity() {
                 this.startActivity(intent)
             }
             if (btnPartTime.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].extendedOperationType =
+                OperationsDataSet.list.last().extendedOperationType =
                     textPartTime.text.toString()
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].img =
+                OperationsDataSet.list.last().img =
                     R.drawable.ic_part_time
                 this.startActivity(intent)
             }
             if (btnGift.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].extendedOperationType =
+                OperationsDataSet.list.last().extendedOperationType =
                     textGift.text.toString()
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].img =
+                OperationsDataSet.list.last().img =
                     R.drawable.ic_gift
                 this.startActivity(intent)
             }
             if (btnCapitalisation.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].extendedOperationType =
+                OperationsDataSet.list.last().extendedOperationType =
                     textCapitalisation.text.toString()
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].img =
+                OperationsDataSet.list.last().img =
                     R.drawable.ic_capitalisation
                 this.startActivity(intent)
             }

@@ -22,8 +22,7 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="fontFamily">@font/roboto_500</item>
-        <item name="android:textSize">23sp</item>
+        <item name="fontFamily">@font/roboto_400</item>
         <item name="elevation">0dp</item>
     </style>
 
@@ -39,6 +38,11 @@
         <item name="android:statusBarColor">@color/white</item>
     </style>
 
+    <style name="SwipeLayout">
+        <item name="android:paddingBottom">1px</item>
+        <item name="android:background">#e5e5e5</item>
+    </style>
+
     <style name="Theme.SiriusKoshelok.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -47,6 +51,5 @@
     <style name="Theme.SiriusKoshelok.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SiriusKoshelok.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
 </resources>

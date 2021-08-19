@@ -9,7 +9,7 @@ import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.*
 
-class OperationHolder(private val root: View) : RecyclerView.ViewHolder(root) {
+class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     private val operationTypeIcon: ImageView = root.findViewById(R.id.operation_type_icon)
     private val operationName: TextView = root.findViewById(R.id.operation_name)
@@ -20,8 +20,8 @@ class OperationHolder(private val root: View) : RecyclerView.ViewHolder(root) {
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     fun bind(op: Operation) {
         operationTypeIcon.setImageResource(R.drawable.dot_green)
-        operationName.text = op.extendedOperationType.name
-        operationType.text = op.operationType.name
+        operationName.text = op.extendedOperationType
+        operationType.text = op.operationType
         operationMoney.text = "${op.money} $"
         operationDate.text = op.date.hoursAndMinutes()
 

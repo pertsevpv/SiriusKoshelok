@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.siriuskoshelok.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/operation_type_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/operation_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/operation_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/salary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/operation_type"
+            app:layout_constraintEnd_toStartOf="@+id/operation_money"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@+id/operation_type_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/operation_type"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/income"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/operation_type_icon"
+            app:layout_constraintEnd_toStartOf="@+id/operation_date"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@+id/operation_type_icon"
+            app:layout_constraintTop_toBottomOf="@+id/operation_name" />
+
+        <TextView
+            android:id="@+id/operation_money"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/test_money"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/operation_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/operation_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/operation_date"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/test_date"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/operation_type_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@+id/operation_type"
+            app:layout_constraintTop_toBottomOf="@+id/operation_money" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/right_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bring_to_clamp="200dp"
+        app:clamp="parent"
+        app:gravity="right"
+        app:sticky="170dp">
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:background="#4287ff"
+            android:gravity="center"
+            android:text="EDIT"
+            android:fontFamily="@font/roboto_400"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F52222"
+            android:gravity="center"
+            android:text="DELETE"
+            android:fontFamily="@font/roboto_400"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+
+
+    </LinearLayout>
+</com.example.siriuskoshelok.SwipeLayout>

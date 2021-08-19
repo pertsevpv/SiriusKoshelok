@@ -33,40 +33,6 @@ class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun insertOperation(op: Operation) {
-        /*if (data.isEmpty()) {
-            data.add(OperationItem(op))
-            data.add(HeaderItem(op.date))
-            notifyDataSetChanged()
-        } else {
-            val opDate = op.date.normalize()?.time ?: return
-            var curDate = (data.last() as HeaderItem).date.time
-            var pos = data.size - 1
-            var prev = data.size - 1
-            while (opDate < curDate) {
-                if (data[pos] is HeaderItem) {
-                    curDate = data[pos].getDateLong()
-                    if (opDate < curDate) prev = pos
-                }
-                pos--
-            }
-            if (opDate == curDate) {
-                while (pos >= 0 && data[pos] is OperationItem) {
-                    Log.i("time1",data[pos].getDateLong().toString())
-                    Log.i("time2",op.date.time.toString())
-                    if (data[pos].getDateLong() <= op.date.time) {
-                        data.add(pos, OperationItem(op))
-                        notifyDataSetChanged()
-                        return
-                    }
-                    pos--
-                }
-                //data.add(pos,OperationItem(op))
-            } else {
-                data.add(prev, OperationItem(op))
-                data.add(prev, HeaderItem(Date(opDate)))
-            }
-            notifyDataSetChanged()
-        }*/
         // FIXME: 19.08.2021 very bad
         val tmpOpList =
             data.filterIsInstance<OperationItem>().map { it.operation } as MutableList<Operation>
@@ -79,7 +45,7 @@ class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             LayoutInflater.from(parent.context)
         return when (viewType) {
             HEADER -> HeaderHolder(inflater.inflate(R.layout.header_item, parent, false))
-            OPERATION -> OperationHolder(inflater.inflate(R.layout.operation_item, parent, false))
+            OPERATION -> OperationHolder(inflater.inflate(R.layout.operation_swipe_item, parent, false))
             else -> throw Exception("Unsupported viewType")
         }
     }

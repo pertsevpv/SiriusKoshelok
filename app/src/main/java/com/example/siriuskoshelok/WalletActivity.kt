@@ -5,20 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.data.OperationsDataSet
-import com.example.siriuskoshelok.entity.EXTENDED_OPERATION_TYPE
-import com.example.siriuskoshelok.entity.OPERATION_TYPE
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.OperationAdapter
 import com.example.siriuskoshelok.recycler.OperationDecoration
 import java.util.*
-import com.example.siriuskoshelok.data.OperationsDataSet
-import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 
 class WalletActivity : AppCompatActivity() {
@@ -34,13 +29,11 @@ class WalletActivity : AppCompatActivity() {
         setContentView(R.layout.activity_wallet)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
 
-        operationAdapter = OperationAdapter()/*.apply {
-            setHasStableIds(true)
-        }*/
+        operationAdapter = OperationAdapter()
         recycler.apply {
             layoutManager = LinearLayoutManager(this@WalletActivity).apply {
                 reverseLayout = true
@@ -50,18 +43,8 @@ class WalletActivity : AppCompatActivity() {
             addItemDecoration(OperationDecoration())
         }
         operationAdapter.setData(OperationsDataSet.list)
-        var cnt = 0
         btnAddOperation.setOnClickListener {
-            operationAdapter.insertOperation(
-                Operation(
-                    100.0,
-                    OPERATION_TYPE.INCOME,
-                    EXTENDED_OPERATION_TYPE.SALARY,
-                    Date(3 * 86400 * 1000L + 3 * cnt * 60 * 60 * 1000)
-                )
-            )
-            cnt++
-            OperationsDataSet.list.add(Operation(null, null, null, null, null))
+            OperationsDataSet.list.add(Operation(null, null, null, null))
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)
         }

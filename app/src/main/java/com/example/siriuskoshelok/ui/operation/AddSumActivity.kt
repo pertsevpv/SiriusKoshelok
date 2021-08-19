@@ -26,20 +26,28 @@ class AddSumActivity : AppCompatActivity() {
         val editSum: EditText = findViewById(R.id.edit_sum)
         val btnAddSum: Button = findViewById(R.id.btn_add_sum)
         btnAddSum.setOnClickListener {
-            if(editSum.text.isNotEmpty()){
-                list[list.size-1].money = editSum.text.toString().toInt()
+            if (editSum.text.isNotEmpty()) {
+                list.last().money = editSum.text.toString().toInt()
                 val intent = Intent(this, AddTypeActivity::class.java)
                 this.startActivity(intent)
             }
         }
         editSum.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                btnAddSum.isEnabled = s.toString().trim(){it<=' '}.isNotEmpty()
+                btnAddSum.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
             }
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) { }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
         })
     }
 
