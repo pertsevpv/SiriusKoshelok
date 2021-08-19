@@ -27,7 +27,7 @@ class AddSumActivity : AppCompatActivity() {
         val btnAddSum: Button = findViewById(R.id.btn_add_sum)
         btnAddSum.setOnClickListener {
             if(editSum.text.isNotEmpty()){
-                list[list.size-1].money = editSum.text.toString().toDouble()
+                list[list.size-1].money = editSum.text.toString().toInt()
                 val intent = Intent(this, AddTypeActivity::class.java)
                 this.startActivity(intent)
             }

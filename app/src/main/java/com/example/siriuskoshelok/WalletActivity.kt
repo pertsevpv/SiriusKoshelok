@@ -22,7 +22,7 @@ class WalletActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
         btnAddOperation.setOnClickListener {
-            OperationsDataSet.list.add(Operation(null, null, null, null))
+            OperationsDataSet.list.add(Operation(null, null, null, null, null))
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)
         }
