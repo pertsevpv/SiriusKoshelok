@@ -79,7 +79,7 @@ class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             LayoutInflater.from(parent.context)
         return when (viewType) {
             HEADER -> HeaderHolder(inflater.inflate(R.layout.header_item, parent, false))
-            OPERATION -> OperationHolder(inflater.inflate(R.layout.operation_item, parent, false))
+            OPERATION -> OperationHolder(inflater.inflate(R.layout.operation_swipe_item, parent, false))
             else -> throw Exception("Unsupported viewType")
         }
     }
