@@ -142,7 +142,7 @@
             android:id="@+id/btn_add_operation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_round"
+            android:background="@drawable/btn_on"
             android:text="@string/btn_add_operation"
             android:textAllCaps="false"
             android:textColor="@color/white"

@@ -1,11 +1,16 @@
 package com.example.siriuskoshelok
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.entity.Operation
+import com.example.siriuskoshelok.ui.operation.AddSumActivity
 
 class WalletActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,11 +18,13 @@ class WalletActivity : AppCompatActivity() {
         setContentView(R.layout.activity_wallet)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false);
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
         btnAddOperation.setOnClickListener {
-            Toast.makeText(this, R.string.btn_add_operation, Toast.LENGTH_SHORT).show()
+            OperationsDataSet.list.add(Operation(null, null, null, null))
+            val intent = Intent(this, AddSumActivity::class.java)
+            this.startActivity(intent)
         }
     }
 

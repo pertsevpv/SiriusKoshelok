@@ -9,21 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiriusKoshelok">
-        <activity android:name=".GoogleAuthorizationActivity"/>
+        <activity
+            android:name=".ui.operation.AddOperationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.operation.AddCategoryActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.operation.AddTypeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.operation.AddSumActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity android:name=".ui.google.GoogleAuthorizationActivity" />
         <activity
             android:name=".WalletActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true" />
-      
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

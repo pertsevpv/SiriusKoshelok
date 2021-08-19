@@ -13,4 +13,21 @@
     <string name="title_expenses">Расход</string>
     <string name="btn_add_operation">Добавить операцию</string>
     <string name="closing_warning">Нажмите ещё раз, чтобы выйти из приложения</string>
+    <string name="hint_add_sum">Сумма операции</string>
+    <string name="btn_add_sum">Готово</string>
+    <string name="title_add_sum">Введите сумму</string>
+    <string name="btn_add_type">Далее</string>
+    <string name="title_add_category">Выберите категорию</string>
+    <string name="title_salary">Зарплата</string>
+    <string name="title_gift">Подарок</string>
+    <string name="title_capitalisation">Капитализация</string>
+    <string name="title_part_time">Подработка</string>
+    <string name="title_add_operation">Новая операция</string>
+    <string name="btn_create_operation">Создать операцию</string>
+    <string name="title_type_operation">Выберите тип операции</string>
+    <string name="title_basic">Основные</string>
+    <string name="title_sum">Сумма</string>
+    <string name="title_type">Тип</string>
+    <string name="title_category">Категория</string>
+    <string name="title_add_settings">Дополнительные настройки</string>
 </resources>

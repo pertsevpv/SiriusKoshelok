@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok
+package com.example.siriuskoshelok.ui.google
 
 import android.app.Activity
 import android.content.Context
