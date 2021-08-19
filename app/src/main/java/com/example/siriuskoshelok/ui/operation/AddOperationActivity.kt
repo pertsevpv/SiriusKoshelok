@@ -25,11 +25,10 @@ class AddOperationActivity : AppCompatActivity() {
         val textCategory: TextView = findViewById(R.id.category)
         textCountMoney.text = list[list.size - 1].money.toString()
         textTypeOperation.text = list[list.size - 1].operationType
-        textCategory.text = "Подработка"
+        textCategory.text = list[list.size - 1].extendedOperationType
         val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
         btnCreateOperation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             startActivity(intent)
         }
     }
