@@ -25,6 +25,10 @@ class AddSumActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         val editSum: EditText = findViewById(R.id.edit_sum)
         val btnAddSum: Button = findViewById(R.id.btn_add_sum)
+        if (list.last().money != null) {
+            editSum.text = Editable.Factory.getInstance().newEditable(list.last().money.toString())
+            btnAddSum.isEnabled = true
+        }
         btnAddSum.setOnClickListener {
             if (editSum.text.isNotEmpty()) {
                 list.last().money = editSum.text.toString().toInt()
