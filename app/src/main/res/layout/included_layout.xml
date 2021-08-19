@@ -1,0 +1,27 @@
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+    <com.example.siriuskoshelok.Abc
+        android:id="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="80dp"/>
+
+    <FrameLayout
+        android:id="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="80dp"/>
+
+    <EditText
+        android:id="@+id/edit1"
+        android:layout_width="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        android:layout_height="300dp"/>
+
+</merge>-->

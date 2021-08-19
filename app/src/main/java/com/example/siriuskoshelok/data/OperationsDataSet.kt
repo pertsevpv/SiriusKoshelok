@@ -1,13 +1,14 @@
 package com.example.siriuskoshelok.data
 
 import com.example.siriuskoshelok.entity.Operation
+import java.util.*
 
 object OperationsDataSet {
 
-    val list: MutableList<Operation> = mutableListOf(
-//        Operation(100.0, OPERATION_TYPE.INCOME, EXTENDED_OPERATION_TYPE.SALARY),
-//        Operation(200.0, OPERATION_TYPE.INCOME, EXTENDED_OPERATION_TYPE.CAPITALISATION),
-//        Operation(400.0, OPERATION_TYPE.INCOME, EXTENDED_OPERATION_TYPE.GIFT)
-    )
+    val list: MutableList<Operation> = mutableListOf()
+
+    fun addOp(op: Operation) {
+        list.add(op)
+    }
 
 }
