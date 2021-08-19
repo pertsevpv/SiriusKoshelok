@@ -7,5 +7,5 @@ data class Operation(
     var money: Int?,
     var operationType: String?,
     var extendedOperationType: String?,
-    var date: Date?
+    var date: Date = Date()
 )

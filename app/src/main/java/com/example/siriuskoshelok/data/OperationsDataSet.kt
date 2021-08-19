@@ -7,8 +7,4 @@ object OperationsDataSet {
 
     val list: MutableList<Operation> = mutableListOf()
 
-    fun addOp(op: Operation) {
-        list.add(op)
-    }
-
 }

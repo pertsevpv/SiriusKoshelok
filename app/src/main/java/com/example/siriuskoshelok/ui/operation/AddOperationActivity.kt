@@ -23,9 +23,9 @@ class AddOperationActivity : AppCompatActivity() {
         val textCountMoney: TextView = findViewById(R.id.count_money)
         val textTypeOperation: TextView = findViewById(R.id.type)
         val textCategory: TextView = findViewById(R.id.category)
-        textCountMoney.text = list[list.size - 1].money.toString()
-        textTypeOperation.text = list[list.size - 1].operationType
-        textCategory.text = list[list.size - 1].extendedOperationType
+        textCountMoney.text = list.last().money.toString()
+        textTypeOperation.text = list.last().operationType
+        textCategory.text = list.last().extendedOperationType
         val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
         btnCreateOperation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
