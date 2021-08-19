@@ -32,34 +32,35 @@ class AddCategoryActivity : AppCompatActivity() {
         val btnPartTime: ImageView = findViewById(R.id.btn_part_time)
         val intent = Intent(this, AddOperationActivity::class.java)
         btnAddCategory.setOnClickListener {
-            this.startActivity(intent)
-            if (btnSalary.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].extendedOperationType =
-                    textSalary.text.toString()
-                OperationsDataSet.list[OperationsDataSet.list.size - 1].img =
-                    R.drawable.ic_salary
-                this.startActivity(intent)
-            }
-            if (btnPartTime.visibility == View.VISIBLE) {
-                OperationsDataSet.list.last().extendedOperationType =
-                    textPartTime.text.toString()
-                OperationsDataSet.list.last().img =
-                    R.drawable.ic_part_time
-                this.startActivity(intent)
-            }
-            if (btnGift.visibility == View.VISIBLE) {
-                OperationsDataSet.list.last().extendedOperationType =
-                    textGift.text.toString()
-                OperationsDataSet.list.last().img =
-                    R.drawable.ic_gift
-                this.startActivity(intent)
-            }
-            if (btnCapitalisation.visibility == View.VISIBLE) {
-                OperationsDataSet.list.last().extendedOperationType =
-                    textCapitalisation.text.toString()
-                OperationsDataSet.list.last().img =
-                    R.drawable.ic_capitalisation
-                this.startActivity(intent)
+            when {
+                btnSalary.visibility == View.VISIBLE -> {
+                    CurrentOp.currentOperation!!.extendedOperationType =
+                        textSalary.text.toString()
+                    CurrentOp.currentOperation!!.img =
+                        R.drawable.ic_salary
+                    this.startActivity(intent)
+                }
+                btnPartTime.visibility == View.VISIBLE -> {
+                    CurrentOp.currentOperation!!.extendedOperationType =
+                        textPartTime.text.toString()
+                    CurrentOp.currentOperation!!.img =
+                        R.drawable.ic_part_time
+                    this.startActivity(intent)
+                }
+                btnGift.visibility == View.VISIBLE -> {
+                    CurrentOp.currentOperation!!.extendedOperationType =
+                        textGift.text.toString()
+                    CurrentOp.currentOperation!!.img =
+                        R.drawable.ic_gift
+                    this.startActivity(intent)
+                }
+                btnCapitalisation.visibility == View.VISIBLE -> {
+                    CurrentOp.currentOperation!!.extendedOperationType =
+                        textCapitalisation.text.toString()
+                    CurrentOp.currentOperation!!.img =
+                        R.drawable.ic_capitalisation
+                    this.startActivity(intent)
+                }
             }
         }
 

@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.WalletActivity
-import com.example.siriuskoshelok.data.OperationsDataSet
 import com.example.siriuskoshelok.data.OperationsDataSet.list
 
 class AddOperationActivity : AppCompatActivity() {
@@ -23,12 +22,14 @@ class AddOperationActivity : AppCompatActivity() {
         val textCountMoney: TextView = findViewById(R.id.count_money)
         val textTypeOperation: TextView = findViewById(R.id.type)
         val textCategory: TextView = findViewById(R.id.category)
-        textCountMoney.text = list.last().money.toString()
-        textTypeOperation.text = list.last().operationType
-        textCategory.text = list.last().extendedOperationType
+        textCountMoney.text = CurrentOp.currentOperation!!.money.toString()
+        textTypeOperation.text = CurrentOp.currentOperation!!.operationType
+        textCategory.text = CurrentOp.currentOperation!!.extendedOperationType
         val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
         btnCreateOperation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
+            list.add(CurrentOp.currentOperation!!)
+            finish()
             startActivity(intent)
         }
     }

@@ -27,9 +27,10 @@ class AddSumActivity : AppCompatActivity() {
         val btnAddSum: Button = findViewById(R.id.btn_add_sum)
         btnAddSum.setOnClickListener {
             if (editSum.text.isNotEmpty()) {
-                list.last().money = editSum.text.toString().toInt()
+                CurrentOp.currentOperation!!.money = editSum.text.toString().toInt()
                 val intent = Intent(this, AddTypeActivity::class.java)
-                this.startActivity(intent)
+                finish()
+                startActivity(intent)
             }
         }
         editSum.addTextChangedListener(object : TextWatcher {
@@ -54,7 +55,7 @@ class AddSumActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            list.removeAt(list.size - 1)
+            CurrentOp.currentOperation = null
             this.finish()
             return true
         }

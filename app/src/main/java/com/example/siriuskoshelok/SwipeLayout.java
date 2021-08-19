@@ -1,6 +1,7 @@
 package com.example.siriuskoshelok;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -772,7 +773,7 @@ public class SwipeLayout extends ViewGroup {
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
 
-            TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.SwipeLayout);
+            @SuppressLint("CustomViewStyleable") TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.SwipeLayout);
 
             final int N = a.getIndexCount();
             for (int i = 0; i < N; ++i) {

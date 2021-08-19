@@ -15,6 +15,7 @@ import com.example.siriuskoshelok.recycler.OperationAdapter
 import com.example.siriuskoshelok.recycler.OperationDecoration
 import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
+import com.example.siriuskoshelok.ui.operation.CurrentOp
 
 class WalletActivity : AppCompatActivity() {
 
@@ -44,8 +45,9 @@ class WalletActivity : AppCompatActivity() {
         }
         operationAdapter.setData(OperationsDataSet.list)
         btnAddOperation.setOnClickListener {
-            OperationsDataSet.list.add(Operation(null, null, null, null))
+            CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
+            finish()
             this.startActivity(intent)
         }
     }

@@ -19,7 +19,7 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     fun bind(op: Operation) {
-        operationTypeIcon.setImageResource(R.drawable.dot_green)
+        operationTypeIcon.setImageResource(op.img ?: R.drawable.dot_green)
         operationName.text = op.extendedOperationType
         operationType.text = op.operationType
         operationMoney.text = "${op.money} $"

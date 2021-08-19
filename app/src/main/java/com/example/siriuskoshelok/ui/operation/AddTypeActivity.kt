@@ -40,12 +40,13 @@ class AddTypeActivity : AppCompatActivity() {
         val intent = Intent(this, AddCategoryActivity::class.java)
         btnAddType.setOnClickListener {
             if (btnIncome.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size-1].operationType = textIncome.text.toString()
-                this.startActivity(intent)
-            }
-            if (btnExpenses.visibility == View.VISIBLE) {
-                OperationsDataSet.list[OperationsDataSet.list.size-1].operationType = textExpenses.text.toString()
-                this.startActivity(intent)
+                CurrentOp.currentOperation!!.operationType =
+                    textIncome.text.toString()
+                startActivity(intent)
+            }else if (btnExpenses.visibility == View.VISIBLE) {
+                CurrentOp.currentOperation!!.operationType =
+                    textExpenses.text.toString()
+                startActivity(intent)
             }
         }
     }
@@ -53,7 +54,7 @@ class AddTypeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            this.finish()
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)

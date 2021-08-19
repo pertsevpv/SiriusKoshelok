@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="60dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -77,34 +77,33 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/right_view"
-        android:layout_width="match_parent"
+        android:id="@+id/left_view"
+        android:layout_width="160dp"
         android:layout_height="match_parent"
-        app:bring_to_clamp="200dp"
-        app:clamp="parent"
+        android:orientation="horizontal"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
         app:gravity="right"
-        app:sticky="170dp">
+        app:sticky="none">
 
-        <TextView
-            android:layout_width="170dp"
+        <ImageView
+            android:id="@+id/edit_op_img"
+            style="@style/LeftTextView"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="#4287ff"
-            android:gravity="center"
-            android:text="EDIT"
-            android:fontFamily="@font/roboto_400"
-            android:textColor="#ffffff"
-            android:textSize="30sp" />
+            android:layout_weight="1"
+            android:background="@color/left_bg"
+            android:src="@drawable/ic_edit" />
 
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/del_op_img"
+            style="@style/LeftTextView"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="#F52222"
-            android:gravity="center"
-            android:text="DELETE"
-            android:fontFamily="@font/roboto_400"
-            android:textColor="#ffffff"
-            android:textSize="30sp" />
-
+            android:layout_weight="1"
+            android:background="@color/right_bg"
+            android:src="@drawable/ic_delete" />
 
     </LinearLayout>
+
 </com.example.siriuskoshelok.SwipeLayout>
