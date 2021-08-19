@@ -43,4 +43,13 @@
         <item name="android:background">#e5e5e5</item>
     </style>
 
+    <style name="Theme.SiriusKoshelok.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SiriusKoshelok.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SiriusKoshelok.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
