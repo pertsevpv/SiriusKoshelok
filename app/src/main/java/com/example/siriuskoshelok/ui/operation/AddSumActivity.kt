@@ -26,8 +26,8 @@ class AddSumActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         val editSum: EditText = findViewById(R.id.edit_sum)
         val btnAddSum: Button = findViewById(R.id.btn_add_sum)
-        if (list.last().money != null) {
-            editSum.text = Editable.Factory.getInstance().newEditable(list.last().money.toString())
+        if (CurrentOp.currentOperation?.money != null) {
+            editSum.text = Editable.Factory.getInstance().newEditable(CurrentOp.currentOperation?.money.toString())
             btnAddSum.isEnabled = true
         }
         btnAddSum.setOnClickListener {
@@ -52,14 +52,12 @@ class AddSumActivity : AppCompatActivity() {
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {
-            }
+            ) {}
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
-            ) {
-            }
+            ) {}
         })
     }
 

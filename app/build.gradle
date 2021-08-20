@@ -1,6 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'io.gitlab.arturbosch.detekt' version '1.18.0'
+}
+
+detekt {
+    buildUponDefaultConfig = true // preconfigure defaults
+    allRules = true // activate all available (even unstable) rules.
+
+    reports {
+        html.enabled = true // observe findings in your browser with structure and code snippets
+    }
+}
+
+task installGitHooks(type: Exec) {
+    commandLine 'git', 'config', 'core.hooksPath', '.githooks'
 }
 
 android {
