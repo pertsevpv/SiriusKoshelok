@@ -34,7 +34,7 @@ class AddOperationActivity : AppCompatActivity() {
         textCountMoney.text = CurrentOp.currentOperation?.money.toString()
         textTypeOperation.text = CurrentOp.currentOperation?.operationType ?: ""
         textCategory.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
-      
+
         val textDate: TextView = findViewById(R.id.date)
         textCountMoney.text = CurrentOp.currentOperation?.money.toString()
         textTypeOperation.text = CurrentOp.currentOperation?.operationType
@@ -67,13 +67,17 @@ class AddOperationActivity : AppCompatActivity() {
             startActivity(intent)
             this.finish()
         }
-        val btnEditDate:ImageView = findViewById(R.id.btn_edit_date)
+        val btnEditDate: ImageView = findViewById(R.id.btn_edit_date)
         val calendar = Calendar.getInstance()
+        val year = calendar[Calendar.YEAR]
         val month = calendar.get(Calendar.MONTH)
+        val day = calendar[Calendar.DAY_OF_MONTH]
+        CurrentOp.currentOperation?.date = GregorianCalendar(year, month, day)
         btnEditDate.setOnClickListener {
-            val dpd = DatePickerDialog(this,  { _, _, _, dayOfMonth ->
+            val dpd = DatePickerDialog(this, { _, _, _, dayOfMonth ->
                 textDate.text = "$dayOfMonth $month"
-            }, calendar.get(Calendar.YEAR), month, calendar.get(Calendar.DAY_OF_MONTH))
+                CurrentOp.currentOperation?.date = GregorianCalendar(year, month, dayOfMonth)
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
             dpd.show()
         }
     }

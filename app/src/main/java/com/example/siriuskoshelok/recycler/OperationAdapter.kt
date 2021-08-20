@@ -58,7 +58,7 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                     false
                 )
             ).apply {
-                itemView.findViewById<ImageView>(R.id.edit_op_img).setOnClickListener {
+                itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
                     CurrentOp.isEdit = true
                     CurrentOp.currentOperation = (data[adapterPosition] as OperationItem).operation
                     CurrentOp.posInDataSet = adapterPosition
@@ -67,7 +67,7 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                     val intent = Intent(activity, AddOperationActivity::class.java)
                     activity.startActivity(intent)
                 }
-                itemView.findViewById<ImageView>(R.id.del_op_img).setOnClickListener {
+                itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
                     val pos = this.adapterPosition
                     OperationsDataSet.list.remove((data[pos] as OperationItem).operation)
                     if (data[pos + 1] is HeaderItem && (pos == 0 || data[pos - 1] is HeaderItem)) {

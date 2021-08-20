@@ -12,6 +12,7 @@
     <string name="title_income">Доход</string>
     <string name="title_expenses">Расход</string>
     <string name="btn_add_operation">Добавить операцию</string>
+    <string name="btn_add_wallet">Добавить кошелек</string>
     <string name="closing_warning">Нажмите ещё раз, чтобы выйти из приложения</string>
 
     <string name="salary">Salary</string>
@@ -24,6 +25,8 @@
     <string name="hint_add_sum">Сумма операции</string>
     <string name="btn_add_sum">Готово</string>
     <string name="title_add_sum">Введите сумму</string>
+    <string name="hint_add_wallet_name">Название Кошелька</string>
+    <string name="title_add_wallet_name2">Придумайте название</string>
     <string name="btn_add_type">Далее</string>
     <string name="title_add_category">Выберите категорию</string>
     <string name="title_salary">Зарплата</string>
