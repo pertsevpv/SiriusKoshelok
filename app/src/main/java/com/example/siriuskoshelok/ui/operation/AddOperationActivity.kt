@@ -1,5 +1,6 @@
 package com.example.siriuskoshelok.ui.operation
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import java.util.*
 
 class AddOperationActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_operation)
@@ -34,12 +36,12 @@ class AddOperationActivity : AppCompatActivity() {
         textCategory.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
       
         val textDate: TextView = findViewById(R.id.date)
-        textCountMoney.text = list.last().money.toString()
-        textTypeOperation.text = list.last().operationType
-        textCategory.text = list.last().extendedOperationType
-        val currentDate = Date()
+        textCountMoney.text = CurrentOp.currentOperation?.money.toString()
+        textTypeOperation.text = CurrentOp.currentOperation?.operationType
+        textCategory.text = CurrentOp.currentOperation?.extendedOperationType
+        val currentDate = GregorianCalendar()
         textDate.text = currentDate.dayAndMonth()
-        list.last().date = currentDate
+        CurrentOp.currentOperation?.date = currentDate
 
         val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
         btnCreateOperation.setOnClickListener {
@@ -64,21 +66,6 @@ class AddOperationActivity : AppCompatActivity() {
             intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
             this.finish()
-        }
-        val btnEditSum:ImageView = findViewById(R.id.btn_edit_sum)
-        btnEditSum.setOnClickListener {
-            val intent = Intent(this, AddSumActivity::class.java)
-            this.startActivity(intent)
-        }
-        val btnEditType:ImageView = findViewById(R.id.btn_edit_type)
-        btnEditType.setOnClickListener {
-            val intent = Intent(this, AddTypeActivity::class.java)
-            this.startActivity(intent)
-        }
-        val btnEditCategory:ImageView = findViewById(R.id.btn_edit_category)
-        btnEditCategory.setOnClickListener {
-            val intent = Intent(this, AddCategoryActivity::class.java)
-            this.startActivity(intent)
         }
         val btnEditDate:ImageView = findViewById(R.id.btn_edit_date)
         val calendar = Calendar.getInstance()

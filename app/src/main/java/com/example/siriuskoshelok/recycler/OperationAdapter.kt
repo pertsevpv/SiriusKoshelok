@@ -19,7 +19,8 @@ import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class OperationAdapter(private val activity: AppCompatActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OperationAdapter(private val activity: AppCompatActivity) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<BaseListItem> = arrayListOf()
 
@@ -69,9 +70,7 @@ class OperationAdapter(private val activity: AppCompatActivity) : RecyclerView.A
                 itemView.findViewById<ImageView>(R.id.del_op_img).setOnClickListener {
                     val pos = this.adapterPosition
                     OperationsDataSet.list.remove((data[pos] as OperationItem).operation)
-                    if ((data[pos + 1] is HeaderItem && pos == 0) ||
-                        (data[pos + 1] is HeaderItem && data[pos - 1] is HeaderItem)
-                    ) {
+                    if (data[pos + 1] is HeaderItem && (pos == 0 || data[pos - 1] is HeaderItem)) {
                         data.removeAt(pos)
                         data.removeAt(pos)
                         if (data.isNotEmpty()) notifyItemRangeRemoved(pos, 2)

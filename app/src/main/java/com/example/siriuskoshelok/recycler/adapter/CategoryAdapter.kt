@@ -7,6 +7,7 @@ import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.OperationsDataSet.list
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.entity.Category
+import com.example.siriuskoshelok.ui.operation.CurrentOp
 
 class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -37,13 +38,13 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             newList[countItem].isSelected = false
             newList[position].isSelected = true
             countItem = position
-            list.last().extendedOperationType = item.name
-            list.last().img = item.img
+            CurrentOp.currentOperation?.extendedOperationType = item.name
+            CurrentOp.currentOperation?.img = item.img
         } else {
             newList[position].isSelected = true
             countItem = position
-            list.last().extendedOperationType = item.name
-            list.last().img = item.img
+            CurrentOp.currentOperation?.extendedOperationType = item.name
+            CurrentOp.currentOperation?.img = item.img
         }
         setData(newList)
     }

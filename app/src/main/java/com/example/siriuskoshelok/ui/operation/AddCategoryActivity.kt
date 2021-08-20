@@ -28,53 +28,6 @@ class AddCategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val btnGift: ImageView = findViewById(R.id.btn_gift)
-        val btnSalary: ImageView = findViewById(R.id.btn_salary)
-        val btnCapitalisation: ImageView = findViewById(R.id.btn_capitalisation)
-        val btnPartTime: ImageView = findViewById(R.id.btn_part_time)
-        val intent =
-            Intent(
-                this,
-                if (!isEdit) AddOperationActivity::class.java
-                else AddOperationActivity::class.java
-            )
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        btnAddCategory.setOnClickListener {
-            when {
-                btnSalary.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation?.extendedOperationType =
-                        textSalary.text.toString()
-                    CurrentOp.currentOperation?.img =
-                        R.drawable.ic_salary
-                    if (isEdit) finish()
-                    startActivity(intent)
-                }
-                btnPartTime.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation?.extendedOperationType =
-                        textPartTime.text.toString()
-                    CurrentOp.currentOperation?.img =
-                        R.drawable.ic_part_time
-                    if (isEdit) finish()
-                    startActivity(intent)
-                }
-                btnGift.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation?.extendedOperationType =
-                        textGift.text.toString()
-                    CurrentOp.currentOperation?.img =
-                        R.drawable.ic_gift
-                    if (isEdit) finish()
-                    startActivity(intent)
-                }
-                btnCapitalisation.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation?.extendedOperationType =
-                        textCapitalisation.text.toString()
-                    CurrentOp.currentOperation?.img =
-                        R.drawable.ic_capitalisation
-                    if (isEdit) finish()
-                    startActivity(intent)
-                }
-            }
-        }
         val categories = mutableListOf(
             Category(
                 R.drawable.ic_salary,
@@ -113,7 +66,13 @@ class AddCategoryActivity : AppCompatActivity() {
 
         val btnAddCategory: Button = findViewById(R.id.btn_add_category)
         btnAddCategory.setOnClickListener {
-            val intent = Intent(this, AddOperationActivity::class.java)
+            val intent =
+                Intent(
+                    this,
+                    if (!isEdit) AddOperationActivity::class.java
+                    else AddOperationActivity::class.java
+                )
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             this.startActivity(intent)
         }
     }
