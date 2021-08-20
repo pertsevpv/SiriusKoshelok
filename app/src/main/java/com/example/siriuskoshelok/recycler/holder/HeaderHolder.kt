@@ -5,18 +5,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.dayAndMonth
+import com.example.siriuskoshelok.dayMonthYear
 import java.util.*
 
 class HeaderHolder(private val root: View) : RecyclerView.ViewHolder(root) {
     private val headerText: TextView = root.findViewById(R.id.header_date)
 
     // FIXME: 18.08.2021 use decorations and string resources
-    fun bind(date: Date) {
-        val dateStr = date.dayAndMonth()
-        headerText.text = when (dateStr) {
-            Date().dayAndMonth() -> "Today"
-            Date(System.currentTimeMillis() - 86400 * 1000L).dayAndMonth() -> "Yesterday"
-            else -> dateStr
+    fun bind(date: GregorianCalendar) {
+        headerText.text = when (date.dayMonthYear()) {
+            GregorianCalendar().dayMonthYear() -> "Today"
+            GregorianCalendar().dayMonthYear()
+                .apply { add(Calendar.DAY_OF_MONTH, -1) } -> "Yesterday"
+            else -> date.dayAndMonth()
         }
     }
 }

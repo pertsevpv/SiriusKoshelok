@@ -8,6 +8,10 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.*
 import com.example.siriuskoshelok.data.OperationsDataSet.list
 import java.util.*
@@ -25,6 +29,10 @@ class AddOperationActivity : AppCompatActivity() {
         val textCountMoney: TextView = findViewById(R.id.count_money)
         val textTypeOperation: TextView = findViewById(R.id.type)
         val textCategory: TextView = findViewById(R.id.category)
+        textCountMoney.text = CurrentOp.currentOperation?.money.toString()
+        textTypeOperation.text = CurrentOp.currentOperation?.operationType ?: ""
+        textCategory.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
+      
         val textDate: TextView = findViewById(R.id.date)
         textCountMoney.text = list.last().money.toString()
         textTypeOperation.text = list.last().operationType
@@ -36,6 +44,24 @@ class AddOperationActivity : AppCompatActivity() {
         val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
         btnCreateOperation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            if (CurrentOp.isEdit) list[CurrentOp.posInOperationList] = CurrentOp.currentOperation!!
+            else list.add(CurrentOp.currentOperation!!)
+            startActivity(intent)
+        }
+        findViewById<AppCompatImageView>(R.id.btn_edit_sum).setOnClickListener {
+            val intent = Intent(this, AddSumActivity::class.java)
+            intent.putExtra("EDIT_FLAG", true)
+            startActivity(intent)
+        }
+        findViewById<AppCompatImageView>(R.id.btn_edit_category).setOnClickListener {
+            val intent = Intent(this, AddCategoryActivity::class.java)
+            intent.putExtra("EDIT_FLAG", true)
+            startActivity(intent)
+        }
+        findViewById<AppCompatImageView>(R.id.btn_edit_type).setOnClickListener {
+            val intent = Intent(this, AddTypeActivity::class.java)
+            intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
             this.finish()
         }

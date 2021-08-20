@@ -18,6 +18,7 @@ class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_type)
+        val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_type)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,9 +50,24 @@ class AddTypeActivity : AppCompatActivity() {
             btnIncome.visibility = View.INVISIBLE
             btnAddType.isEnabled = true
         }
-        val intent = Intent(this, AddCategoryActivity::class.java)
+        val intent =
+            Intent(
+                this,
+                if (!isEdit) AddCategoryActivity::class.java
+                else AddOperationActivity::class.java
+            )
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         btnAddType.setOnClickListener {
             if (btnIncome.visibility == View.VISIBLE) {
+                CurrentOp.currentOperation?.operationType =
+                    textIncome.text.toString()
+                if (isEdit) finish()
+                startActivity(intent)
+            } else if (btnExpenses.visibility == View.VISIBLE) {
+                CurrentOp.currentOperation?.operationType =
+                    textExpenses.text.toString()
+                if (isEdit) finish()
+                startActivity(intent)
                 OperationsDataSet.list.last().operationType = textIncome.text.toString()
                 this.startActivity(intent)
             }
@@ -69,7 +85,7 @@ class AddTypeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            this.finish()
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)

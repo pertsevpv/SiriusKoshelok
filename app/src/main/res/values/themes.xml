@@ -59,4 +59,11 @@
 
     <style name="Theme.SiriusKoshelok.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="SwipeBase">
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@color/swipe_background</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+
 </resources>

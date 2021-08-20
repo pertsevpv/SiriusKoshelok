@@ -8,5 +8,5 @@ class OperationItem(var operation: Operation) : BaseListItem() {
 
     override fun toString(): String = "(${operation.money} ${operation.date})"
 
-    override fun getDateLong(): Long = operation.date.time
+    override fun getDateLong(): Long = operation.date.timeInMillis
 }

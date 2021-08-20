@@ -18,6 +18,7 @@ import com.example.siriuskoshelok.recycler.OperationAdapter
 import com.example.siriuskoshelok.recycler.OperationDecoration
 import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
+import com.example.siriuskoshelok.ui.operation.CurrentOp
 import kotlin.system.exitProcess
 
 class WalletActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class WalletActivity : AppCompatActivity() {
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
         val textEmpty: TextView = findViewById(R.id.empty_view)
 
-        operationAdapter = OperationAdapter()
+        operationAdapter = OperationAdapter(this)
         recycler.apply {
             layoutManager = LinearLayoutManager(this@WalletActivity).apply {
                 reverseLayout = true
@@ -53,7 +54,7 @@ class WalletActivity : AppCompatActivity() {
         }
         operationAdapter.setData(OperationsDataSet.list)
         btnAddOperation.setOnClickListener {
-            OperationsDataSet.list.add(Operation(null, null, null, null))
+            CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)
         }
