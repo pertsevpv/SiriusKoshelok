@@ -31,6 +31,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:datePickerDialogTheme">@style/DatePicker</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -46,6 +47,12 @@
     <style name="Theme.SiriusKoshelok.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="Theme.SiriusKoshelok.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
