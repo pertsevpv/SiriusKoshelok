@@ -41,7 +41,10 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         findViewById<Button>(R.id.btn_create_wallet).setOnClickListener {
             val intent = Intent(this, AllWalletsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            list.add(CurrentWallet.currentWallet!!)
+            if (CurrentWallet.isEdit)
+                list[CurrentWallet.posInOperationList] = CurrentWallet.currentWallet!!
+            else
+                list.add(CurrentWallet.currentWallet!!)
             CurrentWallet.fin()
             startActivity(intent)
         }
@@ -51,25 +54,11 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
             startActivity(intent)
         }
 
-        findViewById<AppCompatImageView>(R.id.btn_edit_wallet_currency)
-
-        /*findViewById<AppCompatImageView>(R.id.btn_edit_sum).setOnClickListener {
-            val intent = Intent(this, AddSumActivity::class.java)
-            //intent.putExtra("EDIT_FLAG", true)
+        findViewById<AppCompatImageView>(R.id.btn_edit_wallet_name).setOnClickListener {
+            val intent = Intent(this, AddWalletNameActivity::class.java)
+            intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
         }
-
-        findViewById<AppCompatImageView>(R.id.btn_edit_category).setOnClickListener {
-            val intent = Intent(this, AddCategoryActivity::class.java)
-            //intent.putExtra("EDIT_FLAG", true)
-            startActivity(intent)
-        }
-        findViewById<AppCompatImageView>(R.id.btn_edit_type).setOnClickListener {
-            val intent = Intent(this, AddTypeActivity::class.java)
-            //intent.putExtra("EDIT_FLAG", true)
-            startActivity(intent)
-            this.finish()
-        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -19,10 +19,11 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
 
         val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_sum)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_wallet_name)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
         val editWalletName: EditText = findViewById(R.id.edit_wal_name)
         val btnAddWalletName: Button = findViewById(R.id.btn_add_wallet_name)
         editWalletName.setText(CurrentWallet.currentWallet?.name ?: "")

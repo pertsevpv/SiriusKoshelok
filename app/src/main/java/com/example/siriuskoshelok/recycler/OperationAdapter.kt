@@ -12,7 +12,7 @@ import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import java.lang.Exception
@@ -63,13 +63,13 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                     CurrentOp.currentOperation = (data[adapterPosition] as OperationItem).operation
                     CurrentOp.posInDataSet = adapterPosition
                     CurrentOp.posInOperationList =
-                        OperationsDataSet.list.indexOf(CurrentOp.currentOperation)
+                        WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOp.currentOperation)
                     val intent = Intent(activity, AddOperationActivity::class.java)
                     activity.startActivity(intent)
                 }
                 itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
                     val pos = this.adapterPosition
-                    OperationsDataSet.list.remove((data[pos] as OperationItem).operation)
+                    WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[pos] as OperationItem).operation)
                     if (data[pos + 1] is HeaderItem && (pos == 0 || data[pos - 1] is HeaderItem)) {
                         data.removeAt(pos)
                         data.removeAt(pos)
@@ -77,6 +77,7 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                         else notifyDataSetChanged()
                     } else {
                         data.removeAt(pos)
+                        WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[adapterPosition] as OperationItem).operation)
                         notifyItemRemoved(pos)
                     }
                 }

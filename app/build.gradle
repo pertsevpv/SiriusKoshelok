@@ -4,6 +4,14 @@ plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.18.0'
 }
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+androidExtensions {
+    experimental = true
+}
+
 detekt {
     buildUponDefaultConfig = true // preconfigure defaults
     allRules = true // activate all available (even unstable) rules.

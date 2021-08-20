@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.data.OperationsDataSet.list
+import com.example.siriuskoshelok.data.WalletDataSet
 import java.util.*
 
 class AddOperationActivity : AppCompatActivity() {
@@ -47,8 +47,11 @@ class AddOperationActivity : AppCompatActivity() {
         btnCreateOperation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            if (CurrentOp.isEdit) list[CurrentOp.posInOperationList] = CurrentOp.currentOperation!!
-            else list.add(CurrentOp.currentOperation!!)
+            if (CurrentOp.isEdit)
+                WalletDataSet.list[WalletActivity.indexWallet].operationList[CurrentOp.posInOperationList] =
+                    CurrentOp.currentOperation!!
+            else
+                WalletDataSet.list[WalletActivity.indexWallet].operationList.add(CurrentOp.currentOperation!!)
             startActivity(intent)
         }
         findViewById<AppCompatImageView>(R.id.btn_edit_sum).setOnClickListener {
@@ -74,10 +77,16 @@ class AddOperationActivity : AppCompatActivity() {
         val day = calendar[Calendar.DAY_OF_MONTH]
         CurrentOp.currentOperation?.date = GregorianCalendar(year, month, day)
         btnEditDate.setOnClickListener {
-            val dpd = DatePickerDialog(this, { _, _, _, dayOfMonth ->
-                textDate.text = "$dayOfMonth $month"
-                CurrentOp.currentOperation?.date = GregorianCalendar(year, month, dayOfMonth)
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            val dpd = DatePickerDialog(
+                this,
+                { _, _, _, dayOfMonth ->
+                    textDate.text = "$dayOfMonth $month"
+                    CurrentOp.currentOperation?.date = GregorianCalendar(year, month, dayOfMonth)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
             dpd.show()
         }
     }

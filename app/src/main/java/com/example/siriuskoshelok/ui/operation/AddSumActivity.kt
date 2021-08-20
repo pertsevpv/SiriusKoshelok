@@ -8,12 +8,7 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.OperationsDataSet
-import com.example.siriuskoshelok.data.OperationsDataSet.list
-import com.example.siriuskoshelok.entity.Operation
 
 class AddSumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -29,7 +29,7 @@
         tools:context=".WalletActivity">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/title_wallet"
+            android:id="@+id/title_wallet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_wallet"
@@ -46,7 +46,7 @@
             android:textColor="@color/black"
             android:textSize="37sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/title_wallet"
+            app:layout_constraintTop_toBottomOf="@+id/title_wallet_name"
             tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
