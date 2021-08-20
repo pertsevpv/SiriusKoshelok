@@ -29,25 +29,25 @@ class AddCategoryActivity : AppCompatActivity() {
 
         val categories = mutableListOf(
             Category(
-                R.drawable.icon_salary,
+                R.drawable.ic_salary,
                 resources.getString(R.string.title_salary),
                 resources.getString(R.string.income),
                 false
             ),
             Category(
-                R.drawable.icon_salary,
+                R.drawable.ic_salary,
                 resources.getString(R.string.title_part_time),
                 resources.getString(R.string.income),
                 false
             ),
             Category(
-                R.drawable.icon_gift,
+                R.drawable.ic_gift,
                 resources.getString(R.string.title_gift),
                 resources.getString(R.string.income),
                 false
             ),
             Category(
-                R.drawable.icon_capitalisation,
+                R.drawable.ic_capitalisation,
                 resources.getString(R.string.title_capitalisation),
                 resources.getString(R.string.income),
                 false

@@ -7,7 +7,9 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.data.OperationsDataSet
@@ -34,6 +36,7 @@ class WalletActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
+        val textEmpty: TextView = findViewById(R.id.empty_view)
 
         operationAdapter = OperationAdapter()
         recycler.apply {
@@ -43,6 +46,10 @@ class WalletActivity : AppCompatActivity() {
             }
             adapter = operationAdapter
             addItemDecoration(OperationDecoration())
+        }
+        if(OperationsDataSet.list.isEmpty()){
+            recycler.isVisible = false
+            textEmpty.isVisible = true
         }
         operationAdapter.setData(OperationsDataSet.list)
         btnAddOperation.setOnClickListener {
