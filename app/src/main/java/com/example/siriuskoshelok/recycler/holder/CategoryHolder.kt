@@ -3,6 +3,7 @@ package com.example.siriuskoshelok.recycler.holder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Category
@@ -20,10 +21,6 @@ class CategoryHolder(
         this.item = category
         nameCategory.text = item.name
         imgCategory.setImageResource(item.img)
-        if (item.isSelected) {
-            btnCategory.visibility = View.VISIBLE
-        } else {
-            btnCategory.visibility = View.INVISIBLE
-        }
+        btnCategory.isVisible = item.isSelected
     }
 }

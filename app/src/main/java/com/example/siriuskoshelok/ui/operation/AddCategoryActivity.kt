@@ -15,13 +15,6 @@ class AddCategoryActivity : AppCompatActivity() {
 
     private lateinit var categoryAdapter: CategoryAdapter
 
-    private val categories = mutableListOf(
-        Category(R.drawable.icon_salary, "Зарплата", "Доход", false),
-        Category(R.drawable.icon_gift, "Подарок", "Доход", false),
-        Category(R.drawable.icon_capitalisation, "Капитализация","Доход", false),
-        Category(R.drawable.icon_salary, "Подработка", "Доход", false)
-    )
-
     private val recycler by lazy(LazyThreadSafetyMode.NONE) {
         findViewById<RecyclerView>(R.id.rv_category)
     }
@@ -33,6 +26,33 @@ class AddCategoryActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
+        val categories = mutableListOf(
+            Category(
+                R.drawable.icon_salary,
+                resources.getString(R.string.title_salary),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.icon_salary,
+                resources.getString(R.string.title_part_time),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.icon_gift,
+                resources.getString(R.string.title_gift),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.icon_capitalisation,
+                resources.getString(R.string.title_capitalisation),
+                resources.getString(R.string.income),
+                false
+            )
+        )
 
         categoryAdapter = CategoryAdapter().apply {
             setHasStableIds(true)
