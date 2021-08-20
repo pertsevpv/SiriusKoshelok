@@ -30,11 +30,11 @@ class WalletAdapter(private val activity: AppCompatActivity) :
             LayoutInflater.from(parent.context)
         return WalletHolder(inflater.inflate(R.layout.item_wallet, parent, false)).apply {
             itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
-                CurrentWallet.currentWallet = data[adapterPosition].copy()
+                CurrentWallet.entity = data[adapterPosition].copy()
                 CurrentWallet.isEdit = true
                 CurrentWallet.posInDataSet = adapterPosition
                 CurrentWallet.posInOperationList =
-                    WalletDataSet.list.indexOf(CurrentWallet.currentWallet)
+                    WalletDataSet.list.indexOf(CurrentWallet.entity)
                 val intent = Intent(activity, AddWalletActivity::class.java)
                 activity.startActivity(intent)
             }
@@ -44,7 +44,6 @@ class WalletAdapter(private val activity: AppCompatActivity) :
                 notifyItemRemoved(adapterPosition)
             }
             itemView.findViewById<ImageView>(R.id.eye_wal_img).setOnClickListener {
-                // TODO: 20.08.2021
             }
             itemView.findViewById<ConstraintLayout>(R.id.wallet_item_layout).setOnClickListener {
                 val intent = Intent(activity, WalletActivity::class.java)

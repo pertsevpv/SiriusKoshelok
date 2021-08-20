@@ -14,6 +14,7 @@ import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import com.google.android.material.textfield.TextInputLayout
 
+@Suppress("EmptyFunctionBlock")
 class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +28,10 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         val btnEditLimit: Button = findViewById(R.id.btn_add_limit)
         val limitSwitch: SwitchCompat = findViewById(R.id.limit_switch)
 
-        if (CurrentWallet.currentWallet?.hasLimit == false) {
+        if (CurrentWallet.entity?.hasLimit == false) {
             limitSwitch.isChecked = true
             findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
-            editLimit.setText(CurrentWallet.currentWallet?.limit.toString())
+            editLimit.setText(CurrentWallet.entity?.limit.toString())
             btnEditLimit.isEnabled = true
         } else {
             limitSwitch.isChecked = false
@@ -43,29 +44,29 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
             when (isChecked) {
                 true -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
-                    CurrentWallet.currentWallet?.hasLimit = false
+                    CurrentWallet.entity?.hasLimit = false
                     btnEditLimit.isEnabled = true
                 }
                 else -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
-                    CurrentWallet.currentWallet?.hasLimit = true
+                    CurrentWallet.entity?.hasLimit = true
                     editLimit.setText("")
                     btnEditLimit.isEnabled = false
                 }
             }
         }
 
-        if (CurrentWallet.currentWallet?.hasLimit == true) {
+        if (CurrentWallet.entity?.hasLimit == true) {
             editLimit.text = Editable.Factory.getInstance()
-                .newEditable(CurrentWallet.currentWallet?.limit.toString())
+                .newEditable(CurrentWallet.entity?.limit.toString())
             btnEditLimit.isEnabled = true
         }
 
         btnEditLimit.setOnClickListener {
             if (editLimit.text.isNotEmpty()
-                && CurrentWallet.currentWallet?.hasLimit == true
+                && CurrentWallet.entity?.hasLimit == true
             ) {
-                CurrentWallet.currentWallet?.limit = editLimit.text.toString().toInt()
+                CurrentWallet.entity?.limit = editLimit.text.toString().toInt()
             }
             val intent =
                 Intent(this, AddWalletActivity::class.java)

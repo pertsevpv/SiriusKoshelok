@@ -11,7 +11,6 @@ import java.util.*
 class HeaderHolder(private val root: View) : RecyclerView.ViewHolder(root) {
     private val headerText: TextView = root.findViewById(R.id.header_date)
 
-    // FIXME: 18.08.2021 use decorations and string resources
     fun bind(date: GregorianCalendar) {
         headerText.text = when (date.dayMonthYear()) {
             GregorianCalendar().dayMonthYear() -> "Today"

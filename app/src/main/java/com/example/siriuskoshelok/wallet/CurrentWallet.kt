@@ -4,18 +4,18 @@ import com.example.siriuskoshelok.entity.Wallet
 
 object CurrentWallet {
 
-    var currentWallet: Wallet? = null
+    var entity: Wallet? = null
     var isEdit = false
     var posInDataSet = -1
     var posInOperationList = -1
 
     fun start() {
-        currentWallet = Wallet()
+        entity = Wallet()
         isEdit = false
     }
 
     fun fin() {
-        currentWallet = null
+        entity = null
         isEdit = false
         posInDataSet = -1
         posInOperationList = -1

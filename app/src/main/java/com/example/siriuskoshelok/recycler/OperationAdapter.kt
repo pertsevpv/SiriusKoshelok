@@ -7,18 +7,19 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder
-import com.example.siriuskoshelok.recycler.items.*
-import com.example.siriuskoshelok.*
 import com.example.siriuskoshelok.data.WalletDataSet
+import com.example.siriuskoshelok.dayMonthYear
+import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import java.lang.Exception
-import java.util.*
 import kotlin.collections.ArrayList
 
+@Suppress("WildcardImport")
 class OperationAdapter(private val activity: AppCompatActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -36,14 +37,6 @@ class OperationAdapter(private val activity: AppCompatActivity) :
             data.add(HeaderItem(date))
         }
         notifyDataSetChanged()
-    }
-
-    fun insertOperation(op: Operation) {
-        // FIXME: 19.08.2021 very bad
-        val tmpOpList =
-            data.filterIsInstance<OperationItem>().map { it.operation } as MutableList<Operation>
-        tmpOpList.add(op)
-        setData(tmpOpList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -69,7 +62,8 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                 }
                 itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
                     val pos = this.adapterPosition
-                    WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[pos] as OperationItem).operation)
+                    WalletDataSet.list[WalletActivity.indexWallet]
+                        .operationList.remove((data[pos] as OperationItem).operation)
                     if (data[pos + 1] is HeaderItem && (pos == 0 || data[pos - 1] is HeaderItem)) {
                         data.removeAt(pos)
                         data.removeAt(pos)
@@ -77,7 +71,8 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                         else notifyDataSetChanged()
                     } else {
                         data.removeAt(pos)
-                        WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[adapterPosition] as OperationItem).operation)
+                        WalletDataSet.list[WalletActivity.indexWallet]
+                            .operationList.remove((data[adapterPosition] as OperationItem).operation)
                         notifyItemRemoved(pos)
                     }
                 }

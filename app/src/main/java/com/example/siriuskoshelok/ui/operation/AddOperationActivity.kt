@@ -10,11 +10,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.WalletActivity
-import com.example.siriuskoshelok.*
 import com.example.siriuskoshelok.data.WalletDataSet
+import com.example.siriuskoshelok.dayAndMonth
 import java.util.*
 
 class AddOperationActivity : AppCompatActivity() {

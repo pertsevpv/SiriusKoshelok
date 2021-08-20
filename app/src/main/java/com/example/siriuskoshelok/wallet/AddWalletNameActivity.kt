@@ -9,10 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.ui.operation.CurrentOp
 
+@Suppress("EmptyFunctionBlock")
 class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_name) {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,17 +25,17 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
 
         val editWalletName: EditText = findViewById(R.id.edit_wal_name)
         val btnAddWalletName: Button = findViewById(R.id.btn_add_wallet_name)
-        editWalletName.setText(CurrentWallet.currentWallet?.name ?: "")
+        editWalletName.setText(CurrentWallet.entity?.name ?: "")
 
-        if (CurrentWallet.currentWallet?.name.isNullOrEmpty()) {
+        if (CurrentWallet.entity?.name.isNullOrEmpty()) {
             editWalletName.text = Editable.Factory.getInstance()
-                .newEditable(CurrentWallet.currentWallet?.name.toString())
+                .newEditable(CurrentWallet.entity?.name.toString())
             btnAddWalletName.isEnabled = true
         }
 
         btnAddWalletName.setOnClickListener {
             if (editWalletName.text.isNotEmpty()) {
-                CurrentWallet.currentWallet?.name = editWalletName.text.toString().trim()
+                CurrentWallet.entity?.name = editWalletName.text.toString().trim()
                 val intent = Intent(this, AddWalletActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 if (isEdit) finish()

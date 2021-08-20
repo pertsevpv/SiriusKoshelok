@@ -9,12 +9,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet.list
-import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
-import com.example.siriuskoshelok.ui.operation.AddSumActivity
-import com.example.siriuskoshelok.ui.operation.AddTypeActivity
-import com.example.siriuskoshelok.ui.operation.CurrentOp
 
 class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
 
@@ -27,14 +22,13 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         supportActionBar?.setHomeButtonEnabled(true)
 
         val textWalletName: TextView = findViewById(R.id.value_wallet_name)
-        val textCurrencyType: TextView = findViewById(R.id.value_wallet_currency)
         val textWalletLimit: TextView = findViewById(R.id.value_wallet_limit)
-        textWalletName.text = CurrentWallet.currentWallet?.name.toString()
+        textWalletName.text = CurrentWallet.entity?.name.toString()
 
         //textCurrencyType.text = CurrentWallet.currentWallet?...
         textWalletLimit.text =
-            if (CurrentWallet.currentWallet?.hasLimit == true)
-                CurrentWallet.currentWallet?.limit.toString()
+            if (CurrentWallet.entity?.hasLimit == true)
+                CurrentWallet.entity?.limit.toString()
             else
                 "Не установлен"
 
@@ -42,9 +36,9 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
             val intent = Intent(this, AllWalletsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             if (CurrentWallet.isEdit)
-                list[CurrentWallet.posInOperationList] = CurrentWallet.currentWallet!!
+                list[CurrentWallet.posInOperationList] = CurrentWallet.entity!!
             else
-                list.add(CurrentWallet.currentWallet!!)
+                list.add(CurrentWallet.entity!!)
             CurrentWallet.fin()
             startActivity(intent)
         }
