@@ -38,4 +38,5 @@
     <string name="title_type">Тип</string>
     <string name="title_category">Категория</string>
     <string name="title_add_settings">Дополнительные настройки</string>
+    <string name="no_data_available">У вас пока нет записей</string>
 </resources>

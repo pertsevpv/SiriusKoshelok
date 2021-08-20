@@ -3,6 +3,7 @@ package com.example.siriuskoshelok.ui.operation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.data.OperationsDataSet.list
 
 class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,16 @@ class AddTypeActivity : AppCompatActivity() {
         val textExpenses: TextView = findViewById(R.id.text_expenses)
         val btnIncome: ImageView = findViewById(R.id.btn_income)
         val btnExpenses: ImageView = findViewById(R.id.btn_expenses)
+
+        if(list.last().operationType != null){
+            btnAddType.isEnabled = true
+            if(list.last().operationType == textIncome.text){
+                btnIncome.visibility = View.VISIBLE
+            }
+            if(list.last().operationType == textExpenses.text){
+                btnExpenses.visibility = View.VISIBLE
+            }
+        }
 
         textIncome.setOnClickListener {
             btnIncome.visibility = View.VISIBLE
@@ -56,7 +68,17 @@ class AddTypeActivity : AppCompatActivity() {
                     textExpenses.text.toString()
                 if (isEdit) finish()
                 startActivity(intent)
+                OperationsDataSet.list.last().operationType = textIncome.text.toString()
+                this.startActivity(intent)
             }
+            if (btnExpenses.visibility == View.VISIBLE) {
+                OperationsDataSet.list.last().operationType = textExpenses.text.toString()
+                this.startActivity(intent)
+            }
+        }
+
+        if(OperationsDataSet.list.last().operationType != null){
+            btnAddType.isEnabled = true
         }
     }
 

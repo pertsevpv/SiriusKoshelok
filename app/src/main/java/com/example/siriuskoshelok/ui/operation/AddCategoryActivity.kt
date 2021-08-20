@@ -4,14 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.entity.Category
+import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 
 class AddCategoryActivity : AppCompatActivity() {
+
+    private lateinit var categoryAdapter: CategoryAdapter
+
+    private val recycler by lazy(LazyThreadSafetyMode.NONE) {
+        findViewById<RecyclerView>(R.id.rv_category)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +27,6 @@ class AddCategoryActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        val btnAddCategory: Button = findViewById(R.id.btn_add_category)
-        val textSalary: TextView = findViewById(R.id.text_salary)
-        val textPartTime: TextView = findViewById(R.id.text_part_time)
-        val textCapitalisation: TextView = findViewById(R.id.text_capitalisation)
-        val textGift: TextView = findViewById(R.id.text_gift)
 
         val btnGift: ImageView = findViewById(R.id.btn_gift)
         val btnSalary: ImageView = findViewById(R.id.btn_salary)
@@ -74,36 +75,47 @@ class AddCategoryActivity : AppCompatActivity() {
                 }
             }
         }
+        val categories = mutableListOf(
+            Category(
+                R.drawable.ic_salary,
+                resources.getString(R.string.title_salary),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.ic_salary,
+                resources.getString(R.string.title_part_time),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.ic_gift,
+                resources.getString(R.string.title_gift),
+                resources.getString(R.string.income),
+                false
+            ),
+            Category(
+                R.drawable.ic_capitalisation,
+                resources.getString(R.string.title_capitalisation),
+                resources.getString(R.string.income),
+                false
+            )
+        )
 
-        textSalary.setOnClickListener {
-            btnSalary.visibility = View.VISIBLE
-            btnGift.visibility = View.INVISIBLE
-            btnPartTime.visibility = View.INVISIBLE
-            btnCapitalisation.visibility = View.INVISIBLE
-            btnAddCategory.isEnabled = true
+        categoryAdapter = CategoryAdapter().apply {
+            setHasStableIds(true)
         }
-        textPartTime.setOnClickListener {
-            btnSalary.visibility = View.INVISIBLE
-            btnGift.visibility = View.INVISIBLE
-            btnPartTime.visibility = View.VISIBLE
-            btnCapitalisation.visibility = View.INVISIBLE
-            btnAddCategory.isEnabled = true
+        recycler.apply {
+            layoutManager = LinearLayoutManager(this@AddCategoryActivity)
+            adapter = categoryAdapter
         }
-        textCapitalisation.setOnClickListener {
-            btnSalary.visibility = View.INVISIBLE
-            btnGift.visibility = View.INVISIBLE
-            btnPartTime.visibility = View.INVISIBLE
-            btnCapitalisation.visibility = View.VISIBLE
-            btnAddCategory.isEnabled = true
-        }
-        textGift.setOnClickListener {
-            btnSalary.visibility = View.INVISIBLE
-            btnGift.visibility = View.VISIBLE
-            btnPartTime.visibility = View.INVISIBLE
-            btnCapitalisation.visibility = View.INVISIBLE
-            btnAddCategory.isEnabled = true
-        }
+        categoryAdapter.setData(categories)
 
+        val btnAddCategory: Button = findViewById(R.id.btn_add_category)
+        btnAddCategory.setOnClickListener {
+            val intent = Intent(this, AddOperationActivity::class.java)
+            this.startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
