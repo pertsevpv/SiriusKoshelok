@@ -8,17 +8,12 @@ import java.util.*
 fun Date.dayAndMonth(): String = SimpleDateFormat("dd MMM").format(this)
 
 @SuppressLint("SimpleDateFormat")
-fun Date.dayMonthYear(): String = SimpleDateFormat("dd MMM yyyy").format(this)
+fun GregorianCalendar.dayAndMonth(): String =
+    "${this[Calendar.DAY_OF_MONTH]} ${this[Calendar.MONTH]}"
+
+fun GregorianCalendar.dayMonthYear(): GregorianCalendar =
+    GregorianCalendar(this[Calendar.YEAR], this[Calendar.MONTH], this[Calendar.DAY_OF_MONTH])
 
 @SuppressLint("SimpleDateFormat")
-fun Date.hoursAndMinutes(): String = SimpleDateFormat("HH:mm").format(this)
-
-fun today(): Date = Date()
-
-@SuppressLint("SimpleDateFormat")
-fun parseDayAndMonth(date: String): Date? = SimpleDateFormat("dd MMM").parse(date)
-
-@SuppressLint("SimpleDateFormat")
-fun parseDayMonthYear(date: String): Date? = SimpleDateFormat("dd MMM yyyy").parse(date)
-
-fun Date.normalize(): Date? = parseDayMonthYear(this.dayMonthYear())
+fun GregorianCalendar.hoursAndMinutes(): String =
+    "${this[Calendar.HOUR]}:${Calendar.MINUTE}"

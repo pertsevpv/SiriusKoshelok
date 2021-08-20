@@ -1,8 +1,10 @@
 package com.example.siriuskoshelok.recycler
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
@@ -11,10 +13,13 @@ import com.example.siriuskoshelok.recycler.holder.OperationHolder
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.*
 import com.example.siriuskoshelok.data.OperationsDataSet
+import com.example.siriuskoshelok.ui.operation.AddOperationActivity
+import com.example.siriuskoshelok.ui.operation.CurrentOp
 import java.lang.Exception
+import java.util.*
 import kotlin.collections.ArrayList
 
-class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OperationAdapter(private val activity: AppCompatActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<BaseListItem> = arrayListOf()
 
@@ -27,7 +32,7 @@ class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             ops.forEach {
                 data.add(OperationItem(it))
             }
-            data.add(HeaderItem(parseDayMonthYear(date) ?: return))
+            data.add(HeaderItem(date))
         }
         notifyDataSetChanged()
     }
@@ -53,6 +58,13 @@ class OperationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             ).apply {
                 itemView.findViewById<ImageView>(R.id.edit_op_img).setOnClickListener {
+                    CurrentOp.isEdit = true
+                    CurrentOp.currentOperation = (data[adapterPosition] as OperationItem).operation
+                    CurrentOp.posInDataSet = adapterPosition
+                    CurrentOp.posInOperationList =
+                        OperationsDataSet.list.indexOf(CurrentOp.currentOperation)
+                    val intent = Intent(activity, AddOperationActivity::class.java)
+                    activity.startActivity(intent)
                 }
                 itemView.findViewById<ImageView>(R.id.del_op_img).setOnClickListener {
                     val pos = this.adapterPosition

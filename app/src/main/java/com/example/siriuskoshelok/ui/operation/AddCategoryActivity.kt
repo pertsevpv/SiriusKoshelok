@@ -41,33 +41,33 @@ class AddCategoryActivity : AppCompatActivity() {
         btnAddCategory.setOnClickListener {
             when {
                 btnSalary.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation!!.extendedOperationType =
+                    CurrentOp.currentOperation?.extendedOperationType =
                         textSalary.text.toString()
-                    CurrentOp.currentOperation!!.img =
+                    CurrentOp.currentOperation?.img =
                         R.drawable.ic_salary
                     if (isEdit) finish()
                     startActivity(intent)
                 }
                 btnPartTime.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation!!.extendedOperationType =
+                    CurrentOp.currentOperation?.extendedOperationType =
                         textPartTime.text.toString()
-                    CurrentOp.currentOperation!!.img =
+                    CurrentOp.currentOperation?.img =
                         R.drawable.ic_part_time
                     if (isEdit) finish()
                     startActivity(intent)
                 }
                 btnGift.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation!!.extendedOperationType =
+                    CurrentOp.currentOperation?.extendedOperationType =
                         textGift.text.toString()
-                    CurrentOp.currentOperation!!.img =
+                    CurrentOp.currentOperation?.img =
                         R.drawable.ic_gift
                     if (isEdit) finish()
                     startActivity(intent)
                 }
                 btnCapitalisation.visibility == View.VISIBLE -> {
-                    CurrentOp.currentOperation!!.extendedOperationType =
+                    CurrentOp.currentOperation?.extendedOperationType =
                         textCapitalisation.text.toString()
-                    CurrentOp.currentOperation!!.img =
+                    CurrentOp.currentOperation?.img =
                         R.drawable.ic_capitalisation
                     if (isEdit) finish()
                     startActivity(intent)

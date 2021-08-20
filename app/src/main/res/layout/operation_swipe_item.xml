@@ -78,7 +78,7 @@
 
     <LinearLayout
         android:id="@+id/left_view"
-        android:layout_width="160dp"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         app:bring_to_clamp="100dp"
@@ -88,20 +88,18 @@
 
         <ImageView
             android:id="@+id/edit_op_img"
-            style="@style/LeftTextView"
+            style="@style/SwipeBase"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/left_bg"
             android:src="@drawable/ic_edit" />
 
         <ImageView
             android:id="@+id/del_op_img"
-            style="@style/LeftTextView"
+            style="@style/SwipeBase"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/right_bg"
             android:src="@drawable/ic_delete" />
 
     </LinearLayout>

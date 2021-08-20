@@ -47,12 +47,12 @@ class AddTypeActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         btnAddType.setOnClickListener {
             if (btnIncome.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation!!.operationType =
+                CurrentOp.currentOperation?.operationType =
                     textIncome.text.toString()
                 if (isEdit) finish()
                 startActivity(intent)
-            }else if (btnExpenses.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation!!.operationType =
+            } else if (btnExpenses.visibility == View.VISIBLE) {
+                CurrentOp.currentOperation?.operationType =
                     textExpenses.text.toString()
                 if (isEdit) finish()
                 startActivity(intent)

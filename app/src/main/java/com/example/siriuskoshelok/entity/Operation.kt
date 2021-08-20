@@ -7,5 +7,5 @@ data class Operation(
     var money: Int? = null,
     var operationType: String? = null,
     var extendedOperationType: String? = null,
-    var date: Date = Date()
+    var date: GregorianCalendar = GregorianCalendar()
 )

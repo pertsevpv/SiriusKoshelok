@@ -34,7 +34,7 @@ class WalletActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
 
-        operationAdapter = OperationAdapter()
+        operationAdapter = OperationAdapter(this)
         recycler.apply {
             layoutManager = LinearLayoutManager(this@WalletActivity).apply {
                 reverseLayout = true
