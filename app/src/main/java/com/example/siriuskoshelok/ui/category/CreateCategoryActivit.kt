@@ -1,6 +1,5 @@
 package com.example.siriuskoshelok.ui.category
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -20,9 +19,12 @@ class CreateCategoryActivity : AppCompatActivity() {
         val arguments = intent.extras
         type.text = arguments?.get("TYPE_CATEGORY").toString()
 
+        val activityLauncher =
+            registerForActivityResult(AddNameActivityContract()) { result: String? ->
+                new_category.text = result.toString()
+            }
         btn_name_category.setOnClickListener {
-            val intent = Intent(this, AddNameActivity::class.java)
-            this.startActivity(intent)
+            activityLauncher.launch(1)
         }
         CurrentOp.currentOperation?.img = R.drawable.ic_salary
         btn_create.setOnClickListener {

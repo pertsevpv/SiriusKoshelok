@@ -1,5 +1,7 @@
 package com.example.siriuskoshelok.ui.category
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -20,6 +22,7 @@ class AddNameActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {
                 btn_add_name.isEnabled = s.toString().isNotEmpty()
             }
+
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
@@ -31,6 +34,9 @@ class AddNameActivity : AppCompatActivity() {
             ) = Unit
         })
         btn_add_name.setOnClickListener {
+            val dataIntent = Intent()
+            dataIntent.putExtra(AddNameActivity.OUTPUT_NAME, edit_name.text.toString())
+            setResult(Activity.RESULT_OK, dataIntent)
             this.finish()
         }
     }
@@ -42,5 +48,10 @@ class AddNameActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val INPUT_KEY = "input_name"
+        const val OUTPUT_NAME = "output_name"
     }
 }
