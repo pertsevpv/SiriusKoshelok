@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_name.*
 
@@ -35,7 +36,7 @@ class AddNameActivity : AppCompatActivity() {
         })
         btn_add_name.setOnClickListener {
             val dataIntent = Intent()
-            dataIntent.putExtra(AddNameActivity.OUTPUT_NAME, edit_name.text.toString())
+            dataIntent.putExtra(Constants.OUTPUT_NAME_KEY, edit_name.text.toString())
             setResult(Activity.RESULT_OK, dataIntent)
             this.finish()
         }
@@ -48,10 +49,5 @@ class AddNameActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    companion object {
-        const val INPUT_KEY = "input_name"
-        const val OUTPUT_NAME = "output_name"
     }
 }

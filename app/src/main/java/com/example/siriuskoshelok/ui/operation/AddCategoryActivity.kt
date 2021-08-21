@@ -12,6 +12,7 @@ import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
 import kotlinx.android.synthetic.main.activity_add_category.*
+import kotlinx.android.synthetic.main.activity_create_category.*
 
 class AddCategoryActivity : AppCompatActivity() {
 
@@ -29,7 +30,54 @@ class AddCategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val categories = mutableListOf(
+        listCategory.addAll(getCategories())
+        categoryAdapter = CategoryAdapter().apply {
+            setHasStableIds(true)
+        }
+        recycler.apply {
+            layoutManager = LinearLayoutManager(this@AddCategoryActivity)
+            adapter = categoryAdapter
+        }
+
+        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
+            categoryAdapter.setData(getCategories().filter {
+                it.operationType.startsWith(
+                    resources.getString(
+                        R.string.title_income
+                    )
+                )
+            })
+        }
+        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_expenses)) {
+            categoryAdapter.setData(getCategories().filter {
+                it.operationType.startsWith(
+                    resources.getString(
+                        R.string.title_expenses
+                    )
+                )
+            })
+        }
+
+        btn_create_category.setOnClickListener {
+            val intent = Intent(this, CreateCategoryActivity::class.java)
+            startActivity(intent)
+        }
+        btn_add_category.setOnClickListener {
+            if (CurrentOp.currentOperation?.extendedOperationType != null) {
+                val intent =
+                    Intent(
+                        this,
+                        if (!isEdit) AddOperationActivity::class.java
+                        else AddOperationActivity::class.java
+                    )
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                this.startActivity(intent)
+            }
+        }
+    }
+
+    fun getCategories(): MutableList<Category> {
+        return mutableListOf(
             Category(
                 R.drawable.ic_salary,
                 resources.getString(R.string.title_salary),
@@ -103,51 +151,6 @@ class AddCategoryActivity : AppCompatActivity() {
                 false
             )
         )
-
-        listCategory.addAll(categories)
-        categoryAdapter = CategoryAdapter().apply {
-            setHasStableIds(true)
-        }
-        recycler.apply {
-            layoutManager = LinearLayoutManager(this@AddCategoryActivity)
-            adapter = categoryAdapter
-        }
-        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
-            categoryAdapter.setData(categories.filter {
-                it.operationType.startsWith(
-                    resources.getString(
-                        R.string.title_income
-                    )
-                )
-            })
-        }
-        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_expenses)) {
-            categoryAdapter.setData(categories.filter {
-                it.operationType.startsWith(
-                    resources.getString(
-                        R.string.title_expenses
-                    )
-                )
-            })
-        }
-
-        btn_create_category.setOnClickListener {
-            val intent = Intent(this, CreateCategoryActivity::class.java)
-            intent.putExtra("TYPE_CATEGORY", CurrentOp.currentOperation?.operationType)
-            startActivity(intent)
-        }
-        btn_add_category.setOnClickListener {
-            if (CurrentOp.currentOperation?.extendedOperationType != null) {
-                val intent =
-                    Intent(
-                        this,
-                        if (!isEdit) AddOperationActivity::class.java
-                        else AddOperationActivity::class.java
-                    )
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                this.startActivity(intent)
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

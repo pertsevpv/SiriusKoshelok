@@ -15,9 +15,7 @@ class CreateCategoryActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_new_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
-        val arguments = intent.extras
-        type.text = arguments?.get("TYPE_CATEGORY").toString()
+        type.text = CurrentOp.currentOperation?.operationType
 
         val activityLauncher =
             registerForActivityResult(AddNameActivityContract()) { result: String? ->
@@ -26,7 +24,6 @@ class CreateCategoryActivity : AppCompatActivity() {
         btn_name_category.setOnClickListener {
             activityLauncher.launch(1)
         }
-        CurrentOp.currentOperation?.img = R.drawable.ic_salary
         btn_create.setOnClickListener {
             this.finish()
         }
