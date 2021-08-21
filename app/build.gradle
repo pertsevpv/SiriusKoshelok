@@ -71,4 +71,11 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'androidx.activity:activity-ktx:1.3.0'
+
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.9.0'
+
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-moshi
+    implementation group: 'com.squareup.retrofit2', name: 'converter-moshi', version: '2.9.0'
+
 }

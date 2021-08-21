@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,47 +7,36 @@
     android:background="@color/white"
     tools:context=".ui.operation.AddOperationActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_wallet"
+        style="@style/CustomToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/new_wallet_text" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_wallet_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_wallet"
-            style="@style/CustomToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:title="Новый Кошелек" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_wallet_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_400"
-            android:text="Название"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit_wallet_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_400"
+        android:text="@string/title_text"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_edit_wallet_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_wallet" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/value_wallet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="22dp"
-            android:text="Кошелек"
+            android:text="@string/wallet"
             android:textColor="@color/gray"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_wallet_name"
@@ -64,18 +53,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_currency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:fontFamily="@font/roboto_400"
-            android:text="Валюта"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit_wallet_currency"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_wallet_name" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_currency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/roboto_400"
+        android:text="@string/curr_text"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_edit_wallet_currency"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_wallet_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/value_wallet_currency"
@@ -83,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="22dp"
-            android:text="Рубль"
+            android:text="@string/rouble_text"
             android:textColor="@color/gray"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_currency"
@@ -103,18 +93,19 @@
             app:layout_constraintTop_toBottomOf="@id/text_wallet_name"
             tools:ignore="MissingConstraints" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_wallet_limit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:fontFamily="@font/roboto_400"
-            android:text="Лимит"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit_limit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_currency" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_wallet_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/roboto_400"
+        android:text="@string/limit_text"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_edit_limit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_currency" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/value_wallet_limit"
@@ -122,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="22dp"
-            android:text="Не установлен"
+            android:text="@string/unlimited_text"
             android:textColor="@color/gray"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_wallet_limit"
@@ -148,12 +139,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/btn_selector"
-            android:text="@string/btn_create_operation"
+            android:text="@string/btn_create_wallet"
             android:textAllCaps="false"
             android:textColor="@drawable/text_selector"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

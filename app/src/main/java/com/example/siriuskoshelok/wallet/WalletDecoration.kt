@@ -13,7 +13,7 @@ class WalletDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.bottom = 24
+        outRect.bottom = 8
         outRect.top = 32
         outRect.left = 16
     }

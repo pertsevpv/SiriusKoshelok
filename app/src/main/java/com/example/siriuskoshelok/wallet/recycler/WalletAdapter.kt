@@ -30,27 +30,39 @@ class WalletAdapter(private val activity: AppCompatActivity) :
             LayoutInflater.from(parent.context)
         return WalletHolder(inflater.inflate(R.layout.item_wallet, parent, false)).apply {
             itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
-                CurrentWallet.entity = data[adapterPosition].copy()
-                CurrentWallet.isEdit = true
-                CurrentWallet.posInDataSet = adapterPosition
-                CurrentWallet.posInOperationList =
-                    WalletDataSet.list.indexOf(CurrentWallet.entity)
-                val intent = Intent(activity, AddWalletActivity::class.java)
-                activity.startActivity(intent)
+                onClickedEdit(this)
             }
             itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
-                WalletDataSet.list.remove(data[adapterPosition])
-                data.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
+                onClickedDelete(this)
             }
             itemView.findViewById<ImageView>(R.id.eye_wal_img).setOnClickListener {
             }
             itemView.findViewById<ConstraintLayout>(R.id.wallet_item_layout).setOnClickListener {
-                val intent = Intent(activity, WalletActivity::class.java)
-                intent.putExtra("WALLET_KEY", WalletDataSet.list.indexOf(data[adapterPosition]))
-                activity.startActivity(intent)
+                onClickedWallet(this)
             }
         }
+    }
+
+    private fun onClickedEdit(holder: WalletHolder){
+        CurrentWallet.entity = data[holder.adapterPosition].copy()
+        CurrentWallet.isEdit = true
+        CurrentWallet.posInDataSet = holder.adapterPosition
+        CurrentWallet.posInOperationList =
+            WalletDataSet.list.indexOf(CurrentWallet.entity)
+        val intent = Intent(activity, AddWalletActivity::class.java)
+        activity.startActivity(intent)
+    }
+
+    private fun onClickedDelete(holder: WalletHolder){
+        WalletDataSet.list.remove(data[holder.adapterPosition])
+        data.removeAt(holder.adapterPosition)
+        notifyItemRemoved(holder.adapterPosition)
+    }
+
+    private fun onClickedWallet(holder: WalletHolder){
+        val intent = Intent(activity, WalletActivity::class.java)
+        intent.putExtra("WALLET_KEY", WalletDataSet.list.indexOf(data[holder.adapterPosition]))
+        activity.startActivity(intent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
