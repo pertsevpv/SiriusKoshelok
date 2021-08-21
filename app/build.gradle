@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'io.gitlab.arturbosch.detekt' version '1.18.0'
+    id 'kotlin-android-extensions'
 }
 
 apply plugin: 'kotlin-android'
@@ -19,6 +20,7 @@ detekt {
     reports {
         html.enabled = true // observe findings in your browser with structure and code snippets
     }
+    autoCorrect = true
 }
 
 task installGitHooks(type: Exec) {
@@ -70,6 +72,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'androidx.activity:activity-ktx:1.3.1'
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
     implementation 'androidx.activity:activity-ktx:1.3.0'
 
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit

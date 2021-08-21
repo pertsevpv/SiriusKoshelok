@@ -6,6 +6,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.WalletActivity
+import com.example.siriuskoshelok.*
+import com.example.siriuskoshelok.data.OperationsDataSet.list
+import kotlinx.android.synthetic.main.activity_add_operation.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,28 +27,22 @@ class AddOperationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_operation)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_operation)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_operation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val textCountMoney: TextView = findViewById(R.id.count_money)
-        val textTypeOperation: TextView = findViewById(R.id.type)
-        val textCategory: TextView = findViewById(R.id.category)
-        textCountMoney.text = CurrentOp.currentOperation?.money.toString()
-        textTypeOperation.text = CurrentOp.currentOperation?.operationType ?: ""
-        textCategory.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
+        count_money.text = CurrentOp.currentOperation?.money.toString()
+        type.text = CurrentOp.currentOperation?.operationType ?: ""
+        category.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
+        count_money.text = CurrentOp.currentOperation?.money.toString()
+        type.text = CurrentOp.currentOperation?.operationType
+        category.text = CurrentOp.currentOperation?.extendedOperationType
 
-        val textDate: TextView = findViewById(R.id.date)
-        textCountMoney.text = CurrentOp.currentOperation?.money.toString()
-        textTypeOperation.text = CurrentOp.currentOperation?.operationType
-        textCategory.text = CurrentOp.currentOperation?.extendedOperationType
         val currentDate = GregorianCalendar()
-        textDate.text = currentDate.dayAndMonth()
+        date.text = currentDate.dayAndMonth()
         CurrentOp.currentOperation?.date = currentDate
 
-        val btnCreateOperation: Button = findViewById(R.id.btn_create_operation)
-        btnCreateOperation.setOnClickListener {
+        btn_create_operation.setOnClickListener {
             val intent = Intent(this, WalletActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             if (CurrentOp.isEdit)
@@ -53,26 +52,27 @@ class AddOperationActivity : AppCompatActivity() {
                 WalletDataSet.list[WalletActivity.indexWallet].operationList.add(CurrentOp.currentOperation!!)
             startActivity(intent)
         }
-        findViewById<AppCompatImageView>(R.id.btn_edit_sum).setOnClickListener {
+        btn_edit_sum.setOnClickListener {
             val intent = Intent(this, AddSumActivity::class.java)
             intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
         }
-        findViewById<AppCompatImageView>(R.id.btn_edit_category).setOnClickListener {
+        btn_edit_category.setOnClickListener {
             val intent = Intent(this, AddCategoryActivity::class.java)
             intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
         }
-        findViewById<AppCompatImageView>(R.id.btn_edit_type).setOnClickListener {
+        btn_edit_type.setOnClickListener {
             val intent = Intent(this, AddTypeActivity::class.java)
             intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)
             this.finish()
         }
-        val btnEditDate: ImageView = findViewById(R.id.btn_edit_date)
+
         val calendar = Calendar.getInstance()
         val year = calendar[Calendar.YEAR]
         val month = calendar.get(Calendar.MONTH)
+
         val day = calendar[Calendar.DAY_OF_MONTH]
         CurrentOp.currentOperation?.date = GregorianCalendar(year, month, day)
         btnEditDate.setOnClickListener {

@@ -31,9 +31,24 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
-            tools:listitem="@layout/item_category" />
+            tools:listitem="@layout/item_category"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:padding="10dp"
+            android:id="@+id/btn_create_category"
+            android:text="@string/title_create_category"
+            android:textSize="19sp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_400"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add_category"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_category"
@@ -48,6 +63,5 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

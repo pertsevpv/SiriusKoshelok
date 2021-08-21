@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
@@ -19,6 +20,8 @@ import com.example.siriuskoshelok.recycler.OperationDecoration
 import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
+import kotlinx.android.synthetic.main.activity_wallet.*
+import kotlin.system.exitProcess
 
 class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
 
@@ -35,16 +38,13 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        indexWallet = intent.getIntExtra("WALLET_KEY", indexWallet)
-        val wallet = WalletDataSet.list[indexWallet]
-
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_wallet)
+        setSupportActionBar(toolbar_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
-        val textEmpty: TextView = findViewById(R.id.empty_view)
+        indexWallet = intent.getIntExtra("WALLET_KEY", indexWallet)
+        val wallet = WalletDataSet.list[indexWallet]
 
         findViewById<AppCompatTextView>(R.id.title_wallet_name).text = wallet.name
 
@@ -59,11 +59,11 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         }
         if (wallet.operationList.isEmpty()) {
             recycler.isVisible = false
-            textEmpty.isVisible = true
+            empty_view.isVisible = true
         }
-
+        
         operationAdapter.setData(wallet.operationList)
-        btnAddOperation.setOnClickListener {
+        btn_add_operation.setOnClickListener {
             CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)

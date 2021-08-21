@@ -4,12 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
+import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
+import kotlinx.android.synthetic.main.activity_add_category.*
+import kotlinx.android.synthetic.main.activity_create_category.*
 
 class AddCategoryActivity : AppCompatActivity() {
 
@@ -23,37 +26,9 @@ class AddCategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_category)
         val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_category)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
-        val categories = mutableListOf(
-            Category(
-                R.drawable.ic_salary,
-                resources.getString(R.string.title_salary),
-                resources.getString(R.string.income),
-                false
-            ),
-            Category(
-                R.drawable.ic_salary,
-                resources.getString(R.string.title_part_time),
-                resources.getString(R.string.income),
-                false
-            ),
-            Category(
-                R.drawable.ic_gift,
-                resources.getString(R.string.title_gift),
-                resources.getString(R.string.income),
-                false
-            ),
-            Category(
-                R.drawable.ic_capitalisation,
-                resources.getString(R.string.title_capitalisation),
-                resources.getString(R.string.income),
-                false
-            )
-        )
 
         categoryAdapter = CategoryAdapter().apply {
             setHasStableIds(true)
@@ -62,18 +37,39 @@ class AddCategoryActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@AddCategoryActivity)
             adapter = categoryAdapter
         }
-        categoryAdapter.setData(categories)
-
-        val btnAddCategory: Button = findViewById(R.id.btn_add_category)
-        btnAddCategory.setOnClickListener {
-            val intent =
-                Intent(
-                    this,
-                    if (!isEdit) AddOperationActivity::class.java
-                    else AddOperationActivity::class.java
+        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
+            categoryAdapter.setData(listCategory.filter {
+                it.operationType.startsWith(
+                    resources.getString(
+                        R.string.title_income
+                    )
                 )
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            this.startActivity(intent)
+            })
+        } else {
+            categoryAdapter.setData(listCategory.filter {
+                it.operationType.startsWith(
+                    resources.getString(
+                        R.string.title_expenses
+                    )
+                )
+            })
+        }
+
+        btn_create_category.setOnClickListener {
+            val intent = Intent(this, CreateCategoryActivity::class.java)
+            startActivity(intent)
+        }
+        btn_add_category.setOnClickListener {
+            if (CurrentOp.currentOperation?.extendedOperationType != null) {
+                val intent =
+                    Intent(
+                        this,
+                        if (!isEdit) AddOperationActivity::class.java
+                        else AddOperationActivity::class.java
+                    )
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                this.startActivity(intent)
+            }
         }
     }
 

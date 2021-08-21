@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import com.example.siriuskoshelok.R
+import kotlinx.android.synthetic.main.activity_add_sum.*
 import android.widget.Button
 import android.widget.EditText
 import com.example.siriuskoshelok.R
@@ -16,19 +18,17 @@ class AddSumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sum)
         val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_sum)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_sum)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        val editSum: EditText = findViewById(R.id.edit_sum)
-        val btnAddSum: Button = findViewById(R.id.btn_add_sum)
+
         if (CurrentOp.currentOperation?.money != null) {
-            editSum.text = Editable.Factory.getInstance().newEditable(CurrentOp.currentOperation?.money.toString())
-            btnAddSum.isEnabled = true
+            edit_sum.text = Editable.Factory.getInstance().newEditable(CurrentOp.currentOperation?.money.toString())
+            btn_add_sum.isEnabled = true
         }
-        btnAddSum.setOnClickListener {
-            if (editSum.text.isNotEmpty()) {
-                CurrentOp.currentOperation?.money = editSum.text.toString().toInt()
+        btn_add_sum.setOnClickListener {
+            if (edit_sum.text!!.isNotEmpty()) {
+                CurrentOp.currentOperation?.money = edit_sum.text.toString().toInt()
                 val intent =
                     Intent(
                         this,
@@ -40,20 +40,20 @@ class AddSumActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-        editSum.addTextChangedListener(object : TextWatcher {
+        edit_sum.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                btnAddSum.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
+                btn_add_sum.isEnabled = s.toString().isNotEmpty()
             }
 
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {}
+            ) = Unit
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
-            ) {}
+            ) = Unit
         })
     }
 
