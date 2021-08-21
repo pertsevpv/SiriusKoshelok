@@ -8,9 +8,6 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_sum.*
-import android.widget.Button
-import android.widget.EditText
-import com.example.siriuskoshelok.R
 
 @Suppress("EmptyFunctionBlock")
 class AddSumActivity : AppCompatActivity() {

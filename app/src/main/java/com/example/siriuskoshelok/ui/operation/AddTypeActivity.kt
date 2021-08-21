@@ -7,10 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_type.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import com.example.siriuskoshelok.R
 
 class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

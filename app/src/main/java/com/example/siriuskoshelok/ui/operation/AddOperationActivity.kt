@@ -9,14 +9,7 @@ import android.view.MenuItem
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.data.OperationsDataSet.list
 import kotlinx.android.synthetic.main.activity_add_operation.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
-import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.dayAndMonth
 import java.util.*
@@ -27,6 +20,7 @@ class AddOperationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_operation)
+
         setSupportActionBar(toolbar_operation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -50,6 +44,7 @@ class AddOperationActivity : AppCompatActivity() {
                     CurrentOp.currentOperation!!
             else
                 WalletDataSet.list[WalletActivity.indexWallet].operationList.add(CurrentOp.currentOperation!!)
+            CurrentOp.fin()
             startActivity(intent)
         }
         btn_edit_sum.setOnClickListener {
@@ -75,11 +70,11 @@ class AddOperationActivity : AppCompatActivity() {
 
         val day = calendar[Calendar.DAY_OF_MONTH]
         CurrentOp.currentOperation?.date = GregorianCalendar(year, month, day)
-        btnEditDate.setOnClickListener {
+        btn_edit_date.setOnClickListener {
             val dpd = DatePickerDialog(
                 this,
                 { _, _, _, dayOfMonth ->
-                    textDate.text = "$dayOfMonth $month"
+                    text_date.text = "$dayOfMonth $month"
                     CurrentOp.currentOperation?.date = GregorianCalendar(year, month, dayOfMonth)
                 },
                 calendar.get(Calendar.YEAR),

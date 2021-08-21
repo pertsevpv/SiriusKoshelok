@@ -10,4 +10,10 @@ object CurrentOp {
     var posInDataSet = -1
     var posInOperationList = -1
 
+    fun fin(){
+        isEdit = false
+        posInDataSet = -1
+        posInOperationList = -1
+    }
+
 }

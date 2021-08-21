@@ -21,7 +21,6 @@
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
     <string name="hint_add_sum">Сумма операции</string>
-    <string name="btn_add">Готово</string>
     <string name="title_add_sum">Введите сумму</string>
     <string name="hint_add_wallet_name">Название Кошелька</string>
     <string name="title_add_wallet_name2">Придумайте название</string>
