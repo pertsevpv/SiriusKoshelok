@@ -7,18 +7,19 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder
+import com.example.siriuskoshelok.data.WalletDataSet
+import com.example.siriuskoshelok.dayMonthYear
 import com.example.siriuskoshelok.recycler.items.*
-import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.data.OperationsDataSet
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import java.lang.Exception
-import java.util.*
 import kotlin.collections.ArrayList
 
+@Suppress("WildcardImport")
 class OperationAdapter(private val activity: AppCompatActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -38,14 +39,6 @@ class OperationAdapter(private val activity: AppCompatActivity) :
         notifyDataSetChanged()
     }
 
-    fun insertOperation(op: Operation) {
-        // FIXME: 19.08.2021 very bad
-        val tmpOpList =
-            data.filterIsInstance<OperationItem>().map { it.operation } as MutableList<Operation>
-        tmpOpList.add(op)
-        setData(tmpOpList)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context)
@@ -58,30 +51,42 @@ class OperationAdapter(private val activity: AppCompatActivity) :
                     false
                 )
             ).apply {
-                itemView.findViewById<ImageView>(R.id.edit_op_img).setOnClickListener {
-                    CurrentOp.isEdit = true
-                    CurrentOp.currentOperation = (data[adapterPosition] as OperationItem).operation
-                    CurrentOp.posInDataSet = adapterPosition
-                    CurrentOp.posInOperationList =
-                        OperationsDataSet.list.indexOf(CurrentOp.currentOperation)
-                    val intent = Intent(activity, AddOperationActivity::class.java)
-                    activity.startActivity(intent)
+                itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
+                    onClickedEdit(this)
                 }
-                itemView.findViewById<ImageView>(R.id.del_op_img).setOnClickListener {
-                    val pos = this.adapterPosition
-                    OperationsDataSet.list.remove((data[pos] as OperationItem).operation)
-                    if (data[pos + 1] is HeaderItem && (pos == 0 || data[pos - 1] is HeaderItem)) {
-                        data.removeAt(pos)
-                        data.removeAt(pos)
-                        if (data.isNotEmpty()) notifyItemRangeRemoved(pos, 2)
-                        else notifyDataSetChanged()
-                    } else {
-                        data.removeAt(pos)
-                        notifyItemRemoved(pos)
-                    }
+                itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
+                    onClickedDelete(this)
                 }
             }
             else -> throw Exception("Unsupported viewType")
+        }
+    }
+
+    private fun onClickedEdit(holder: OperationHolder) {
+        CurrentOp.isEdit = true
+        CurrentOp.currentOperation = (data[holder.adapterPosition] as OperationItem).operation
+        CurrentOp.posInDataSet = holder.adapterPosition
+        CurrentOp.posInOperationList =
+            WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOp.currentOperation)
+        val intent = Intent(activity, AddOperationActivity::class.java)
+        activity.startActivity(intent)
+    }
+
+    private fun onClickedDelete(holder: OperationHolder) {
+        WalletDataSet.list[WalletActivity.indexWallet]
+            .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+        if (data[holder.adapterPosition + 1] is HeaderItem
+            && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
+        ) {
+            data.removeAt(holder.adapterPosition)
+            data.removeAt(holder.adapterPosition)
+            if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
+            else notifyDataSetChanged()
+        } else {
+            data.removeAt(holder.adapterPosition)
+            WalletDataSet.list[WalletActivity.indexWallet]
+                .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+            notifyItemRemoved(holder.adapterPosition)
         }
     }
 

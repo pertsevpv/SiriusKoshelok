@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SiriusKoshelok" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.SiriusKoshelok" parent="Theme.MaterialComponents.Light.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/colorAccent</item>

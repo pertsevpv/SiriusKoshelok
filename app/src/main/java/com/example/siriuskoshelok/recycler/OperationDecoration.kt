@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+@Suppress("MagicNumber")
 class OperationDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

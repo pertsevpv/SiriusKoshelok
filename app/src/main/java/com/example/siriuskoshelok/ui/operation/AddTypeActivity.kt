@@ -3,16 +3,12 @@ package com.example.siriuskoshelok.ui.operation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.OperationsDataSet
-import com.example.siriuskoshelok.data.OperationsDataSet.list
 
 class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

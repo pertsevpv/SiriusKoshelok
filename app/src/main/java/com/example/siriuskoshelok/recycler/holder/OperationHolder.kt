@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
-import com.example.siriuskoshelok.*
+import com.example.siriuskoshelok.hoursAndMinutes
+
 
 class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
