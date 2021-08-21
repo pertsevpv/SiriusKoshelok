@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.OperationsDataSet.list
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.ui.operation.CurrentOp

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.siriuskoshelok.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wallet_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_wallet"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_wallet" />
+
+        <TextView
+            android:id="@+id/wallet_name"
+            android:layout_width="160dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/salary"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wallet_balance"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/roboto_400"
+            android:text="@string/test_money"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/left_view"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
+        app:gravity="right"
+        app:sticky="none">
+
+        <ImageView
+            android:id="@+id/edit_wal_img"
+            style="@style/SwipeBase"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_edit" />
+
+        <ImageView
+            android:id="@+id/del_wal_img"
+            style="@style/SwipeBase"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/eye_wal_img"
+            style="@style/SwipeBase"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_eye" />
+
+    </LinearLayout>
+
+</com.example.siriuskoshelok.SwipeLayout>

@@ -81,5 +81,4 @@ class AddCategoryActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }
