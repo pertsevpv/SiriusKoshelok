@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
@@ -13,6 +11,7 @@ import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
+import kotlinx.android.synthetic.main.activity_add_category.*
 
 class AddCategoryActivity : AppCompatActivity() {
 
@@ -26,8 +25,7 @@ class AddCategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_category)
         val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_category)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
@@ -133,14 +131,12 @@ class AddCategoryActivity : AppCompatActivity() {
             })
         }
 
-        val btnAddCategory: Button = findViewById(R.id.btn_add_category)
-        val btnCreateCategory: TextView = findViewById(R.id.btn_create_category)
-        btnCreateCategory.setOnClickListener {
+        btn_create_category.setOnClickListener {
             val intent = Intent(this, CreateCategoryActivity::class.java)
             intent.putExtra("TYPE_CATEGORY", CurrentOp.currentOperation?.operationType)
             startActivity(intent)
         }
-        btnAddCategory.setOnClickListener {
+        btn_add_category.setOnClickListener {
             if (CurrentOp.currentOperation?.extendedOperationType != null) {
                 val intent =
                     Intent(

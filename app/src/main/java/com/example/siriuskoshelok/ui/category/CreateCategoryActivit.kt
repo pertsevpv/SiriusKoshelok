@@ -4,38 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
-import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.ui.operation.CurrentOp
+import kotlinx.android.synthetic.main.activity_create_category.*
 
 class CreateCategoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_category)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_new_category)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_new_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val textName: TextView = findViewById(R.id.new_category)
-        val textType: TextView = findViewById(R.id.type)
-        val btnCreateCategory: Button = findViewById(R.id.btn_create)
-        val btnAddName: ImageView = findViewById(R.id.btn_name_category)
+        val arguments = intent.extras
+        type.text = arguments?.get("TYPE_CATEGORY").toString()
 
-        val arguments = getIntent().getExtras()
-        textType.text = arguments?.get("TYPE_CATEGORY").toString()
-
-        btnAddName.setOnClickListener {
+        btn_name_category.setOnClickListener {
             val intent = Intent(this, AddNameActivity::class.java)
             this.startActivity(intent)
         }
         CurrentOp.currentOperation?.img = R.drawable.ic_salary
-        btnCreateCategory.setOnClickListener {
+        btn_create.setOnClickListener {
             this.finish()
         }
     }

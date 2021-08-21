@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +17,7 @@ import com.example.siriuskoshelok.recycler.OperationDecoration
 import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
+import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlin.system.exitProcess
 
 class WalletActivity : AppCompatActivity() {
@@ -32,12 +31,9 @@ class WalletActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val btnAddOperation: Button = findViewById(R.id.btn_add_operation)
-        val textEmpty: TextView = findViewById(R.id.empty_view)
 
         operationAdapter = OperationAdapter(this)
         recycler.apply {
@@ -50,10 +46,10 @@ class WalletActivity : AppCompatActivity() {
         }
         if(OperationsDataSet.list.isEmpty()){
             recycler.isVisible = false
-            textEmpty.isVisible = true
+            empty_view.isVisible = true
         }
         operationAdapter.setData(OperationsDataSet.list)
-        btnAddOperation.setOnClickListener {
+        btn_add_operation.setOnClickListener {
             CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)

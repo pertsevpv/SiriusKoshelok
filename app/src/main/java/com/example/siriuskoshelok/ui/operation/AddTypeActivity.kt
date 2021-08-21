@@ -3,49 +3,38 @@ package com.example.siriuskoshelok.ui.operation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.OperationsDataSet
-import com.example.siriuskoshelok.data.OperationsDataSet.list
+import kotlinx.android.synthetic.main.activity_add_type.*
 
 class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_type)
         val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_type)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_type)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        val btnAddType: Button = findViewById(R.id.btn_add_type)
-        val textIncome: TextView = findViewById(R.id.text_income)
-        val textExpenses: TextView = findViewById(R.id.text_expenses)
-        val btnIncome: ImageView = findViewById(R.id.btn_income)
-        val btnExpenses: ImageView = findViewById(R.id.btn_expenses)
+
         if(CurrentOp.currentOperation?.operationType != null){
-            btnAddType.isEnabled = true
-            if(CurrentOp.currentOperation?.operationType == textIncome.text){
-                btnIncome.visibility = View.VISIBLE
+            btn_add_type.isEnabled = true
+            if(CurrentOp.currentOperation?.operationType == text_income.text){
+                btn_income.visibility = View.VISIBLE
             }
-            if(CurrentOp.currentOperation?.operationType == textExpenses.text){
-                btnExpenses.visibility = View.VISIBLE
+            if(CurrentOp.currentOperation?.operationType == text_expenses.text){
+                btn_expenses.visibility = View.VISIBLE
             }
         }
-        textIncome.setOnClickListener {
-            btnIncome.visibility = View.VISIBLE
-            btnExpenses.visibility = View.INVISIBLE
-            btnAddType.isEnabled = true
+        text_income.setOnClickListener {
+            btn_income.visibility = View.VISIBLE
+            btn_expenses.visibility = View.INVISIBLE
+            btn_add_type.isEnabled = true
         }
-        textExpenses.setOnClickListener {
-            btnExpenses.visibility = View.VISIBLE
-            btnIncome.visibility = View.INVISIBLE
-            btnAddType.isEnabled = true
+        text_expenses.setOnClickListener {
+            btn_expenses.visibility = View.VISIBLE
+            btn_income.visibility = View.INVISIBLE
+            btn_add_type.isEnabled = true
         }
         val intent =
             Intent(
@@ -54,27 +43,28 @@ class AddTypeActivity : AppCompatActivity() {
                 else AddOperationActivity::class.java
             )
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        btnAddType.setOnClickListener {
-            if (btnIncome.visibility == View.VISIBLE) {
+
+        btn_add_type.setOnClickListener {
+            if (btn_income.visibility == View.VISIBLE) {
                 CurrentOp.currentOperation?.operationType =
-                    textIncome.text.toString()
+                    text_income.text.toString()
                 if (isEdit) finish()
                 startActivity(intent)
-            } else if (btnExpenses.visibility == View.VISIBLE) {
+            } else if (btn_expenses.visibility == View.VISIBLE) {
                 CurrentOp.currentOperation?.operationType =
-                    textExpenses.text.toString()
+                    text_expenses.text.toString()
                 if (isEdit) finish()
                 startActivity(intent)
-                CurrentOp.currentOperation?.operationType = textIncome.text.toString()
+                CurrentOp.currentOperation?.operationType = text_income.text.toString()
                 this.startActivity(intent)
             }
-            if (btnExpenses.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.operationType = textExpenses.text.toString()
+            if (btn_expenses.visibility == View.VISIBLE) {
+                CurrentOp.currentOperation?.operationType = text_expenses.text.toString()
                 this.startActivity(intent)
             }
         }
         if(CurrentOp.currentOperation?.operationType != null){
-            btnAddType.isEnabled = true
+            btn_add_type.isEnabled = true
         }
     }
 
