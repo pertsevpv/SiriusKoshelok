@@ -23,13 +23,11 @@ class AddTypeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
         val btnAddType: Button = findViewById(R.id.btn_add_type)
         val textIncome: TextView = findViewById(R.id.text_income)
         val textExpenses: TextView = findViewById(R.id.text_expenses)
         val btnIncome: ImageView = findViewById(R.id.btn_income)
         val btnExpenses: ImageView = findViewById(R.id.btn_expenses)
-
         if(CurrentOp.currentOperation?.operationType != null){
             btnAddType.isEnabled = true
             if(CurrentOp.currentOperation?.operationType == textIncome.text){
@@ -39,7 +37,6 @@ class AddTypeActivity : AppCompatActivity() {
                 btnExpenses.visibility = View.VISIBLE
             }
         }
-
         textIncome.setOnClickListener {
             btnIncome.visibility = View.VISIBLE
             btnExpenses.visibility = View.INVISIBLE
@@ -76,7 +73,6 @@ class AddTypeActivity : AppCompatActivity() {
                 this.startActivity(intent)
             }
         }
-
         if(CurrentOp.currentOperation?.operationType != null){
             btnAddType.isEnabled = true
         }

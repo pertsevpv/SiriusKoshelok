@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.operation.AddCategoryActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.operation.AddSumActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -15,52 +15,60 @@
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_category"
+            android:id="@+id/toolbar_name"
             style="@style/CustomToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:title="@string/title_add_category" />
+            app:title="@string/title_enter_name" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@+id/btn_create_category"
-            tools:listitem="@layout/item_category" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:padding="10dp"
-            android:id="@+id/btn_create_category"
-            android:text="@string/title_create_category"
-            android:textSize="19sp"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/roboto_400"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_category"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/hint_enter_name"
+            android:textColorHint="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/gray"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:fontFamily="@font/roboto_400"
+                android:textColorHighlight="@color/gray" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_category"
+            android:id="@+id/btn_add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/btn_selector"
-            android:enabled="true"
-            android:text="@string/btn_add_type"
+            android:enabled="false"
+            android:text="@string/btn_add"
             android:textAllCaps="false"
             android:textColor="@drawable/text_selector"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

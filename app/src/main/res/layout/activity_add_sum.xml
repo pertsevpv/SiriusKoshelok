@@ -65,7 +65,7 @@
             android:background="@drawable/btn_selector"
             android:textColor="@drawable/text_selector"
             android:enabled="false"
-            android:text="@string/btn_add_sum"
+            android:text="@string/btn_add"
             android:textAllCaps="false"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent" />

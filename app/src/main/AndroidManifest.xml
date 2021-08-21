@@ -10,18 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ui.operation.AddOperationActivity"/>
+            android:name=".ui.category.AddNameActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true" />
         <activity
-            android:name=".ui.operation.AddCategoryActivity" />
-        <activity
-            android:name=".ui.operation.AddTypeActivity"/>
+            android:name=".ui.category.CreateCategoryActivity" />
+        <activity android:name=".ui.operation.AddOperationActivity" />
+        <activity android:name=".ui.operation.AddCategoryActivity" />
+        <activity android:name=".ui.operation.AddTypeActivity" />
         <activity
             android:name=".ui.operation.AddSumActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".ui.google.GoogleAuthorizationActivity" />
-        <activity
-            android:name=".WalletActivity" />
+        <activity android:name=".WalletActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">

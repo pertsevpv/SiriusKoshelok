@@ -22,14 +22,24 @@
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
     <string name="hint_add_sum">Сумма операции</string>
-    <string name="btn_add_sum">Готово</string>
+    <string name="btn_add">Готово</string>
     <string name="title_add_sum">Введите сумму</string>
     <string name="btn_add_type">Далее</string>
+
     <string name="title_add_category">Выберите категорию</string>
     <string name="title_salary">Зарплата</string>
     <string name="title_gift">Подарок</string>
     <string name="title_capitalisation">Капитализация</string>
     <string name="title_part_time">Подработка</string>
+    <string name="title_launch">Кафе и рестораны</string>
+    <string name="title_market">Супермаркеты</string>
+    <string name="title_sport">Спортзал</string>
+    <string name="title_train">Общественный транспорт</string>
+    <string name="title_medicine">Медицина</string>
+    <string name="title_gas">Бензин</string>
+    <string name="title_rent">Квартплата</string>
+    <string name="title_travel">Отпуск</string>
+
     <string name="title_add_operation">Новая операция</string>
     <string name="btn_create_operation">Создать операцию</string>
     <string name="title_type_operation">Выберите тип операции</string>
@@ -39,4 +49,11 @@
     <string name="title_category">Категория</string>
     <string name="title_add_settings">Дополнительные настройки</string>
     <string name="no_data_available">У вас пока нет записей</string>
+    <string name="title_create_category">Создать категорию</string>
+    <string name="title_new_category">Новая категория</string>
+    <string name="title_name">Название</string>
+    <string name="title_icon">Иконка</string>
+    <string name="new_category">Новая категория</string>
+    <string name="title_enter_name">Придумайте название</string>
+    <string name="hint_enter_name">Название категории</string>
 </resources>
