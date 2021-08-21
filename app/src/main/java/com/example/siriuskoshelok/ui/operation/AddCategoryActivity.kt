@@ -30,7 +30,6 @@ class AddCategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        listCategory.addAll(getCategories())
         categoryAdapter = CategoryAdapter().apply {
             setHasStableIds(true)
         }
@@ -38,18 +37,16 @@ class AddCategoryActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@AddCategoryActivity)
             adapter = categoryAdapter
         }
-
         if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
-            categoryAdapter.setData(getCategories().filter {
+            categoryAdapter.setData(listCategory.filter {
                 it.operationType.startsWith(
                     resources.getString(
                         R.string.title_income
                     )
                 )
             })
-        }
-        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_expenses)) {
-            categoryAdapter.setData(getCategories().filter {
+        } else {
+            categoryAdapter.setData(listCategory.filter {
                 it.operationType.startsWith(
                     resources.getString(
                         R.string.title_expenses
@@ -76,83 +73,6 @@ class AddCategoryActivity : AppCompatActivity() {
         }
     }
 
-    fun getCategories(): MutableList<Category> {
-        return mutableListOf(
-            Category(
-                R.drawable.ic_salary,
-                resources.getString(R.string.title_salary),
-                resources.getString(R.string.title_income),
-                false
-            ),
-            Category(
-                R.drawable.ic_salary,
-                resources.getString(R.string.title_part_time),
-                resources.getString(R.string.title_income),
-                false
-            ),
-            Category(
-                R.drawable.ic_gift,
-                resources.getString(R.string.title_gift),
-                resources.getString(R.string.title_income),
-                false
-            ),
-            Category(
-                R.drawable.ic_capitalisation,
-                resources.getString(R.string.title_capitalisation),
-                resources.getString(R.string.title_income),
-                false
-            ),
-            Category(
-                R.drawable.ic_launch,
-                resources.getString(R.string.title_launch),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_market,
-                resources.getString(R.string.title_market),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_sport,
-                resources.getString(R.string.title_sport),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_train,
-                resources.getString(R.string.title_train),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_gas_station,
-                resources.getString(R.string.title_gas),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_pharmacy,
-                resources.getString(R.string.title_medicine),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_house,
-                resources.getString(R.string.title_rent),
-                resources.getString(R.string.title_expenses),
-                false
-            ),
-            Category(
-                R.drawable.ic_travel,
-                resources.getString(R.string.title_travel),
-                resources.getString(R.string.title_expenses),
-                false
-            )
-        )
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
@@ -161,4 +81,5 @@ class AddCategoryActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }
