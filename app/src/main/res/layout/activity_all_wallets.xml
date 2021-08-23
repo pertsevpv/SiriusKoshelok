@@ -7,23 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.wallet.WalletActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_main"
         style="@style/CustomToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/color_accent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="160dp"
-        android:background="#5833EE"
+        android:background="@color/color_accent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,14 +62,12 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:background="#299C9C29"
+        android:background="@drawable/back_currency"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/wallet_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"/>
 
     <TextView
         android:id="@+id/text_total_money"

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_main"
@@ -41,7 +41,6 @@
         app:layout_constraintStart_toStartOf="@+id/title_wallet_name"
         app:layout_constraintTop_toBottomOf="@+id/title_wallet_name"
         tools:ignore="MissingConstraints" />
-
 
     <TextView
         android:id="@+id/empty_view"
@@ -158,23 +157,23 @@
         android:layout_marginBottom="8dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        tools:listitem="@layout/operation_swipe_item"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_operation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+        tools:listitem="@layout/operation_swipe_item" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add_operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
         android:background="@drawable/btn_on"
         android:text="@string/btn_add_operation"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_margin="16sp"/>
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

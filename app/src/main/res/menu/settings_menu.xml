@@ -6,6 +6,6 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/title_settings"
-        android:iconTint="@color/colorAccent"
+        android:iconTint="@color/color_accent"
         app:showAsAction="always" />
 </menu>
