@@ -25,7 +25,6 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         val textWalletLimit: TextView = findViewById(R.id.value_wallet_limit)
         textWalletName.text = CurrentWallet.entity?.name.toString()
 
-        //textCurrencyType.text = CurrentWallet.currentWallet?...
         textWalletLimit.text =
             if (CurrentWallet.entity?.hasLimit == true)
                 CurrentWallet.entity?.limit.toString()

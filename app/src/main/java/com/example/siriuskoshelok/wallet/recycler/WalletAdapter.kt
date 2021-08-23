@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +13,10 @@ import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.wallet.AddWalletActivity
+import com.example.siriuskoshelok.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.wallet.CurrentWallet
 
-class WalletAdapter(private val activity: AppCompatActivity) :
+class WalletAdapter(private val activity: AllWalletsActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<Wallet> = arrayListOf()
@@ -43,7 +45,7 @@ class WalletAdapter(private val activity: AppCompatActivity) :
         }
     }
 
-    private fun onClickedEdit(holder: WalletHolder){
+    private fun onClickedEdit(holder: WalletHolder) {
         CurrentWallet.entity = data[holder.adapterPosition].copy()
         CurrentWallet.isEdit = true
         CurrentWallet.posInDataSet = holder.adapterPosition
@@ -53,13 +55,24 @@ class WalletAdapter(private val activity: AppCompatActivity) :
         activity.startActivity(intent)
     }
 
-    private fun onClickedDelete(holder: WalletHolder){
-        WalletDataSet.list.remove(data[holder.adapterPosition])
-        data.removeAt(holder.adapterPosition)
-        notifyItemRemoved(holder.adapterPosition)
+    private fun onClickedDelete(holder: WalletHolder) {
+        AlertDialog.Builder(activity).apply {
+            setTitle("Вы действительно хотите удалить эту запись?")
+            setNegativeButton("Отменить") { dialog, _ ->
+                dialog.cancel()
+            }
+            setPositiveButton("Удалить") { dialog, _ ->
+                WalletDataSet.list.remove(data[holder.adapterPosition])
+                data.removeAt(holder.adapterPosition)
+                notifyItemRemoved(holder.adapterPosition)
+                dialog.cancel()
+                activity.updateUI()
+            }
+            setCancelable(true)
+        }.show()
     }
 
-    private fun onClickedWallet(holder: WalletHolder){
+    private fun onClickedWallet(holder: WalletHolder) {
         val intent = Intent(activity, WalletActivity::class.java)
         intent.putExtra("WALLET_KEY", WalletDataSet.list.indexOf(data[holder.adapterPosition]))
         activity.startActivity(intent)

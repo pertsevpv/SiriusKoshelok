@@ -7,12 +7,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.widget.SwitchCompat
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_edit_limit.*
 
 @Suppress("EmptyFunctionBlock")
 class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
@@ -24,49 +22,45 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val editLimit: EditText = findViewById(R.id.edit_limit)
-        val btnEditLimit: Button = findViewById(R.id.btn_add_limit)
-        val limitSwitch: SwitchCompat = findViewById(R.id.limit_switch)
-
         if (CurrentWallet.entity?.hasLimit == false) {
-            limitSwitch.isChecked = true
+            limit_switch.isChecked = true
             findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
-            editLimit.setText(CurrentWallet.entity?.limit.toString())
-            btnEditLimit.isEnabled = true
+            edit_limit.setText(CurrentWallet.entity?.limit.toString())
+            btn_add_limit.isEnabled = true
         } else {
-            limitSwitch.isChecked = false
+            limit_switch.isChecked = false
             findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
-            editLimit.setText("")
-            btnEditLimit.isEnabled = false
+            edit_limit.setText("")
+            btn_add_limit.isEnabled = false
         }
 
-        limitSwitch.setOnCheckedChangeListener { _, isChecked ->
+        limit_switch.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
                     CurrentWallet.entity?.hasLimit = false
-                    btnEditLimit.isEnabled = true
+                    btn_add_limit.isEnabled = true
                 }
                 else -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
                     CurrentWallet.entity?.hasLimit = true
-                    editLimit.setText("")
-                    btnEditLimit.isEnabled = false
+                    edit_limit.setText("")
+                    btn_add_limit.isEnabled = false
                 }
             }
         }
 
         if (CurrentWallet.entity?.hasLimit == true) {
-            editLimit.text = Editable.Factory.getInstance()
+            edit_limit.text = Editable.Factory.getInstance()
                 .newEditable(CurrentWallet.entity?.limit.toString())
-            btnEditLimit.isEnabled = true
+            btn_add_limit.isEnabled = true
         }
 
-        btnEditLimit.setOnClickListener {
-            if (editLimit.text.isNotEmpty()
+        btn_add_limit.setOnClickListener {
+            if (edit_limit.text?.isNotEmpty() == true
                 && CurrentWallet.entity?.hasLimit == true
             ) {
-                CurrentWallet.entity?.limit = editLimit.text.toString().toInt()
+                CurrentWallet.entity?.limit = edit_limit.text.toString().toInt()
             }
             val intent =
                 Intent(this, AddWalletActivity::class.java)
@@ -74,9 +68,9 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
             finish()
             startActivity(intent)
         }
-        editLimit.addTextChangedListener(object : TextWatcher {
+        edit_limit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                btnEditLimit.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
+                btn_add_limit.isEnabled = s.toString().trim { it <= ' ' }.isNotEmpty()
             }
 
             override fun beforeTextChanged(

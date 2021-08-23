@@ -4,12 +4,9 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.entity.Wallet
-import com.example.siriuskoshelok.hoursAndMinutes
 
 class WalletHolder(root: View) : RecyclerView.ViewHolder(root) {
 
@@ -21,7 +18,7 @@ class WalletHolder(root: View) : RecyclerView.ViewHolder(root) {
     fun bind(wal: Wallet) {
         img.setImageResource(R.drawable.ic_wallet)
         walletName.text = wal.name
-        balance.text = "${wal.balance} $"
+        balance.text = "${wal.countMoney()} $"
     }
 }
 

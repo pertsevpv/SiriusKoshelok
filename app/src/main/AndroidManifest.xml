@@ -9,9 +9,9 @@
     <application
         android:name=".app.SiriusApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_cool_wallet"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_cool_wallet"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <activity
@@ -20,9 +20,13 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.category.CreateCategoryActivity" />
 
-        <activity android:name=".wallet.EditLimitActivity" />
+        <activity
+            android:name=".wallet.EditLimitActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".wallet.AddWalletActivity" />
-        <activity android:name=".wallet.AddWalletNameActivity" />
+        <activity
+            android:name=".wallet.AddWalletNameActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".wallet.AllWalletsActivity" />
         <activity android:name=".ui.operation.AddOperationActivity" />
         <activity android:name=".ui.operation.AddCategoryActivity" />

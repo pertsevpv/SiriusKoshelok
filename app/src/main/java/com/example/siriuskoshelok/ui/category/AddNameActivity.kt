@@ -11,10 +11,10 @@ import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_name.*
 
-class AddNameActivity : AppCompatActivity() {
+class AddNameActivity : AppCompatActivity(R.layout.activity_add_name) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_name)
+
         setSupportActionBar(toolbar_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)

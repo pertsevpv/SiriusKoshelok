@@ -18,7 +18,7 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
     private val operationMoney: TextView = root.findViewById(R.id.operation_money)
     private val operationDate: TextView = root.findViewById(R.id.operation_date)
 
-    @SuppressLint("SetTextI18n", "SimpleDateFormat")
+    @SuppressLint("SetTextI18n")
     fun bind(op: Operation) {
         operationTypeIcon.setImageResource(op.img ?: R.drawable.dot_green)
         op.img?.let { operationTypeIcon.setImageResource(it) }

@@ -14,14 +14,15 @@ import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import kotlinx.android.synthetic.main.activity_create_category.*
 
-class CreateCategoryActivity : AppCompatActivity() {
+class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_category) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_category)
+
         setSupportActionBar(toolbar_new_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
         type.text = CurrentOp.currentOperation?.operationType
 
         val activityLauncher =
