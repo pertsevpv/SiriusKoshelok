@@ -71,4 +71,5 @@
     <string name="test_date">21 июн</string>
     <string name="enter_sum_text">Введите сумму</string>
     <string name="test_curr">77.77</string>
+    <string name="text_error_limit">Вы превысили лимит на траты</string>
 </resources>

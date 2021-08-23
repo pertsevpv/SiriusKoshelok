@@ -13,9 +13,9 @@ class HeaderHolder(private val root: View) : RecyclerView.ViewHolder(root) {
 
     fun bind(date: GregorianCalendar) {
         headerText.text = when (date.dayMonthYear()) {
-            GregorianCalendar().dayMonthYear() -> "Today"
+            GregorianCalendar().dayMonthYear() -> "Сегодня"
             GregorianCalendar().dayMonthYear()
-                .apply { add(Calendar.DAY_OF_MONTH, -1) } -> "Yesterday"
+                .apply { add(Calendar.DAY_OF_MONTH, -1) } -> "Вчера"
             else -> date.dayAndMonth()
         }
     }

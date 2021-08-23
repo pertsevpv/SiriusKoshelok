@@ -15,4 +15,6 @@
     <color name="right_text">#FFF</color>
     <color name="left_bg">#4287ff</color>
     <color name="swipe_background">#FFF</color>
+    <color name="red_text">#F52222</color>
+    <color name="red_back">#17F52222</color>
 </resources>
