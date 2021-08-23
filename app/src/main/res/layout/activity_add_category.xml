@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,61 +7,53 @@
     android:background="@color/white"
     tools:context=".ui.operation.AddCategoryActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_category"
+        style="@style/CustomToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:elevation="0dp"
+        app:title="@string/title_add_category"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_create_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/item_category" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_create_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        tools:ignore="MissingConstraints">
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_400"
+        android:padding="10dp"
+        android:text="@string/title_create_category"
+        android:textColor="@color/colorAccent"
+        android:textSize="19sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_category"
+        tools:ignore="MissingConstraints" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_category"
-            style="@style/CustomToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:title="@string/title_add_category" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_category"
-            tools:ignore="MissingConstraints" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:padding="10dp"
-            android:id="@+id/btn_create_category"
-            android:text="@string/title_create_category"
-            android:textSize="19sp"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/roboto_400"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_category"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/btn_selector"
-            android:enabled="true"
-            android:text="@string/btn_add_type"
-            android:textAllCaps="false"
-            android:textColor="@drawable/text_selector"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/btn_selector"
+        android:enabled="true"
+        android:text="@string/btn_add_type"
+        android:textAllCaps="false"
+        android:textColor="@drawable/text_selector"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

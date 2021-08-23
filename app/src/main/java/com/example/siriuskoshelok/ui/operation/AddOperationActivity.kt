@@ -64,6 +64,7 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
         btn_edit_date.setOnClickListener {
             DatePickerDialog(
                 this,
+
                 { _, y, moy, dom ->
                     selectedDate[Calendar.YEAR] = y
                     selectedDate[Calendar.MONTH] = moy

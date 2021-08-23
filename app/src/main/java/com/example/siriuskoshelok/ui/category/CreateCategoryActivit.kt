@@ -4,10 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
+import com.example.siriuskoshelok.entity.CategoryResponse
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.IconAdapter
 import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
@@ -15,6 +16,12 @@ import com.example.siriuskoshelok.ui.operation.CurrentOp
 import kotlinx.android.synthetic.main.activity_create_category.*
 
 class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_category) {
+
+    private lateinit var iconAdapter: IconAdapter
+
+    private val recycler by lazy(LazyThreadSafetyMode.NONE) {
+        findViewById<RecyclerView>(R.id.rv_icon)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +44,30 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         btn_name_category.setOnClickListener {
             activityLauncher.launch(1)
         }
+        iconAdapter = IconAdapter().apply {
+            setHasStableIds(true)
+        }
+        recycler.apply {
+            layoutManager = GridLayoutManager(this@CreateCategoryActivity, 6)
+            adapter = iconAdapter
+        }
+        iconAdapter.setData(Drawables.iconList)
         btn_create.setOnClickListener {
-            listCategory.add(
-                Category(
-                    R.drawable.ic_gas_station,
-                    new_category.text.toString(),
-                    type.text.toString(),
-                    false
+            if (iconAdapter.getPosDraw() != -1) {
+                listCategory.add(
+                    CategoryResponse(
+                        Category(
+                            Drawables.iconList[iconAdapter.getPosDraw()].img,
+                            new_category.text.toString(),
+                            type.text.toString()
+                        ),
+                        false
+                    )
                 )
-            )
-            val intent = Intent(this, AddCategoryActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+                val intent = Intent(this, AddCategoryActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
         }
     }
 

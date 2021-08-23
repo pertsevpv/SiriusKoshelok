@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
-import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
 import kotlinx.android.synthetic.main.activity_add_category.*
@@ -41,7 +40,7 @@ class AddCategoryActivity : AppCompatActivity() {
         }
         if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
             categoryAdapter.setData(listCategory.filter {
-                it.operationType.startsWith(
+                it.category.type.startsWith(
                     resources.getString(
                         R.string.title_income
                     )
@@ -49,7 +48,7 @@ class AddCategoryActivity : AppCompatActivity() {
             })
         } else {
             categoryAdapter.setData(listCategory.filter {
-                it.operationType.startsWith(
+                it.category.type.startsWith(
                     resources.getString(
                         R.string.title_expenses
                     )

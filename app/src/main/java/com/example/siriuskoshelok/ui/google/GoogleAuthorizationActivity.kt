@@ -45,6 +45,7 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
         if (account == null) return
         val intent = Intent(this, AllWalletsActivity::class.java)
         intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
+        intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()

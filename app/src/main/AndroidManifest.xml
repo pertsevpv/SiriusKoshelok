@@ -16,7 +16,6 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <activity
             android:name=".ui.category.AddNameActivity"
-            android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.category.CreateCategoryActivity" />
 

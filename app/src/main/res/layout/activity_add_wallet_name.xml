@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context=".wallet.AddWalletNameActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,12 +13,10 @@
         style="@style/CustomToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/title_add_wallet_name2" />
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_wallet_name"

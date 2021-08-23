@@ -6,11 +6,21 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
         android:src="@drawable/ic_car"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon_select"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:paddingEnd="16dp"
+        android:visibility="invisible"
+        android:paddingBottom="16dp"
+        android:src="@drawable/ic_ok"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

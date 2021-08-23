@@ -75,4 +75,5 @@
     <string name="total_income">Общий доход</string>
     <string name="total_expense">Общий расход</string>
     <string name="operation_time">Время Операции</string>
+    <string name="text_error_limit">Вы превысили лимит на траты</string>
 </resources>
