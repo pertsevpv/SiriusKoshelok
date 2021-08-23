@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok;
+package com.example.siriuskoshelok.ui;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -17,6 +17,8 @@ import android.view.animation.AccelerateInterpolator;
 import androidx.core.view.NestedScrollingParent;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
+
+import com.example.siriuskoshelok.R;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;

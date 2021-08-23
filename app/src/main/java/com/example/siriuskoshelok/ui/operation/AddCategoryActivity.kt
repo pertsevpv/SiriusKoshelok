@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter

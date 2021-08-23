@@ -1,6 +1,6 @@
 package com.example.siriuskoshelok.api.currency
 
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 import retrofit2.Call
 import retrofit2.http.GET
 

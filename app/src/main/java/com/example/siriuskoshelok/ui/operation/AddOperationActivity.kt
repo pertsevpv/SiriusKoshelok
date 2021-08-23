@@ -8,8 +8,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.WalletActivity
+import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
+import com.example.siriuskoshelok.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_operation.*
 import java.util.*
 

@@ -3,9 +3,9 @@ package com.example.siriuskoshelok.ui.google
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.wallet.AllWalletsActivity
+import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -45,7 +45,6 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
         if (account == null) return
         val intent = Intent(this, AllWalletsActivity::class.java)
         intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
-        intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()

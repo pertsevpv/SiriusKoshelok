@@ -5,7 +5,7 @@
     android:id="@+id/coordinator_layout_wallets"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WalletActivity">
+    tools:context=".ui.wallet.WalletActivity">
 
 
     <androidx.appcompat.widget.Toolbar

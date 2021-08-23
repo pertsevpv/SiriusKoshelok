@@ -1,20 +1,20 @@
-package com.example.siriuskoshelok.wallet.recycler
+package com.example.siriuskoshelok.recycler.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.WalletActivity
+import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Wallet
-import com.example.siriuskoshelok.wallet.AddWalletActivity
-import com.example.siriuskoshelok.wallet.AllWalletsActivity
-import com.example.siriuskoshelok.wallet.CurrentWallet
+import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
+import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
+import com.example.siriuskoshelok.ui.wallet.CurrentWallet
+import com.example.siriuskoshelok.recycler.holder.WalletHolder
 
 class WalletAdapter(private val activity: AllWalletsActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

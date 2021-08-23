@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet.recycler
+package com.example.siriuskoshelok.recycler.holder
 
 import android.view.View
 import android.widget.ImageView
@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Currency
-import kotlin.random.Random
 
 class CurrencyHolder(root: View) : RecyclerView.ViewHolder(root) {
 

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_type.*
 

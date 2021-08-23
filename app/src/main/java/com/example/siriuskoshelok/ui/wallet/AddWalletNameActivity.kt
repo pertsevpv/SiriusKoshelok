@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet
+package com.example.siriuskoshelok.ui.wallet
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_wallet_name.*
 

@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet
+package com.example.siriuskoshelok.ui.wallet
 
 import com.example.siriuskoshelok.entity.Wallet
 

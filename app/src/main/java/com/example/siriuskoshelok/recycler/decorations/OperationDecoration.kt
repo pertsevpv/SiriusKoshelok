@@ -1,9 +1,9 @@
-package com.example.siriuskoshelok.recycler
+package com.example.siriuskoshelok.recycler.decorations
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.siriuskoshelok.Constants
+import com.example.siriuskoshelok.utils.Constants
 
 @Suppress("MagicNumber")
 class OperationDecoration : RecyclerView.ItemDecoration() {

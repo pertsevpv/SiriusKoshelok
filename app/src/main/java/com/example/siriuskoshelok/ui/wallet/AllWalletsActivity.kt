@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet
+package com.example.siriuskoshelok.ui.wallet
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,8 +13,9 @@ import com.example.siriuskoshelok.api.currency.CurrencyResult
 import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Currency
-import com.example.siriuskoshelok.wallet.recycler.CurrencyAdapter
-import com.example.siriuskoshelok.wallet.recycler.WalletAdapter
+import com.example.siriuskoshelok.recycler.adapter.CurrencyAdapter
+import com.example.siriuskoshelok.recycler.adapter.WalletAdapter
+import com.example.siriuskoshelok.recycler.decorations.WalletDecoration
 import kotlinx.android.synthetic.main.activity_all_wallets.*
 import retrofit2.Call
 import retrofit2.Callback

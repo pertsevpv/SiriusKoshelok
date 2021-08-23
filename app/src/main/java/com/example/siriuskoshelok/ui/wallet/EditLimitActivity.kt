@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet
+package com.example.siriuskoshelok.ui.wallet
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

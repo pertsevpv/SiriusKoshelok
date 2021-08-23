@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
-import com.example.siriuskoshelok.entity.CategoryResponse
+import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 
 class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val data = mutableListOf<CategoryResponse>()
+    private val data = mutableListOf<CategoryItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val rootView =
@@ -30,8 +30,8 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     private var countItem = -1
-    private fun onClicked(item: CategoryResponse, position: Int) {
-        val newList = mutableListOf<CategoryResponse>()
+    private fun onClicked(item: CategoryItem, position: Int) {
+        val newList = mutableListOf<CategoryItem>()
         newList.addAll(data)
         if (countItem != -1) {
             newList[countItem].isSelected = false
@@ -48,7 +48,7 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         setData(newList)
     }
 
-    fun setData(new: List<CategoryResponse>) {
+    fun setData(new: List<CategoryItem>) {
         data.clear()
         data.addAll(new)
         notifyDataSetChanged()

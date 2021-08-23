@@ -1,14 +1,13 @@
-package com.example.siriuskoshelok.recycler
+package com.example.siriuskoshelok.recycler.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.WalletActivity
+import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder

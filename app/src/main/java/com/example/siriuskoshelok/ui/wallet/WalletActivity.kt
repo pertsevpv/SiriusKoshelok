@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok
+package com.example.siriuskoshelok.ui.wallet
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,14 +9,16 @@ import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.entity.Wallet
-import com.example.siriuskoshelok.recycler.OperationAdapter
-import com.example.siriuskoshelok.recycler.OperationDecoration
+import com.example.siriuskoshelok.recycler.adapter.OperationAdapter
+import com.example.siriuskoshelok.recycler.decorations.OperationDecoration
 import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
+import com.example.siriuskoshelok.utils.Constants
 import kotlinx.android.synthetic.main.activity_wallet.*
 
 class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {

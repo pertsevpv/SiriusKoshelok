@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok
+package com.example.siriuskoshelok.utils
 
 object Constants {
     const val INPUT_NAME_KEY = "input_name"

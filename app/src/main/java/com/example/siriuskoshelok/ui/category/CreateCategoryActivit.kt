@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
-import com.example.siriuskoshelok.entity.CategoryResponse
+import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.IconAdapter
 import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
@@ -55,7 +55,7 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         btn_create.setOnClickListener {
             if (iconAdapter.getPosDraw() != -1) {
                 listCategory.add(
-                    CategoryResponse(
+                    CategoryItem(
                         Category(
                             Drawables.iconList[iconAdapter.getPosDraw()].img,
                             new_category.text.toString(),

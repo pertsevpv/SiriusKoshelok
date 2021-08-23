@@ -1,4 +1,4 @@
-package com.example.siriuskoshelok.wallet.recycler
+package com.example.siriuskoshelok.recycler.holder
 
 import android.annotation.SuppressLint
 import android.view.View

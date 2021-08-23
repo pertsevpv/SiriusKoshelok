@@ -1,10 +1,11 @@
-package com.example.siriuskoshelok.wallet.recycler
+package com.example.siriuskoshelok.recycler.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Currency
+import com.example.siriuskoshelok.recycler.holder.CurrencyHolder
 
 class CurrencyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
