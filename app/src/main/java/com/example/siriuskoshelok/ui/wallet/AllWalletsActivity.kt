@@ -89,9 +89,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
         override fun onFailure(call: Call<CurrencyResult>, t: Throwable) {
             //Обидно
         }
-
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -118,5 +116,4 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
             backPressedQ = 0
         }, 5000)
     }
-
 }

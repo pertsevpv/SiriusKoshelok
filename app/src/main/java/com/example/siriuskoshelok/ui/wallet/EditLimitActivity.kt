@@ -9,27 +9,24 @@ import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.ui.operation.CurrentOp
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_edit_limit.*
 
-@Suppress("EmptyFunctionBlock")
 class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_limit)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_limit)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
         if (CurrentWallet.entity?.hasLimit == false) {
             limit_switch.isChecked = true
-            findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
+            input_limit.visibility = View.INVISIBLE
             edit_limit.setText(CurrentWallet.entity?.limit.toString())
             btn_add_limit.isEnabled = true
         } else {
             limit_switch.isChecked = false
-            findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
+            input_limit.visibility = View.VISIBLE
             edit_limit.setText("")
             btn_add_limit.isEnabled = false
         }
@@ -37,12 +34,12 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         limit_switch.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> {
-                    findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
+                    input_limit.visibility = View.INVISIBLE
                     CurrentWallet.entity?.hasLimit = false
                     btn_add_limit.isEnabled = true
                 }
                 else -> {
-                    findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
+                    input_limit.visibility = View.VISIBLE
                     CurrentWallet.entity?.hasLimit = true
                     edit_limit.setText("")
                     btn_add_limit.isEnabled = false
@@ -76,14 +73,12 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {
-            }
+            ) = Unit
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
-            ) {
-            }
+            ) = Unit
         })
     }
 

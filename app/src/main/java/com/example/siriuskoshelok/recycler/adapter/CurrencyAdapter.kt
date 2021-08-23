@@ -13,7 +13,7 @@ class CurrencyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return CurrencyHolder(inflater.inflate(R.layout.currency_item, parent, false))
+        return CurrencyHolder(inflater.inflate(R.layout.item_currency, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

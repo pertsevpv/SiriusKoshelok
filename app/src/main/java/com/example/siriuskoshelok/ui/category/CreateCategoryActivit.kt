@@ -39,7 +39,6 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
                 } else {
                     new_category.text = resources.getString(R.string.new_category)
                 }
-
             }
         btn_name_category.setOnClickListener {
             activityLauncher.launch(1)
@@ -54,21 +53,29 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         iconAdapter.setData(Drawables.iconList)
         btn_create.setOnClickListener {
             if (iconAdapter.getPosDraw() != -1) {
-                listCategory.add(
-                    CategoryItem(
-                        Category(
-                            Drawables.iconList[iconAdapter.getPosDraw()].img,
-                            new_category.text.toString(),
-                            type.text.toString()
-                        ),
-                        false
-                    )
-                )
+                if (type.text.toString() == resources.getString(R.string.title_income)) {
+                    addToList(true)
+                } else {
+                    addToList(false)
+                }
                 val intent = Intent(this, AddCategoryActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
         }
+    }
+
+    private fun addToList(type: Boolean) {
+        listCategory.add(
+            CategoryItem(
+                Category(
+                    Drawables.iconList[iconAdapter.getPosDraw()].img,
+                    new_category.text.toString(),
+                    type
+                ),
+                false
+            )
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

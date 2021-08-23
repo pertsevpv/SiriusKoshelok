@@ -8,75 +8,156 @@ object CategoriesDataSet {
     val listCategory: MutableList<CategoryItem> = mutableListOf(
         CategoryItem(
             Category(R.drawable.ic_salary,
-            "Зарплата",
-            "Доход"),
+                "Зарплата",
+                true),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_salary,
-            "Подработка",
-            "Доход"),
+                "Подработка",
+                true),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_gift,
-            "Подарок",
-            "Доход"),
+                "Подарок",
+                true),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_capitalisation,
-            "Капитализация",
-            "Доход"),
+                "Капитализация",
+                true),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_launch,
-            "Кафе и рестораны",
-            "Расход"),
+                "Кафе и рестораны",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_market,
-            "Супермаркеты",
-            "Расход"),
+                "Супермаркеты",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_sport,
-            "Спортзал",
-            "Расход"),
+                "Спортзал",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_train,
-            "Общественный транспор",
-            "Расход"),
+                "Общественный транспор",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_gas_station,
-            "Бензин",
-            "Расход"),
+                "Бензин",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_pharmacy,
-            "Медицина",
-            "Расход"),
+                "Медицина",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_house,
-            "Квартплата",
-            "Расход"),
+                "Квартплата",
+                false),
             false
         ),
         CategoryItem(
             Category(R.drawable.ic_travel,
-            "Отпуск",
-            "Расход"),
+                "Отпуск",
+                false),
             false
         )
     )
 }
+
+
+
+
+
+//object CategoriesDataSet {
+//    val listCategory: MutableList<CategoryItem> = mutableListOf(
+//        CategoryItem(
+//            Category(R.drawable.ic_salary,
+//            "Зарплата",
+//            "Доход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_salary,
+//            "Подработка",
+//            "Доход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_gift,
+//            "Подарок",
+//            "Доход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_capitalisation,
+//            "Капитализация",
+//            "Доход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_launch,
+//            "Кафе и рестораны",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_market,
+//            "Супермаркеты",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_sport,
+//            "Спортзал",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_train,
+//            "Общественный транспор",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_gas_station,
+//            "Бензин",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_pharmacy,
+//            "Медицина",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_house,
+//            "Квартплата",
+//            "Расход"),
+//            false
+//        ),
+//        CategoryItem(
+//            Category(R.drawable.ic_travel,
+//            "Отпуск",
+//            "Расход"),
+//            false
+//        )
+//    )
+//}

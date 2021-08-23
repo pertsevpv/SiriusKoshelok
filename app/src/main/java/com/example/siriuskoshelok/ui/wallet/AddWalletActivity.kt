@@ -10,28 +10,24 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import com.example.siriuskoshelok.data.WalletDataSet.list
+import kotlinx.android.synthetic.main.activity_add_wallet.*
 
 class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_wallet)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_wallet)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val textWalletName: TextView = findViewById(R.id.value_wallet_name)
-        val textWalletLimit: TextView = findViewById(R.id.value_wallet_limit)
-        textWalletName.text = CurrentWallet.entity?.name.toString()
-
-        textWalletLimit.text =
+        value_wallet_name.text = CurrentWallet.entity?.name.toString()
+        value_wallet_limit.text =
             if (CurrentWallet.entity?.hasLimit == true)
                 CurrentWallet.entity?.limit.toString()
-            else
-                "Не установлен"
+            else "Не установлен"
 
-        findViewById<Button>(R.id.btn_create_wallet).setOnClickListener {
+        btn_create_wallet.setOnClickListener {
             val intent = Intent(this, AllWalletsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             if (CurrentWallet.isEdit)
@@ -41,13 +37,11 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
             CurrentWallet.fin()
             startActivity(intent)
         }
-
-        findViewById<AppCompatImageView>(R.id.btn_edit_limit).setOnClickListener {
+        btn_edit_limit.setOnClickListener {
             val intent = Intent(this, EditLimitActivity::class.java)
             startActivity(intent)
         }
-
-        findViewById<AppCompatImageView>(R.id.btn_edit_wallet_name).setOnClickListener {
+        btn_edit_wallet_name.setOnClickListener {
             val intent = Intent(this, AddWalletNameActivity::class.java)
             intent.putExtra("EDIT_FLAG", true)
             startActivity(intent)

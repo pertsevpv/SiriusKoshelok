@@ -15,5 +15,4 @@ object CurrentOp {
         posInDataSet = -1
         posInOperationList = -1
     }
-
 }

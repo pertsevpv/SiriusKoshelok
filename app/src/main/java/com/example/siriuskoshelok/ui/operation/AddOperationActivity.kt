@@ -14,7 +14,6 @@ import com.example.siriuskoshelok.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_operation.*
 import java.util.*
 
-
 class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) {
 
     @SuppressLint("SetTextI18n")
@@ -25,7 +24,7 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        count_money.text = CurrentOp.currentOperation?.money.toString()
+        count_money.text = CurrentOp.currentOperation?.amount.toString()
         type.text = CurrentOp.currentOperation?.operationType ?: ""
         category.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
 
@@ -61,11 +60,9 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
             startActivity(intent)
             this.finish()
         }
-
         btn_edit_date.setOnClickListener {
             DatePickerDialog(
                 this,
-
                 { _, y, moy, dom ->
                     selectedDate[Calendar.YEAR] = y
                     selectedDate[Calendar.MONTH] = moy
@@ -77,7 +74,6 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
                 selectedDate.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
         btn_edit_time.setOnClickListener {
             TimePickerDialog(
                 this, { _, hod, m ->

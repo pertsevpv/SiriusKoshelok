@@ -60,7 +60,6 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
             recycler.isVisible = false
             empty_view.isVisible = true
         }
-
         operationAdapter.setData(wallet.operationList)
         btn_add_operation.setOnClickListener {
             CurrentOp.currentOperation = Operation()
@@ -75,7 +74,6 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         title_money.text = "${wallet.countMoney()} $"
         title_money_income.text = "${wallet.countIncome()} $"
         title_money_expenses.text = "${wallet.countExpense()} $"
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,5 +94,4 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         super.onBackPressed()
         finish()
     }
-
 }

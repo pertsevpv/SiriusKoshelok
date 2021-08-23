@@ -10,7 +10,6 @@ import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_wallet_name.*
 
-@Suppress("EmptyFunctionBlock")
 class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_name) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,14 +45,12 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {
-            }
+            ) = Unit
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
-            ) {
-            }
+            ) = Unit
         })
     }
 

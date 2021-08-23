@@ -40,22 +40,13 @@ class AddCategoryActivity : AppCompatActivity() {
         }
         if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
             categoryAdapter.setData(listCategory.filter {
-                it.category.type.startsWith(
-                    resources.getString(
-                        R.string.title_income
-                    )
-                )
+                it.category.type
             })
         } else {
             categoryAdapter.setData(listCategory.filter {
-                it.category.type.startsWith(
-                    resources.getString(
-                        R.string.title_expenses
-                    )
-                )
+                !it.category.type
             })
         }
-
         btn_create_category.setOnClickListener {
             val intent = Intent(this, CreateCategoryActivity::class.java)
             startActivity(intent)

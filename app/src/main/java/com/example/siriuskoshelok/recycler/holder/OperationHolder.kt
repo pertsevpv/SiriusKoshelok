@@ -9,7 +9,6 @@ import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.hoursAndMinutes
 
-
 class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     private val operationTypeIcon: ImageView = root.findViewById(R.id.operation_type_icon)
@@ -24,9 +23,8 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
         op.img?.let { operationTypeIcon.setImageResource(it) }
         operationName.text = op.extendedOperationType
         operationType.text = op.operationType
-        operationMoney.text = "${op.money} $"
+        operationMoney.text = "${op.amount} $"
         operationDate.text = op.date.hoursAndMinutes()
-
     }
 }
 
