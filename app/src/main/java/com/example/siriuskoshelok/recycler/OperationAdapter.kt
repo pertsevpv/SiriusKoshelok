@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
@@ -20,7 +21,7 @@ import java.lang.Exception
 import kotlin.collections.ArrayList
 
 @Suppress("WildcardImport")
-class OperationAdapter(private val activity: AppCompatActivity) :
+class OperationAdapter(private val activity: WalletActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<BaseListItem> = arrayListOf()
@@ -73,21 +74,32 @@ class OperationAdapter(private val activity: AppCompatActivity) :
     }
 
     private fun onClickedDelete(holder: OperationHolder) {
-        WalletDataSet.list[WalletActivity.indexWallet]
-            .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
-        if (data[holder.adapterPosition + 1] is HeaderItem
-            && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
-        ) {
-            data.removeAt(holder.adapterPosition)
-            data.removeAt(holder.adapterPosition)
-            if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
-            else notifyDataSetChanged()
-        } else {
-            data.removeAt(holder.adapterPosition)
-            WalletDataSet.list[WalletActivity.indexWallet]
-                .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
-            notifyItemRemoved(holder.adapterPosition)
-        }
+        AlertDialog.Builder(activity).apply {
+            setTitle("Вы действительно хотите удалить эту запись?")
+            setNegativeButton("Отменить") { dialog, _ ->
+                dialog.cancel()
+            }
+            setPositiveButton("Удалить") { dialog, _ ->
+                WalletDataSet.list[WalletActivity.indexWallet]
+                    .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+                if (data[holder.adapterPosition + 1] is HeaderItem
+                    && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
+                ) {
+                    data.removeAt(holder.adapterPosition)
+                    data.removeAt(holder.adapterPosition)
+                    if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
+                    else notifyDataSetChanged()
+                } else {
+                    data.removeAt(holder.adapterPosition)
+                    WalletDataSet.list[WalletActivity.indexWallet]
+                        .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+                    notifyItemRemoved(holder.adapterPosition)
+                }
+                activity.updateUI()
+                dialog.cancel()
+            }
+            setCancelable(true)
+        }.show()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

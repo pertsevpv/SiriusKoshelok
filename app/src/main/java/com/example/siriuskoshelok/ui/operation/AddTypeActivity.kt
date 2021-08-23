@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_type.*
 
@@ -12,7 +13,8 @@ class AddTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_type)
-        val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
+        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
+
         setSupportActionBar(toolbar_type)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -37,8 +39,7 @@ class AddTypeActivity : AppCompatActivity() {
             btn_add_type.isEnabled = true
         }
         val intent =
-            Intent(
-                this,
+            Intent(this,
                 if (!isEdit) AddCategoryActivity::class.java
                 else AddOperationActivity::class.java
             )

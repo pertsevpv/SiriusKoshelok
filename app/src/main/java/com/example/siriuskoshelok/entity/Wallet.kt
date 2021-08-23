@@ -10,4 +10,23 @@ data class Wallet(
     val operationList: MutableList<Operation> = mutableListOf(),
     var hasLimit: Boolean = false,
     var limit: Int = Int.MAX_VALUE
-):Parcelable
+) : Parcelable {
+
+    fun countExpense(): Int =
+        operationList
+            .filter { it.operationType == "Расход" }
+            .map { it.money ?: 0 }
+            .fold(0){ a, b -> a + b }
+
+
+    fun countIncome(): Int =
+        operationList
+            .filter { it.operationType == "Доход" }
+            .map { it.money ?: 0 }
+            .fold(0) { a, b -> a + b }
+
+
+    fun countMoney(): Int =
+        countIncome() - countExpense()
+
+}

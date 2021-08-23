@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import kotlinx.android.synthetic.main.activity_add_sum.*
 
@@ -14,13 +15,15 @@ class AddSumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sum)
-        val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
+        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
+
         setSupportActionBar(toolbar_sum)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
         if (CurrentOp.currentOperation?.money != null) {
-            edit_sum.text = Editable.Factory.getInstance().newEditable(CurrentOp.currentOperation?.money.toString())
+            edit_sum.text = Editable.Factory.getInstance()
+                .newEditable(CurrentOp.currentOperation?.money.toString())
             btn_add_sum.isEnabled = true
         }
         btn_add_sum.setOnClickListener {

@@ -1,9 +1,11 @@
 package com.example.siriuskoshelok.wallet
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.os.Handler
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
@@ -13,6 +15,7 @@ import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Currency
 import com.example.siriuskoshelok.wallet.recycler.CurrencyAdapter
 import com.example.siriuskoshelok.wallet.recycler.WalletAdapter
+import kotlinx.android.synthetic.main.activity_all_wallets.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +32,6 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
 
     private lateinit var walletAdapter: WalletAdapter
     private lateinit var currAdapter: CurrencyAdapter
-    private lateinit var addButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +42,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
         initOperationRecyclerView()
         initCurrRecyclerView()
 
-        addButton = findViewById(R.id.add_wallet_button)
-        addButton.setOnClickListener {
+        add_wallet_button.setOnClickListener {
             val intent = Intent(this, AddWalletNameActivity::class.java)
             CurrentWallet.start()
             startActivity(intent)
@@ -89,4 +90,32 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
         }
 
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateUI() {
+        value_total_money.text = "${WalletDataSet.countMoney()} $"
+        value_total_expense.text = "${WalletDataSet.countExpense()} $"
+        value_total_income.text = "${WalletDataSet.countIncome()} $"
+    }
+
+    private var backPressedQ = 0
+    override fun onBackPressed() {
+        if (backPressedQ == 1) {
+            backPressedQ = 0
+            super.onBackPressed()
+        } else {
+            backPressedQ++
+            Toast.makeText(this, "Нажмите ещё раз, чтобы выйти", Toast.LENGTH_SHORT).show()
+        }
+        Handler().postDelayed({
+            backPressedQ = 0
+        }, 5000)
+    }
+
 }

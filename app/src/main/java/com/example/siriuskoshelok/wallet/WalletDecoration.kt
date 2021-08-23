@@ -3,6 +3,7 @@ package com.example.siriuskoshelok.wallet
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.siriuskoshelok.Constants
 
 @Suppress("MagicNumber")
 class WalletDecoration : RecyclerView.ItemDecoration() {
@@ -13,8 +14,8 @@ class WalletDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.bottom = 8
-        outRect.top = 32
-        outRect.left = 16
+        outRect.bottom = Constants.WALLET_OUT_RECT_BOTTOM
+        outRect.top = Constants.WALLET_OUT_RECT_TOP
+        outRect.left = Constants.WALLET_OUT_RECT_LEFT
     }
 }

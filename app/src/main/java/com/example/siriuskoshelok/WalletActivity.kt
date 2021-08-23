@@ -1,14 +1,11 @@
 package com.example.siriuskoshelok
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,12 +18,12 @@ import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
 import kotlinx.android.synthetic.main.activity_wallet.*
-import kotlin.system.exitProcess
 
 class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
 
     companion object {
         var indexWallet: Int = -1
+        lateinit var wallet: Wallet
     }
 
     private val recycler by lazy(LazyThreadSafetyMode.NONE) {
@@ -43,10 +40,10 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        indexWallet = intent.getIntExtra("WALLET_KEY", indexWallet)
-        val wallet = WalletDataSet.list[indexWallet]
+        indexWallet = intent.getIntExtra(Constants.WALLET_KEY, indexWallet)
+        wallet = WalletDataSet.list[indexWallet]
 
-        findViewById<AppCompatTextView>(R.id.title_wallet_name).text = wallet.name
+        updateUI()
 
         operationAdapter = OperationAdapter(this)
         recycler.apply {
@@ -61,13 +58,22 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
             recycler.isVisible = false
             empty_view.isVisible = true
         }
-        
+
         operationAdapter.setData(wallet.operationList)
         btn_add_operation.setOnClickListener {
             CurrentOp.currentOperation = Operation()
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateUI() {
+        title_wallet_name.text = wallet.name
+        title_money.text = "${wallet.countMoney()} $"
+        title_money_income.text = "${wallet.countIncome()} $"
+        title_money_expenses.text = "${wallet.countExpense()} $"
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,20 +89,10 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         }
         return super.onOptionsItemSelected(item)
     }
-    /*override fun onBackPressed() {
-        closeApp()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
-    private val LIMIT_SECOND: Long = 3000
-    private var doubleBack = 1
-    private fun closeApp() {
-        if (doubleBack == 2) {
-            finishAffinity()
-            exitProcess(0)
-        } else {
-            doubleBack++;
-            Toast.makeText(this, R.string.closing_warning, Toast.LENGTH_SHORT).show()
-        }
-        Handler().postDelayed({ doubleBack = 1; }, LIMIT_SECOND)
-    }*/
 }

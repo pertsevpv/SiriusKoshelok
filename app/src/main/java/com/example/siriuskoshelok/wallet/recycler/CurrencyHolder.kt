@@ -18,7 +18,7 @@ class CurrencyHolder(root: View) : RecyclerView.ViewHolder(root) {
         currName.text = curr.name
         currMoney.text = String.format("%.2f", curr.money)
         strelochka.setImageResource(
-            if (Random.nextBoolean())
+            if (curr.name.hashCode() + curr.money.toInt() % 2 == 0)
                 R.drawable.ic_curr_down
             else
                 R.drawable.ic_curr_up

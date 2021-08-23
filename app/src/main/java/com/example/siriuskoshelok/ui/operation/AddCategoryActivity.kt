@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.siriuskoshelok.Constants
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
@@ -24,7 +25,8 @@ class AddCategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_category)
-        val isEdit = intent.getBooleanExtra("EDIT_FLAG", false)
+        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
+
         setSupportActionBar(toolbar_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
