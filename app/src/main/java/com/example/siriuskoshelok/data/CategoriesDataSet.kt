@@ -1,80 +1,81 @@
 package com.example.siriuskoshelok.data
 
-import com.example.siriuskoshelok.entity.Category
+import com.example.siriuskoshelok.entity.CategoryResponse
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.entity.Category
 
 object CategoriesDataSet {
-    val listCategory: MutableList<Category> = mutableListOf(
-        Category(
-            R.drawable.ic_salary,
+    val listCategory: MutableList<CategoryResponse> = mutableListOf(
+        CategoryResponse(
+            Category(R.drawable.ic_salary,
             "Зарплата",
-            "Доход",
+            "Доход"),
             false
         ),
-        Category(
-            R.drawable.ic_salary,
+        CategoryResponse(
+            Category(R.drawable.ic_salary,
             "Подработка",
-            "Доход",
+            "Доход"),
             false
         ),
-        Category(
-            R.drawable.ic_gift,
+        CategoryResponse(
+            Category(R.drawable.ic_gift,
             "Подарок",
-            "Доход",
+            "Доход"),
             false
         ),
-        Category(
-            R.drawable.ic_capitalisation,
+        CategoryResponse(
+            Category(R.drawable.ic_capitalisation,
             "Капитализация",
-            "Доход",
+            "Доход"),
             false
         ),
-        Category(
-            R.drawable.ic_launch,
+        CategoryResponse(
+            Category(R.drawable.ic_launch,
             "Кафе и рестораны",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_market,
+        CategoryResponse(
+            Category(R.drawable.ic_market,
             "Супермаркеты",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_sport,
+        CategoryResponse(
+            Category(R.drawable.ic_sport,
             "Спортзал",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_train,
+        CategoryResponse(
+            Category(R.drawable.ic_train,
             "Общественный транспор",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_gas_station,
+        CategoryResponse(
+            Category(R.drawable.ic_gas_station,
             "Бензин",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_pharmacy,
+        CategoryResponse(
+            Category(R.drawable.ic_pharmacy,
             "Медицина",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_house,
+        CategoryResponse(
+            Category(R.drawable.ic_house,
             "Квартплата",
-            "Расход",
+            "Расход"),
             false
         ),
-        Category(
-            R.drawable.ic_travel,
+        CategoryResponse(
+            Category(R.drawable.ic_travel,
             "Отпуск",
-            "Расход",
+            "Расход"),
             false
         )
     )

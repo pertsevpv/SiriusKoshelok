@@ -74,7 +74,7 @@ class AddOperationActivity : AppCompatActivity() {
             val dpd = DatePickerDialog(
                 this,
                 { _, _, _, dayOfMonth ->
-                    text_date.text = "$dayOfMonth $month"
+                    date.text = "$dayOfMonth $month"
                     CurrentOp.currentOperation?.date = GregorianCalendar(year, month, dayOfMonth)
                 },
                 calendar.get(Calendar.YEAR),

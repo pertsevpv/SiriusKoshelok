@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_main"
         style="@style/CustomToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,20 +42,6 @@
         app:layout_constraintTop_toBottomOf="@+id/title_wallet_name"
         tools:ignore="MissingConstraints" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/operations_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_operation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
 
     <TextView
         android:id="@+id/empty_view"
@@ -164,6 +149,20 @@
         </RelativeLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/operations_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        tools:listitem="@layout/operation_swipe_item"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_operation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add_operation"

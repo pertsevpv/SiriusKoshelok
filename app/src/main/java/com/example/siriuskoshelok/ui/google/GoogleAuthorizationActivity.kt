@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.WalletActivity
 import com.example.siriuskoshelok.wallet.AllWalletsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -44,10 +43,10 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
     }
 
     private fun toNextActivity() {
-        //if (account == null) return
+        if (account == null) return
         val intent = Intent(this, AllWalletsActivity::class.java)
-        //intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        intent.putExtra(GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()
     }

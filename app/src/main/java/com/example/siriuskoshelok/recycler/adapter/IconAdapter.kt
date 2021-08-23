@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.entity.Icon
 import com.example.siriuskoshelok.recycler.holder.IconHolder
 
 class IconAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val data = mutableListOf<Int>()
+    private val data = mutableListOf<Icon>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val rootView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_icon, parent, false)
         val viewHolder = IconHolder(rootView)
         viewHolder.itemView.setOnClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION)
@@ -26,11 +27,27 @@ class IconAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = data.size
-    private fun onClicked(item: Int, position: Int) {
 
+    private var countItem = -1
+    private fun onClicked(item: Icon, position: Int) {
+        val newList = mutableListOf<Icon>()
+        newList.addAll(data)
+        if (countItem != -1) {
+            newList[countItem].isSelect = false
+            newList[position].isSelect = true
+            countItem = position
+        } else {
+            newList[position].isSelect = true
+            countItem = position
+        }
+        setData(newList)
     }
 
-    fun setData(new: List<Int>) {
+    fun getPosDraw(): Int{
+        return countItem
+    }
+
+    fun setData(new: List<Icon>) {
         data.clear()
         data.addAll(new)
         notifyDataSetChanged()
