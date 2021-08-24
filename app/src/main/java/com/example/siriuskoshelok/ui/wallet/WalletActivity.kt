@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -75,7 +76,10 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         title_money.text = "${wallet.countMoney()} $"
         title_money_income.text = "${wallet.countIncome()} $"
         title_money_expenses.text = "${wallet.countExpense()} $"
-
+        if (wallet.limit!=null)
+            title_money_limit.text = "/${wallet.limit}"
+        else
+            title_money_limit.visibility = View.INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

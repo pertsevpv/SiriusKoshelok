@@ -20,12 +20,11 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     @SuppressLint("SetTextI18n")
     fun bind(op: Operation) {
-        operationTypeIcon.setImageResource(op.img ?: R.drawable.dot_green)
-        op.img?.let { operationTypeIcon.setImageResource(it) }
-        operationName.text = op.extendedOperationType
-        operationType.text = op.operationType
-        operationMoney.text = "${op.money} $"
-        operationDate.text = op.date.hoursAndMinutes()
+        operationTypeIcon.setImageResource(op.getCategory()?.pictureId?:R.drawable.dot_green)
+        operationName.text = op.getCategory()?.name
+        operationType.text = if (op.getCategory()?.type == true) "Доход" else "Расход"
+        operationMoney.text = "${op.amount} $"
+        operationDate.text = op.getDate().hoursAndMinutes()
 
     }
 }

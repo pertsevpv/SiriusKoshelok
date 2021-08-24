@@ -25,16 +25,16 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        count_money.text = CurrentOp.currentOperation?.money.toString()
-        type.text = CurrentOp.currentOperation?.operationType ?: ""
-        category.text = CurrentOp.currentOperation?.extendedOperationType ?: ""
+        count_money.text = CurrentOp.currentOperation?.amount.toString()
+        type.text = CurrentOp.currentOperation?.getCategory()?.typeName() ?: ""
+        category.text = CurrentOp.currentOperation?.getCategory()?.name ?: ""
 
         val selectedDate = GregorianCalendar()
         date.text = selectedDate.dayAndMonth()
         time.text = selectedDate.hoursAndMinutes()
 
         btn_create_operation.setOnClickListener {
-            CurrentOp.currentOperation?.date = selectedDate
+            CurrentOp.currentOperation?.timeMillis = selectedDate.timeInMillis
             val intent = Intent(this, WalletActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             if (CurrentOp.isEdit)

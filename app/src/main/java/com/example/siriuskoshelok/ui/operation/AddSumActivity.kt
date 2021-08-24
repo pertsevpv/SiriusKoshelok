@@ -21,14 +21,14 @@ class AddSumActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if (CurrentOp.currentOperation?.money != null) {
+        if (CurrentOp.currentOperation?.amount != null) {
             edit_sum.text = Editable.Factory.getInstance()
-                .newEditable(CurrentOp.currentOperation?.money.toString())
+                .newEditable(CurrentOp.currentOperation?.amount.toString())
             btn_add_sum.isEnabled = true
         }
         btn_add_sum.setOnClickListener {
             if (edit_sum.text!!.isNotEmpty()) {
-                CurrentOp.currentOperation?.money = edit_sum.text.toString().toInt()
+                CurrentOp.currentOperation?.amount = edit_sum.text.toString().toInt()
                 val intent =
                     Intent(
                         this,

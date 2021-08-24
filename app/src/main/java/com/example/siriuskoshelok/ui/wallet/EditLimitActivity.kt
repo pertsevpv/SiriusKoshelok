@@ -22,7 +22,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if (CurrentWallet.entity?.hasLimit == false) {
+        if (CurrentWallet.entity?.limit != null) {
             limit_switch.isChecked = true
             findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
             edit_limit.setText(CurrentWallet.entity?.limit.toString())
@@ -38,19 +38,17 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
             when (isChecked) {
                 true -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.INVISIBLE
-                    CurrentWallet.entity?.hasLimit = false
                     btn_add_limit.isEnabled = true
                 }
                 else -> {
                     findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
-                    CurrentWallet.entity?.hasLimit = true
                     edit_limit.setText("")
                     btn_add_limit.isEnabled = false
                 }
             }
         }
 
-        if (CurrentWallet.entity?.hasLimit == true) {
+        if (CurrentWallet.entity?.limit != null) {
             edit_limit.text = Editable.Factory.getInstance()
                 .newEditable(CurrentWallet.entity?.limit.toString())
             btn_add_limit.isEnabled = true
@@ -58,7 +56,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
 
         btn_add_limit.setOnClickListener {
             if (edit_limit.text?.isNotEmpty() == true
-                && CurrentWallet.entity?.hasLimit == true
+                && CurrentWallet.entity?.limit != null
             ) {
                 CurrentWallet.entity?.limit = edit_limit.text.toString().toInt()
             }

@@ -27,8 +27,8 @@ class OperationAdapter(private val activity: WalletActivity) :
 
     fun setData(list: List<Operation>) {
         data.clear()
-        val tmpList = list.sortedBy { it.date.time }
-        val operationMap = tmpList.groupBy { it.date.dayMonthYear() }
+        val tmpList = list.sortedBy { it.getDate().time }
+        val operationMap = tmpList.groupBy { it.getDate().dayMonthYear() }
 
         operationMap.forEach { (date, ops) ->
             ops.forEach {

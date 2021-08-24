@@ -18,4 +18,10 @@ object Constants {
     const val OPERATION_OUT_RECT_TOP = 32
     const val OPERATION_OUT_RECT_LEFT = 16
 
+    const val APP_DATABASE_NAME = "sirius_database"
+
+    const val WALLET_TABLE_NAME = "wallet_table"
+    const val OPERATION_TABLE_NAME = "operation_table"
+    const val CATEGORY_TABLE_NAME = "category_table"
+
 }

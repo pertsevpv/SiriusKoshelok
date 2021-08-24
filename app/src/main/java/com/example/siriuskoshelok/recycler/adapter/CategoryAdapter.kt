@@ -37,13 +37,13 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             newList[countItem].isSelected = false
             newList[position].isSelected = true
             countItem = position
-            CurrentOp.currentOperation?.extendedOperationType = item.category.name
-            CurrentOp.currentOperation?.img = item.category.pictureId
+            CurrentOp.currentOperation?.getCategory()?.name = item.category.name
+            CurrentOp.currentOperation?.getCategory()?.pictureId = item.category.pictureId
         } else {
             newList[position].isSelected = true
             countItem = position
-            CurrentOp.currentOperation?.extendedOperationType = item.category.name
-            CurrentOp.currentOperation?.img = item.category.pictureId
+            CurrentOp.currentOperation?.getCategory()?.name = item.category.name
+            CurrentOp.currentOperation?.getCategory()?.pictureId = item.category.pictureId
         }
         setData(newList)
     }

@@ -20,7 +20,7 @@ class CategoryHolder(
     fun bind(category: CategoryItem) {
         this.item = category
         nameCategory.text = item.category.name
-        imgCategory.setImageResource(item.category.pictureId)
+        imgCategory.setImageResource(item.category.pictureId ?: R.drawable.dot_green)
         btnCategory.isVisible = item.isSelected
     }
 }

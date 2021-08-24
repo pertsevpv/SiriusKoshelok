@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
+import com.example.siriuskoshelok.data.CategoriesDataSet.list
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.IconAdapter
@@ -30,7 +30,7 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        type.text = CurrentOp.currentOperation?.operationType
+        type.text = CurrentOp.currentOperation?.getCategory()?.name
 
         val activityLauncher =
             registerForActivityResult(AddNameActivityContract()) { result: String? ->
@@ -54,12 +54,12 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         iconAdapter.setData(Drawables.iconList)
         btn_create.setOnClickListener {
             if (iconAdapter.getPosDraw() != -1) {
-                listCategory.add(
+                list.add(
                     CategoryItem(
                         Category(
                             Drawables.iconList[iconAdapter.getPosDraw()].img,
                             new_category.text.toString(),
-                            type.text.toString()
+                            type.text == getString(R.string.income)
                         ),
                         false
                     )

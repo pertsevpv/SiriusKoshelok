@@ -66,7 +66,7 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
                 data.removeAt(holder.adapterPosition)
                 notifyItemRemoved(holder.adapterPosition)
                 dialog.cancel()
-                activity.updateUI()
+                activity.presenter.updateUI()
             }
             setCancelable(true)
         }.show()
