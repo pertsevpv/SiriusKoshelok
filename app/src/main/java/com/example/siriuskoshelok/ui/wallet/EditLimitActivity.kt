@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.ui.operation.CurrentOp
+import com.example.siriuskoshelok.ui.operation.CurrentOperation
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_edit_limit.*
 
@@ -88,7 +88,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            CurrentOp.currentOperation = null
+            CurrentOperation.instanse = null
             this.finish()
             return true
         }

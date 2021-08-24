@@ -15,4 +15,7 @@ interface CategoryDao {
     @Insert
     fun insertCategory(cat: Category)
 
+    @Query("delete from ${Constants.CATEGORY_TABLE_NAME}")
+    fun clear()
+
 }

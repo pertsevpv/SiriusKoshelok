@@ -21,14 +21,14 @@ class AddSumActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if (CurrentOp.currentOperation?.amount != null) {
+        if (CurrentOperation.instanse?.amount != null) {
             edit_sum.text = Editable.Factory.getInstance()
-                .newEditable(CurrentOp.currentOperation?.amount.toString())
+                .newEditable(CurrentOperation.instanse?.amount.toString())
             btn_add_sum.isEnabled = true
         }
         btn_add_sum.setOnClickListener {
             if (edit_sum.text!!.isNotEmpty()) {
-                CurrentOp.currentOperation?.amount = edit_sum.text.toString().toInt()
+                CurrentOperation.instanse?.amount = edit_sum.text.toString().toInt()
                 val intent =
                     Intent(
                         this,
@@ -60,7 +60,7 @@ class AddSumActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            CurrentOp.currentOperation = null
+            CurrentOperation.instanse = null
             this.finish()
             return true
         }

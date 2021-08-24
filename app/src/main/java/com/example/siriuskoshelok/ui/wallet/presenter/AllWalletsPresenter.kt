@@ -1,6 +1,7 @@
 package com.example.siriuskoshelok.ui.wallet.presenter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
@@ -27,6 +28,19 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
 
     private lateinit var walletAdapter: WalletAdapter
     private lateinit var currAdapter: CurrencyAdapter
+
+    @SuppressLint("CheckResult")
+    fun uploadFromDb() {
+        SiriusApplication.instance.appDatabase.getWalletDao().getAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                WalletDataSet.list.clear()
+                WalletDataSet.list.addAll(it)
+                initWalletRecyclerView()
+            }, {})
+        Log.i("uploaded", WalletDataSet.list.joinToString(", "))
+    }
 
     fun initWalletRecyclerView() {
         walletAdapter = WalletAdapter(activity)

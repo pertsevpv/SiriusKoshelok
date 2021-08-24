@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.entity.Category
 import kotlinx.android.synthetic.main.activity_add_type.*
 
 class AddTypeActivity : AppCompatActivity() {
@@ -19,15 +20,18 @@ class AddTypeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if (CurrentOp.currentOperation?.getCategory()?.type != null) {
+        CurrentOperation.category = Category()
+        if (CurrentOperation.category?.type != null) {
             btn_add_type.isEnabled = true
-            if (CurrentOp.currentOperation?.getCategory()?.type == true) {
+            if (CurrentOperation.instanse?.getCategory()?.type == true) {
                 btn_income.visibility = View.VISIBLE
             }
-            if (CurrentOp.currentOperation?.getCategory()?.type == false) {
+            if (CurrentOperation.instanse?.getCategory()?.type == false) {
                 btn_expenses.visibility = View.VISIBLE
             }
+            btn_add_type.isEnabled = true
         }
+
         text_income.setOnClickListener {
             btn_income.visibility = View.VISIBLE
             btn_expenses.visibility = View.INVISIBLE
@@ -41,27 +45,22 @@ class AddTypeActivity : AppCompatActivity() {
         val intent =
             Intent(
                 this,
-                if (!isEdit) AddCategoryActivity::class.java
-                else AddOperationActivity::class.java
+                AddCategoryActivity::class.java
             )
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         btn_add_type.setOnClickListener {
             if (btn_income.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.getCategory()?.type = true
+                CurrentOperation.category?.type = true
 
                 if (isEdit) finish()
                 startActivity(intent)
             } else if (btn_expenses.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.getCategory()?.type = false
+                CurrentOperation.category?.type = false
 
                 if (isEdit) finish()
                 startActivity(intent)
             }
-
-        }
-        if (CurrentOp.currentOperation?.getCategory()?.type != null) {
-            btn_add_type.isEnabled = true
         }
     }
 

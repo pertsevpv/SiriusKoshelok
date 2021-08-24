@@ -6,107 +6,90 @@ import com.example.siriuskoshelok.entity.Category
 
 object CategoriesDataSet {
 
-    val list: MutableList<CategoryItem> = mutableListOf<CategoryItem>().apply {
-        addAll(baseCategories)
-    }
-
-    val baseCategories: List<CategoryItem> = listOf(
+    val baseCategories: MutableList<CategoryItem> = mutableListOf(
         CategoryItem(
             Category(
                 R.drawable.ic_salary,
                 "Зарплата",
-                true
-            ),
-            false
+                true, 1
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_salary,
                 "Подработка",
-                true
-            ),
-            false
+                true, 2
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_gift,
                 "Подарок",
-                true
-            ),
-            false
+                true, 3
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_capitalisation,
                 "Капитализация",
-                true
-            ),
-            false
+                true, 4
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_launch,
                 "Кафе и рестораны",
-                false
-            ),
-            false
+                false, 5
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_market,
                 "Супермаркеты",
-                false
-            ),
-            false
+                false, 6
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_sport,
                 "Спортзал",
-                false
-            ),
-            false
+                false, 7
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_train,
                 "Общественный транспор",
-                false
-            ),
-            false
+                false, 8
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_gas_station,
                 "Бензин",
-                false
-            ),
-            false
+                false, 9
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_pharmacy,
                 "Медицина",
-                false
-            ),
-            false
+                false, 10
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_house,
                 "Квартплата",
-                false
-            ),
-            false
+                false, 11
+            ), false
         ),
         CategoryItem(
             Category(
                 R.drawable.ic_travel,
                 "Отпуск",
-                false
-            ),
-            false
+                false, 12
+            ), false
         )
     )
-
 }

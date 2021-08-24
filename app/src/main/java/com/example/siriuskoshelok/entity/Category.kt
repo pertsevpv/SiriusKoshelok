@@ -8,9 +8,9 @@ import com.example.siriuskoshelok.utils.Constants
 
 @Entity(tableName = Constants.CATEGORY_TABLE_NAME)
 class Category(
-    @ColumnInfo(name = "pictureId") var pictureId: Int?,
-    @ColumnInfo(name = "name") var name: String?,
-    @ColumnInfo(name = "type") var type: Boolean?,
+    @ColumnInfo(name = "pictureId") var pictureId: Int? = null,
+    @ColumnInfo(name = "name") var name: String? = null,
+    @ColumnInfo(name = "type") var type: Boolean? = null,
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = false) var id: Long? = null
 ) {
     @Ignore

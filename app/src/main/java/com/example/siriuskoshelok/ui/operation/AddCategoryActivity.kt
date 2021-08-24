@@ -3,12 +3,13 @@ package com.example.siriuskoshelok.ui.operation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet.baseCategories
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
 import kotlinx.android.synthetic.main.activity_add_category.*
@@ -31,33 +32,26 @@ class AddCategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        categoryAdapter = CategoryAdapter()/*.apply {
-            setHasStableIds(true)
-        }*/
+        categoryAdapter = CategoryAdapter()
+
         recycler.apply {
             layoutManager = LinearLayoutManager(this@AddCategoryActivity)
             adapter = categoryAdapter
         }
-        if (CurrentOp.currentOperation?.getCategory()?.typeName() == resources.getString(R.string.title_income)) {
-            categoryAdapter.setData(baseCategories.filter {
-                it.category.type == true
-            })
-        } else {
-            categoryAdapter.setData(baseCategories.filter {
-                it.category.type == false
-            })
-        }
+
+        categoryAdapter.setData(CategoriesDataSet.baseCategories.filter { it.category.type == CurrentOperation.category?.type })
+
         btn_create_category.setOnClickListener {
             val intent = Intent(this, CreateCategoryActivity::class.java)
             startActivity(intent)
         }
+
         btn_add_category.setOnClickListener {
-            if (CurrentOp.currentOperation?.getCategory()?.typeName() != null) {
+            if (CurrentOperation.instanse?.categoryId != null) {
                 val intent =
                     Intent(
                         this,
-                        if (!isEdit) AddOperationActivity::class.java
-                        else AddOperationActivity::class.java
+                        AddOperationActivity::class.java
                     )
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 this.startActivity(intent)

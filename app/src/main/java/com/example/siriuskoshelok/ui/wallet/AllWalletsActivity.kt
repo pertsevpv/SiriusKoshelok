@@ -33,6 +33,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
         super.onResume()
         presenter.updateUI()
         presenter.initWalletRecyclerView()
+        presenter.uploadFromDb()
     }
 
     private var backPressedQ = 0

@@ -25,6 +25,7 @@ data class Operation(
         GregorianCalendar().apply { this.time = Date(timeMillis ?: 0) }
 
     @Ignore
-    fun getCategory(): Category? =
-        CategoriesDataSet.baseCategories.find { it.category.id == categoryId }?.category
+    fun getCategory(): Category? {
+        return CategoriesDataSet.baseCategories.find { it.category.id == categoryId }?.category
+    }
 }

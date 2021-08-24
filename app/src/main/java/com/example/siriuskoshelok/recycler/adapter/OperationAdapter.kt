@@ -15,7 +15,7 @@ import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.dayMonthYear
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
-import com.example.siriuskoshelok.ui.operation.CurrentOp
+import com.example.siriuskoshelok.ui.operation.CurrentOperation
 import java.lang.Exception
 import kotlin.collections.ArrayList
 
@@ -63,11 +63,11 @@ class OperationAdapter(private val activity: WalletActivity) :
     }
 
     private fun onClickedEdit(holder: OperationHolder) {
-        CurrentOp.isEdit = true
-        CurrentOp.currentOperation = (data[holder.adapterPosition] as OperationItem).operation
-        CurrentOp.posInDataSet = holder.adapterPosition
-        CurrentOp.posInOperationList =
-            WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOp.currentOperation)
+        CurrentOperation.isEdit = true
+        CurrentOperation.instanse = (data[holder.adapterPosition] as OperationItem).operation
+        CurrentOperation.posInDataSet = holder.adapterPosition
+        CurrentOperation.posInOperationList =
+            WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOperation.instanse)
         val intent = Intent(activity, AddOperationActivity::class.java)
         activity.startActivity(intent)
     }

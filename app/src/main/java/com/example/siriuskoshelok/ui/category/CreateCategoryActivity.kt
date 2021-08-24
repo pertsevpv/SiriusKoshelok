@@ -7,12 +7,12 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet.list
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.IconAdapter
 import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
-import com.example.siriuskoshelok.ui.operation.CurrentOp
+import com.example.siriuskoshelok.ui.operation.CurrentOperation
 import kotlinx.android.synthetic.main.activity_create_category.*
 
 class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_category) {
@@ -30,7 +30,7 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        type.text = CurrentOp.currentOperation?.getCategory()?.name
+        type.text = if (CurrentOperation.instanse?.getCategory()?.type == true) "Доход" else "Расход"
 
         val activityLauncher =
             registerForActivityResult(AddNameActivityContract()) { result: String? ->
@@ -54,7 +54,7 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         iconAdapter.setData(Drawables.iconList)
         btn_create.setOnClickListener {
             if (iconAdapter.getPosDraw() != -1) {
-                list.add(
+                CategoriesDataSet.baseCategories.add(
                     CategoryItem(
                         Category(
                             Drawables.iconList[iconAdapter.getPosDraw()].img,
