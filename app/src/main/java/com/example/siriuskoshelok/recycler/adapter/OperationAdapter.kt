@@ -7,20 +7,25 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.common.OperationListener
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.dayMonthYear
+import com.example.siriuskoshelok.recycler.holder.WalletHolder
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOp
+import kotlinx.android.synthetic.main.item_wallet.view.*
+import kotlinx.android.synthetic.main.operation_swipe_item.view.*
 import java.lang.Exception
 import kotlin.collections.ArrayList
 
 @Suppress("WildcardImport")
-class OperationAdapter(private val activity: WalletActivity) :
+class OperationAdapter(private val activity: WalletActivity,
+private var listener: OperationListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<BaseListItem> = arrayListOf()
@@ -52,7 +57,7 @@ class OperationAdapter(private val activity: WalletActivity) :
                 )
             ).apply {
                 itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
-                    onClickedEdit(this)
+                    listener.updateOperation(data[this.adapterPosition], this.adapterPosition)
                 }
                 itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
                     onClickedDelete(this)
@@ -79,8 +84,7 @@ class OperationAdapter(private val activity: WalletActivity) :
                 dialog.cancel()
             }
             setPositiveButton("Удалить") { dialog, _ ->
-                WalletDataSet.list[WalletActivity.indexWallet]
-                    .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+                WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
                 if (data[holder.adapterPosition + 1] is HeaderItem
                     && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
                 ) {
@@ -90,8 +94,7 @@ class OperationAdapter(private val activity: WalletActivity) :
                     else notifyDataSetChanged()
                 } else {
                     data.removeAt(holder.adapterPosition)
-                    WalletDataSet.list[WalletActivity.indexWallet]
-                        .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
+                    WalletDataSet.list[WalletActivity.indexWallet].operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
                     notifyItemRemoved(holder.adapterPosition)
                 }
                 activity.updateUI()

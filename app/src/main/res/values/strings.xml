@@ -76,4 +76,8 @@
     <string name="total_expense">Общий расход</string>
     <string name="operation_time">Время Операции</string>
     <string name="text_error_limit">Вы превысили лимит на траты</string>
+    <string name="text_warning_delete">Вы действительно хотите удалить эту запись?</string>
+    <string name="text_positive_btn">Удалить</string>
+    <string name="text_negative_button">Отменить</string>
+    <string name="text_no_limit">Отменить</string>
 </resources>

@@ -5,23 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.api.currency.CurrencyResult
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.common.WalletListener
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Currency
+import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.recycler.adapter.CurrencyAdapter
 import com.example.siriuskoshelok.recycler.adapter.WalletAdapter
 import com.example.siriuskoshelok.recycler.decorations.WalletDecoration
+import com.example.siriuskoshelok.utils.Constants
+import com.example.siriuskoshelok.viewmodel.WalletViewModel
 import kotlinx.android.synthetic.main.activity_all_wallets.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
+class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets), WalletListener {
 
     private val recycler by lazy(LazyThreadSafetyMode.NONE) {
         findViewById<RecyclerView>(R.id.wallet_recycler_view)
@@ -33,12 +39,13 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
 
     private lateinit var walletAdapter: WalletAdapter
     private lateinit var currAdapter: CurrencyAdapter
+    private lateinit var walletViewModel: WalletViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
+        walletViewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        walletViewModel.loadWallets()
 
         initOperationRecyclerView()
         initCurrRecyclerView()
@@ -57,7 +64,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
             adapter = walletAdapter
             addItemDecoration(WalletDecoration())
         }
-        walletAdapter.setData(WalletDataSet.list)
+        walletViewModel.walletsLiveData.observe(this, { wallets -> walletAdapter.setData(wallets) })
     }
 
     private fun initCurrRecyclerView() {
@@ -110,10 +117,44 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
             super.onBackPressed()
         } else {
             backPressedQ++
-            Toast.makeText(this, "Нажмите ещё раз, чтобы выйти", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.closing_warning), Toast.LENGTH_SHORT)
+                .show()
         }
         Handler().postDelayed({
             backPressedQ = 0
         }, 5000)
+    }
+
+    override fun showWallet(wallet: Wallet) {
+        val intent = Intent(this, WalletActivity::class.java)
+        intent.putExtra(Constants.WALLET_INDEX_KEY, WalletDataSet.list.indexOf(wallet))
+        this.startActivity(intent)
+    }
+
+    override fun deleteWallet(wallet: Wallet, position: Int) {
+        AlertDialog.Builder(this).apply {
+            setTitle(resources.getString(R.string.text_warning_delete))
+            setNegativeButton(resources.getString(R.string.text_negative_button)) { dialog, _ ->
+                dialog.cancel()
+            }
+            setPositiveButton(resources.getString(R.string.text_positive_btn)) { dialog, _ ->
+                walletViewModel.removeWallet(position)
+                walletViewModel.walletsLiveData.observe(
+                    this@AllWalletsActivity,
+                    { wallets -> walletAdapter.setData(wallets) })
+                dialog.cancel()
+                updateUI()
+            }
+            setCancelable(true)
+        }.show()
+    }
+
+    override fun updateWallet(wallet: Wallet, position: Int) {
+        CurrentWallet.entity = wallet.copy()
+        CurrentWallet.isEdit = true
+        CurrentWallet.posInDataSet = position
+        CurrentWallet.posInOperationList = position
+        val intent = Intent(this, AddWalletActivity::class.java)
+        this.startActivity(intent)
     }
 }

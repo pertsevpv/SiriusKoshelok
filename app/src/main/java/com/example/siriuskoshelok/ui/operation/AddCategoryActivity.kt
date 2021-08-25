@@ -64,7 +64,6 @@ class AddCategoryActivity : AppCompatActivity() {
             }
         }
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {

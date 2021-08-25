@@ -6,13 +6,14 @@ import com.example.siriuskoshelok.R
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
-import com.example.siriuskoshelok.data.WalletDataSet.list
+import androidx.lifecycle.ViewModelProvider
+import com.example.siriuskoshelok.utils.Constants
+import com.example.siriuskoshelok.viewmodel.WalletViewModel
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 
 class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
+
+    private lateinit var walletViewModel: WalletViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,19 +22,22 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
+        walletViewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+        walletViewModel.loadWallets()
+
         value_wallet_name.text = CurrentWallet.entity?.name.toString()
         value_wallet_limit.text =
             if (CurrentWallet.entity?.hasLimit == true)
                 CurrentWallet.entity?.limit.toString()
-            else "Не установлен"
+            else resources.getString(R.string.text_no_limit)
 
         btn_create_wallet.setOnClickListener {
             val intent = Intent(this, AllWalletsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             if (CurrentWallet.isEdit)
-                list[CurrentWallet.posInOperationList] = CurrentWallet.entity!!
+                walletViewModel.updateWallet(CurrentWallet.entity!!, CurrentWallet.posInOperationList)
             else
-                list.add(CurrentWallet.entity!!)
+                walletViewModel.addWallet(CurrentWallet.entity!!)
             CurrentWallet.fin()
             startActivity(intent)
         }
@@ -43,7 +47,7 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         }
         btn_edit_wallet_name.setOnClickListener {
             val intent = Intent(this, AddWalletNameActivity::class.java)
-            intent.putExtra("EDIT_FLAG", true)
+            intent.putExtra(Constants.EDIT_FLAG, true)
             startActivity(intent)
         }
     }

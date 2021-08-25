@@ -1,40 +1,25 @@
 package com.example.siriuskoshelok.api.category
 
+import com.example.siriuskoshelok.api.BaseResult
 import com.example.siriuskoshelok.entity.Category
-import com.example.siriuskoshelok.utils.Constants
-import io.reactivex.Observable
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.siriuskoshelok.recycler.items.CategoryItem
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface CategoryAPI {
 
     @GET("category/byID/{id}")
-    fun getCategory(@Path("id") id: Int): Observable<Category>
+    fun getCategory(@Path("id") id: Int): Single<CategoryItem>
+
+    @GET("category")
+    fun getCategories(): Single<BaseResult<List<CategoryItem>>>
 
     @POST("category")
-    fun postCategory(@Body category: Category): Observable<Category>
+    fun postCategory(@Body category: Category): Single<CategoryItem>
 
     @DELETE("category/delete/{id}")
-    fun deleteCategory(@Path("id") id: Int): Observable<Category>
+    fun deleteCategory(@Path("id") id: Int): Single<CategoryItem>
 
     @PUT("category")
-    fun updateCategory(@Body category: Category): Observable<Category>
-
-    companion object {
-        fun create(): CategoryAPI {
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(
-                    RxJava2CallAdapterFactory.create()
-                )
-                .addConverterFactory(
-                    GsonConverterFactory.create()
-                )
-                .baseUrl(Constants.BASE_URL)
-                .build()
-
-            return retrofit.create(CategoryAPI::class.java)
-        }
-    }
+    fun updateCategory(@Body category: Category): Single<CategoryItem>
 }

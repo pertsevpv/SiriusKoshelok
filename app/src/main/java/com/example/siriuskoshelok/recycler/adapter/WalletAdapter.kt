@@ -8,15 +8,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.common.WalletListener
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Wallet
+import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.ui.wallet.CurrentWallet
 import com.example.siriuskoshelok.recycler.holder.WalletHolder
+import kotlinx.android.synthetic.main.item_wallet.view.*
+import kotlinx.android.synthetic.main.operation_swipe_item.view.*
+import kotlinx.android.synthetic.main.operation_swipe_item.view.del_wal_img
+import kotlinx.android.synthetic.main.operation_swipe_item.view.edit_wal_img
 
-class WalletAdapter(private val activity: AllWalletsActivity) :
+class WalletAdapter(
+    private var listener: WalletListener
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data: ArrayList<Wallet> = arrayListOf()
@@ -28,61 +36,25 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater =
-            LayoutInflater.from(parent.context)
-        return WalletHolder(inflater.inflate(R.layout.item_wallet, parent, false)).apply {
-            itemView.findViewById<ImageView>(R.id.edit_wal_img).setOnClickListener {
-                onClickedEdit(this)
-            }
-            itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
-                onClickedDelete(this)
-            }
-            itemView.findViewById<ImageView>(R.id.eye_wal_img).setOnClickListener {
-            }
-            itemView.findViewById<ConstraintLayout>(R.id.wallet_item_layout).setOnClickListener {
-                onClickedWallet(this)
-            }
+        val rootView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_wallet, parent, false)
+        val holder = WalletHolder(rootView)
+        holder.itemView.del_wal_img.setOnClickListener {
+            listener.deleteWallet(data[holder.adapterPosition], holder.adapterPosition)
         }
-    }
-
-    private fun onClickedEdit(holder: WalletHolder) {
-        CurrentWallet.entity = data[holder.adapterPosition].copy()
-        CurrentWallet.isEdit = true
-        CurrentWallet.posInDataSet = holder.adapterPosition
-        CurrentWallet.posInOperationList =
-            WalletDataSet.list.indexOf(CurrentWallet.entity)
-        val intent = Intent(activity, AddWalletActivity::class.java)
-        activity.startActivity(intent)
-    }
-
-    private fun onClickedDelete(holder: WalletHolder) {
-        AlertDialog.Builder(activity).apply {
-            setTitle("Вы действительно хотите удалить эту запись?")
-            setNegativeButton("Отменить") { dialog, _ ->
-                dialog.cancel()
-            }
-            setPositiveButton("Удалить") { dialog, _ ->
-                WalletDataSet.list.remove(data[holder.adapterPosition])
-                data.removeAt(holder.adapterPosition)
-                notifyItemRemoved(holder.adapterPosition)
-                dialog.cancel()
-                activity.updateUI()
-            }
-            setCancelable(true)
-        }.show()
-    }
-
-    private fun onClickedWallet(holder: WalletHolder) {
-        val intent = Intent(activity, WalletActivity::class.java)
-        intent.putExtra("WALLET_KEY", WalletDataSet.list.indexOf(data[holder.adapterPosition]))
-        activity.startActivity(intent)
+        holder.itemView.edit_wal_img.setOnClickListener {
+            listener.updateWallet(data[holder.adapterPosition], holder.adapterPosition)
+        }
+        holder.itemView.wallet_item_layout.setOnClickListener {
+            listener.showWallet(data[holder.adapterPosition])
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val wal = data[position]
         (holder as WalletHolder).bind(wal)
     }
-
     override fun getItemCount(): Int = data.size
 
 }
