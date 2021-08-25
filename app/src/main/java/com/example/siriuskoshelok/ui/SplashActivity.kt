@@ -15,9 +15,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         /*SiriusApplication.instance.appDatabase.getOperationDao().clear()
             .subscribeOn(Schedulers.io())
+
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({}, {})
+
+        SiriusApplication.instance.appDatabase.getCategoryDao().clear()
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({}, {})*/
-
         startActivity(Intent(this@SplashActivity, GoogleAuthorizationActivity::class.java))
         finish()
     }

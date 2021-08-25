@@ -1,5 +1,6 @@
 package com.example.siriuskoshelok.ui.operation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +8,6 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
@@ -26,7 +26,6 @@ class AddCategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_category)
-        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
 
         setSupportActionBar(toolbar_category)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -38,8 +37,6 @@ class AddCategoryActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@AddCategoryActivity)
             adapter = categoryAdapter
         }
-
-        categoryAdapter.setData(CategoriesDataSet.baseCategories.filter { it.category.type == CurrentOperation.category?.type })
 
         btn_create_category.setOnClickListener {
             val intent = Intent(this, CreateCategoryActivity::class.java)
@@ -57,6 +54,12 @@ class AddCategoryActivity : AppCompatActivity() {
                 this.startActivity(intent)
             }
         }
+
+        updateUI()
+    }
+
+    private fun updateUI() {
+        categoryAdapter.setData(CategoriesDataSet.list.filter { it.category.type == CurrentOperation.category?.type })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

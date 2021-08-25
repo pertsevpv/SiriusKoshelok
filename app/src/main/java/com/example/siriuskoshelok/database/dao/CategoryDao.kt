@@ -5,17 +5,22 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.utils.Constants
+import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
 interface CategoryDao {
 
     @Query("select * from ${Constants.CATEGORY_TABLE_NAME}")
-    fun getAll(): List<Category>
+    fun getAll(): Single<List<Category>>
 
     @Insert
-    fun insertCategory(cat: Category)
+    fun insertCategory(cat: Category): Completable
+
+    @Insert
+    fun insertList(vararg list: Category): Completable
 
     @Query("delete from ${Constants.CATEGORY_TABLE_NAME}")
-    fun clear()
+    fun clear(): Completable
 
 }

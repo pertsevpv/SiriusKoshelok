@@ -1,16 +1,21 @@
 package com.example.siriuskoshelok.ui.wallet.presenter
 
 import android.annotation.SuppressLint
+import android.graphics.Path
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CategoriesDataSet
+import com.example.siriuskoshelok.data.OperationDataSet
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Currency
+import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.recycler.adapter.CurrencyAdapter
 import com.example.siriuskoshelok.recycler.adapter.WalletAdapter
 import com.example.siriuskoshelok.recycler.decorations.WalletDecoration
+import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -30,16 +35,33 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
     private lateinit var currAdapter: CurrencyAdapter
 
     @SuppressLint("CheckResult")
-    fun uploadFromDb() {
+    fun uploadWalletsFromDb() {
         SiriusApplication.instance.appDatabase.getWalletDao().getAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 WalletDataSet.list.clear()
                 WalletDataSet.list.addAll(it)
-                initWalletRecyclerView()
+                WalletDataSet.list.forEach { wal ->
+                    uploadWalletsOperationListFromDb(wal)
+                }
             }, {})
-        Log.i("uploaded", WalletDataSet.list.joinToString(", "))
+    }
+
+    @SuppressLint("CheckResult")
+    fun uploadWalletsOperationListFromDb(wal: Wallet) {
+        SiriusApplication.instance.appDatabase.getOperationDao().getByWalletId(wal.walletId!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                wal.operationList.clear()
+                wal.operationList.addAll(it)
+                OperationDataSet.list.clear()
+                OperationDataSet.list.addAll(it)
+                updateUI()
+                walletAdapter.setData(WalletDataSet.list)
+            }, {})
+
     }
 
     fun initWalletRecyclerView() {
@@ -49,7 +71,6 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
             adapter = walletAdapter
             addItemDecoration(WalletDecoration())
         }
-        walletAdapter.setData(WalletDataSet.list)
     }
 
     @SuppressLint("CheckResult")
@@ -77,6 +98,39 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 currAdapter.setData(resultList)
             }, {/*Обидно*/ })
 
+    }
+
+    @SuppressLint("CheckResult")
+    fun uploadCategories() {
+        SiriusApplication.instance.appDatabase.getCategoryDao().getAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("get categories from database", it.joinToString(", "))
+                if (it.isNullOrEmpty()) {
+                    insertDefault()
+                } else {
+                    CategoriesDataSet.list.clear()
+                    CategoriesDataSet.list.addAll(it.map { el -> CategoryItem(el, false) })
+                }
+            }, {
+                Log.i("error get categories", it.message ?: "")
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun insertDefault() {
+        SiriusApplication.instance.appDatabase.getCategoryDao().insertList(
+            *CategoriesDataSet.baseCategories.map { it.category }.toTypedArray()
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("inserted categories to database", "ok")
+                CategoriesDataSet.list.addAll(CategoriesDataSet.baseCategories)
+            }, {
+                Log.i("error insert categories", it.message ?: "")
+            })
     }
 
     @SuppressLint("SetTextI18n")

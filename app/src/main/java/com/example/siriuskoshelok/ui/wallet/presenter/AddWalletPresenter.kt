@@ -20,10 +20,8 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
     val clickCreate = View.OnClickListener {
         val intent = Intent(activity, AllWalletsActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        Log.i(
-            "CurWallet",
-            "${CurrentWallet.entity?.toString()}, ${CurrentWallet.posInDataSet}, ${CurrentWallet.posInOperationList}"
-        )
+
+
         if (CurrentWallet.isEdit) {
             SiriusApplication.instance.appDatabase.getWalletDao()
                 .updateWallet(CurrentWallet.entity!!)

@@ -4,8 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.dayAndMonth
-import com.example.siriuskoshelok.dayMonthYear
+import com.example.siriuskoshelok.utils.dayAndMonth
+import com.example.siriuskoshelok.utils.dayMonthYear
 import java.util.*
 
 class HeaderHolder(private val root: View) : RecyclerView.ViewHolder(root) {

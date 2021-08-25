@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.example.siriuskoshelok.utils.Constants
 
 @Entity(tableName = Constants.CATEGORY_TABLE_NAME)
-class Category(
+data class Category(
     @ColumnInfo(name = "pictureId") var pictureId: Int? = null,
     @ColumnInfo(name = "name") var name: String? = null,
     @ColumnInfo(name = "type") var type: Boolean? = null,

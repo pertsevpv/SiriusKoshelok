@@ -1,19 +1,25 @@
 package com.example.siriuskoshelok.ui.category
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.recycler.adapter.IconAdapter
 import com.example.siriuskoshelok.ui.operation.AddCategoryActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_create_category.*
+import kotlin.random.Random
 
 class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_category) {
 
@@ -30,7 +36,8 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        type.text = if (CurrentOperation.instanse?.getCategory()?.type == true) "Доход" else "Расход"
+        type.text =
+            if (CurrentOperation.instanse?.getCategory()?.type == true) "Доход" else "Расход"
 
         val activityLauncher =
             registerForActivityResult(AddNameActivityContract()) { result: String? ->
@@ -54,21 +61,31 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
         iconAdapter.setData(Drawables.iconList)
         btn_create.setOnClickListener {
             if (iconAdapter.getPosDraw() != -1) {
-                CategoriesDataSet.baseCategories.add(
-                    CategoryItem(
-                        Category(
-                            Drawables.iconList[iconAdapter.getPosDraw()].img,
-                            new_category.text.toString(),
-                            type.text == getString(R.string.income)
-                        ),
-                        false
-                    )
-                )
+                createNewCategory()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun createNewCategory() {
+        val cat = Category(
+            Drawables.iconList[iconAdapter.getPosDraw()].img,
+            new_category.text.toString(),
+            type.text == getString(R.string.income), Random.nextLong()
+        )
+        SiriusApplication.instance.appDatabase.getCategoryDao()
+            .insertCategory(cat)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("new category inserted: ", cat.toString())
+                CategoriesDataSet.list.add(CategoryItem(cat, false))
                 val intent = Intent(this, AddCategoryActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
-            }
-        }
+            }, {
+                Log.i("failed to create category: ", it.message ?: "")
+            })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

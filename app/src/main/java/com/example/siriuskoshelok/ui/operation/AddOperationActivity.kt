@@ -13,12 +13,13 @@ import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.utils.Constants
+import com.example.siriuskoshelok.utils.dayAndMonth
+import com.example.siriuskoshelok.utils.hoursAndMinutes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_operation.*
 import java.util.*
 import kotlin.math.absoluteValue
-import kotlin.random.Random.Default.nextLong
 
 class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) {
 
