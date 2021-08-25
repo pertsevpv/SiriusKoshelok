@@ -11,7 +11,7 @@ class CurrencyHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     private val currName: TextView = root.findViewById(R.id.curr_name)
     private val currMoney: TextView = root.findViewById(R.id.curr_money)
-    private val strelochka: ImageView = root.findViewById(R.id.strelochka)
+    private val strelochka: ImageView = root.findViewById(R.id.arrow)
 
     fun bind(curr: Currency) {
         currName.text = curr.name

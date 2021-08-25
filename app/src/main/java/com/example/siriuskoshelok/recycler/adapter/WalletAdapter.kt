@@ -63,11 +63,11 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
 
     private fun onClickedDelete(holder: WalletHolder) {
         AlertDialog.Builder(activity).apply {
-            setTitle("Вы действительно хотите удалить эту запись?")
-            setNegativeButton("Отменить") { dialog, _ ->
+            setTitle(activity.resources.getString(R.string.text_warning_delete))
+            setNegativeButton(activity.resources.getString(R.string.text_negative_button)) { dialog, _ ->
                 dialog.cancel()
             }
-            setPositiveButton("Удалить") { dialog, _ ->
+            setPositiveButton(activity.resources.getString(R.string.text_positive_btn)) { dialog, _ ->
                 val rec = data[holder.adapterPosition].copy()
                 SiriusApplication.instance.appDatabase.getWalletDao()
                     .deleteWallet(rec)
@@ -78,7 +78,6 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
                         data.removeAt(holder.adapterPosition)
                         notifyItemRemoved(holder.adapterPosition)
                         activity.presenter.updateUI()
-                        Log.i("deleted from database: ", rec.toString())
                     }, {
                         Log.i("failed to delete from database: ", it.message ?: "")
                     })

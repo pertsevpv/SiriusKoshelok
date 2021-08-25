@@ -37,7 +37,10 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
             }
 
         sign_in_button.setOnClickListener {
-            authorizeLauncher.launch(mGoogleSignInClient)
+            //authorizeLauncher.launch(mGoogleSignInClient)
+            val intent = Intent(this, AllWalletsActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

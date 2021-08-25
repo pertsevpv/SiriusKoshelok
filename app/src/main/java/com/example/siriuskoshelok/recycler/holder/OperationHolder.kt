@@ -23,7 +23,7 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
         operationTypeIcon.setImageResource(op.getCategory()?.pictureId?:R.drawable.dot_green)
         operationName.text = op.getCategory()?.name
         operationType.text = if (op.getCategory()?.type == true) "Доход" else "Расход"
-        operationMoney.text = "${op.amount} $"
+        operationMoney.text = "${op.amount} ₽"
         operationDate.text = op.getDate().hoursAndMinutes()
 
     }

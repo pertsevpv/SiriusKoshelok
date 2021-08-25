@@ -96,18 +96,13 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
     @SuppressLint("SetTextI18n")
     fun updateUI() {
         title_wallet_name.text = wallet.name
-        title_money.text = "${wallet.countMoney()} $"
-        title_money_income.text = "${wallet.countIncome()} $"
-        title_money_expenses.text = "${wallet.countExpense()} $"
+        title_money.text = "${wallet.countMoney()} ₽"
+        title_money_income.text = "${wallet.countIncome()} ₽"
+        title_money_expenses.text = "${wallet.countExpense()} ₽"
         if (wallet.limit != null)
             title_money_limit.text = "/${wallet.limit}"
         else
             title_money_limit.visibility = View.INVISIBLE
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.settings_menu, menu)
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
