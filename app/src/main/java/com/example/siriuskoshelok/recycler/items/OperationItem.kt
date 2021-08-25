@@ -6,7 +6,7 @@ class OperationItem(var operation: Operation) : BaseListItem() {
 
     override fun getType(): Int = OPERATION
 
-    override fun toString(): String = "(${operation.money} ${operation.date})"
+    override fun toString(): String = "(${operation.amount} ${operation.getDate()})"
 
-    override fun getDateLong(): Long = operation.date.timeInMillis
+    override fun getDateLong(): Long = operation.getDate().timeInMillis
 }

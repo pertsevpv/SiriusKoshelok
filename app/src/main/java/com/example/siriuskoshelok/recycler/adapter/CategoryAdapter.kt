@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.recycler.items.CategoryItem
-import com.example.siriuskoshelok.ui.operation.CurrentOp
+import com.example.siriuskoshelok.ui.operation.CurrentOperation
 
 class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,21 +31,20 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countItem = -1
     private fun onClicked(item: CategoryItem, position: Int) {
-        val newList = mutableListOf<CategoryItem>()
-        newList.addAll(data)
+        //val newList = mutableListOf<CategoryItem>()
+        //newList.addAll(data)
         if (countItem != -1) {
-            newList[countItem].isSelected = false
-            newList[position].isSelected = true
+            data[countItem].isSelected = false
+            data[position].isSelected = true
             countItem = position
-            CurrentOp.currentOperation?.extendedOperationType = item.category.name
-            CurrentOp.currentOperation?.img = item.category.pictureId
+            CurrentOperation.instanse?.categoryId = item.category.id
         } else {
-            newList[position].isSelected = true
+            data[position].isSelected = true
             countItem = position
-            CurrentOp.currentOperation?.extendedOperationType = item.category.name
-            CurrentOp.currentOperation?.img = item.category.pictureId
+            CurrentOperation.instanse?.categoryId = item.category.id
         }
-        setData(newList)
+        notifyDataSetChanged()
+        //setData(newList)
     }
 
     fun setData(new: List<CategoryItem>) {

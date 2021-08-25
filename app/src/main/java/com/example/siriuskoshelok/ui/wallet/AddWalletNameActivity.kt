@@ -35,6 +35,7 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 if (isEdit)
                     finish()
+
                 startActivity(intent)
             }
         }

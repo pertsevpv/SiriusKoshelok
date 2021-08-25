@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.entity.Category
 import kotlinx.android.synthetic.main.activity_add_type.*
 
 class AddTypeActivity : AppCompatActivity() {
@@ -19,15 +20,18 @@ class AddTypeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if(CurrentOp.currentOperation?.operationType != null){
+        CurrentOperation.category = Category()
+        if (CurrentOperation.category?.type != null) {
             btn_add_type.isEnabled = true
-            if(CurrentOp.currentOperation?.operationType == text_income.text){
+            if (CurrentOperation.instanse?.getCategory()?.type == true) {
                 btn_income.visibility = View.VISIBLE
             }
-            if(CurrentOp.currentOperation?.operationType == text_expenses.text){
+            if (CurrentOperation.instanse?.getCategory()?.type == false) {
                 btn_expenses.visibility = View.VISIBLE
             }
+            btn_add_type.isEnabled = true
         }
+
         text_income.setOnClickListener {
             btn_income.visibility = View.VISIBLE
             btn_expenses.visibility = View.INVISIBLE
@@ -39,33 +43,24 @@ class AddTypeActivity : AppCompatActivity() {
             btn_add_type.isEnabled = true
         }
         val intent =
-            Intent(this,
-                if (!isEdit) AddCategoryActivity::class.java
-                else AddOperationActivity::class.java
+            Intent(
+                this,
+                AddCategoryActivity::class.java
             )
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         btn_add_type.setOnClickListener {
             if (btn_income.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.operationType =
-                    text_income.text.toString()
+                CurrentOperation.category?.type = true
+
                 if (isEdit) finish()
                 startActivity(intent)
             } else if (btn_expenses.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.operationType =
-                    text_expenses.text.toString()
+                CurrentOperation.category?.type = false
+
                 if (isEdit) finish()
                 startActivity(intent)
-                CurrentOp.currentOperation?.operationType = text_income.text.toString()
-                this.startActivity(intent)
             }
-            if (btn_expenses.visibility == View.VISIBLE) {
-                CurrentOp.currentOperation?.operationType = text_expenses.text.toString()
-                this.startActivity(intent)
-            }
-        }
-        if(CurrentOp.currentOperation?.operationType != null){
-            btn_add_type.isEnabled = true
         }
     }
 

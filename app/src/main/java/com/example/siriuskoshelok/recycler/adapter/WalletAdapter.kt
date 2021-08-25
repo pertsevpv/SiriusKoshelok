@@ -1,6 +1,8 @@
 package com.example.siriuskoshelok.recycler.adapter
 
 import android.content.Intent
+import android.provider.SyncStateContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Wallet
@@ -15,6 +18,9 @@ import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.ui.wallet.CurrentWallet
 import com.example.siriuskoshelok.recycler.holder.WalletHolder
+import com.example.siriuskoshelok.utils.Constants
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class WalletAdapter(private val activity: AllWalletsActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,19 +68,32 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
                 dialog.cancel()
             }
             setPositiveButton("Удалить") { dialog, _ ->
-                WalletDataSet.list.remove(data[holder.adapterPosition])
-                data.removeAt(holder.adapterPosition)
-                notifyItemRemoved(holder.adapterPosition)
+                val rec = data[holder.adapterPosition].copy()
+                SiriusApplication.instance.appDatabase.getWalletDao()
+                    .deleteWallet(rec)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        WalletDataSet.list.remove(rec)
+                        data.removeAt(holder.adapterPosition)
+                        notifyItemRemoved(holder.adapterPosition)
+                        activity.presenter.updateUI()
+                        Log.i("deleted from database: ", rec.toString())
+                    }, {
+                        Log.i("failed to delete from database: ", it.message ?: "")
+                    })
                 dialog.cancel()
-                activity.updateUI()
+                setCancelable(true)
             }
-            setCancelable(true)
         }.show()
     }
 
     private fun onClickedWallet(holder: WalletHolder) {
         val intent = Intent(activity, WalletActivity::class.java)
-        intent.putExtra("WALLET_KEY", WalletDataSet.list.indexOf(data[holder.adapterPosition]))
+        intent.putExtra(
+            Constants.WALLET_KEY,
+            WalletDataSet.list.indexOf(data[holder.adapterPosition])
+        )
         activity.startActivity(intent)
     }
 

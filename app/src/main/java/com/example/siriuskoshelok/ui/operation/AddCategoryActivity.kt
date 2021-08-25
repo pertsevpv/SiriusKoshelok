@@ -3,12 +3,13 @@ package com.example.siriuskoshelok.ui.operation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet.listCategory
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.adapter.CategoryAdapter
 import com.example.siriuskoshelok.ui.category.CreateCategoryActivity
 import kotlinx.android.synthetic.main.activity_add_category.*
@@ -31,42 +32,26 @@ class AddCategoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        categoryAdapter = CategoryAdapter().apply {
-            setHasStableIds(true)
-        }
+        categoryAdapter = CategoryAdapter()
+
         recycler.apply {
             layoutManager = LinearLayoutManager(this@AddCategoryActivity)
             adapter = categoryAdapter
         }
-        if (CurrentOp.currentOperation?.operationType == resources.getString(R.string.title_income)) {
-            categoryAdapter.setData(listCategory.filter {
-                it.category.type.startsWith(
-                    resources.getString(
-                        R.string.title_income
-                    )
-                )
-            })
-        } else {
-            categoryAdapter.setData(listCategory.filter {
-                it.category.type.startsWith(
-                    resources.getString(
-                        R.string.title_expenses
-                    )
-                )
-            })
-        }
+
+        categoryAdapter.setData(CategoriesDataSet.baseCategories.filter { it.category.type == CurrentOperation.category?.type })
 
         btn_create_category.setOnClickListener {
             val intent = Intent(this, CreateCategoryActivity::class.java)
             startActivity(intent)
         }
+
         btn_add_category.setOnClickListener {
-            if (CurrentOp.currentOperation?.extendedOperationType != null) {
+            if (CurrentOperation.instanse?.categoryId != null) {
                 val intent =
                     Intent(
                         this,
-                        if (!isEdit) AddOperationActivity::class.java
-                        else AddOperationActivity::class.java
+                        AddOperationActivity::class.java
                     )
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 this.startActivity(intent)
