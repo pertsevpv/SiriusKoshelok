@@ -30,7 +30,7 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
             if (CurrentWallet.entity?.limit != null)
                 CurrentWallet.entity?.limit.toString()
             else
-                "Не установлен"
+                resources.getString(R.string.text_no_limit)
 
         findViewById<Button>(R.id.btn_create_wallet).setOnClickListener(presenter.clickCreate)
 

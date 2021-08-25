@@ -26,6 +26,10 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="CustomNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="android:statusBarColor">@color/colorAccent</item>
+    </style>
+
     <style name="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

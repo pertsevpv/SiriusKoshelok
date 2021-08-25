@@ -43,7 +43,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
             super.onBackPressed()
         } else {
             backPressedQ++
-            Toast.makeText(this, "Нажмите ещё раз, чтобы выйти", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.closing_warning), Toast.LENGTH_SHORT).show()
         }
         Handler().postDelayed({
             backPressedQ = 0

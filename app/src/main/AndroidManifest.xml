@@ -9,34 +9,47 @@
     <application
         android:name=".app.SiriusApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_cool_wallet"
+        android:icon="@drawable/ic_wallet"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_cool_wallet"
+        android:roundIcon="@drawable/ic_wallet"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        android:theme="@style/CustomNoActionBar">
         <activity
             android:name=".ui.category.AddNameActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.category.CreateCategoryActivity" />
+        <activity android:name=".ui.category.CreateCategoryActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.wallet.EditLimitActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.wallet.AddWalletActivity" />
+        <activity android:name=".ui.wallet.AddWalletActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.wallet.AddWalletNameActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.wallet.AllWalletsActivity" />
-        <activity android:name=".ui.operation.AddOperationActivity" />
-        <activity android:name=".ui.operation.AddCategoryActivity" />
-        <activity android:name=".ui.operation.AddTypeActivity" />
+        <activity android:name=".ui.wallet.AllWalletsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".ui.operation.AddOperationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.operation.AddCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.operation.AddTypeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.operation.AddSumActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.google.GoogleAuthorizationActivity" />
-        <activity android:name=".ui.wallet.WalletActivity" />
+        <activity android:name=".ui.google.GoogleAuthorizationActivity"
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".ui.wallet.WalletActivity"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

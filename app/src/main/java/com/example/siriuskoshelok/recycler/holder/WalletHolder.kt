@@ -21,10 +21,10 @@ class WalletHolder(root: View) : RecyclerView.ViewHolder(root) {
         walletName.text = wal.name
         val money = wal.countMoney()
         val expense = wal.countExpense()
-        balance.text = "$money $"
+        balance.text = "$money ₽"
         if (wal.limit != null && expense > wal.limit!!)
             limit.visibility = View.VISIBLE
         else
-            limit.visibility = View.INVISIBLE
+            limit.visibility = View.GONE
     }
 }

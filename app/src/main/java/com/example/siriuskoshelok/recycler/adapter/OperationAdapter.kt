@@ -78,11 +78,11 @@ class OperationAdapter(private val activity: WalletActivity) :
 
     private fun onClickedDelete(holder: OperationHolder) {
         AlertDialog.Builder(activity).apply {
-            setTitle("Вы действительно хотите удалить эту запись?")
-            setNegativeButton("Отменить") { dialog, _ ->
+            setTitle(activity.resources.getString(R.string.text_warning_delete))
+            setNegativeButton(activity.resources.getString(R.string.text_negative_button)) { dialog, _ ->
                 dialog.cancel()
             }
-            setPositiveButton("Удалить") { dialog, _ ->
+            setPositiveButton(activity.resources.getString(R.string.text_positive_btn)) { dialog, _ ->
                 val rec = data[holder.adapterPosition] as OperationItem
                 SiriusApplication.instance.appDatabase.getOperationDao()
                     .deleteOperation(rec.operation)
