@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
@@ -74,6 +75,9 @@ class OperationAdapter(private val activity: WalletActivity) :
         CurrentOperation.posInDataSet = holder.adapterPosition
         CurrentOperation.posInOperationList =
             WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOperation.instanse)
+        CategoriesDataSet.list.forEach { cat ->
+            cat.isSelected = cat.category.id == CurrentOperation.instanse?.categoryId
+        }
         val intent = Intent(activity, AddOperationActivity::class.java)
         activity.startActivity(intent)
     }

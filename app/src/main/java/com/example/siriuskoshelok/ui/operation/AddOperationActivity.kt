@@ -23,7 +23,9 @@ import kotlin.math.absoluteValue
 
 class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) {
 
-    @SuppressLint("SetTextI18n", "CheckResult")
+    private val presenter = AddOperationPresenter(this)
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,32 +45,10 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
             CurrentOperation.instanse?.timeMillis = selectedDate.timeInMillis
             val intent = Intent(this, WalletActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-
-            if (CurrentOperation.isEdit) {
-                SiriusApplication.instance.appDatabase.getOperationDao()
-                    .updateOperation(CurrentOperation.instanse!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        Log.i("updated operation: ", CurrentOperation.instanse.toString())
-                        WalletDataSet.list[WalletActivity.indexWallet].operationList[CurrentOperation.posInOperationList] =
-                            CurrentOperation.instanse!!
-                        CurrentOperation.fin()
-                    }, {})
-            } else {
-                CurrentOperation.instanse?.id = Random().nextLong().absoluteValue
-                SiriusApplication.instance.appDatabase.getOperationDao()
-                    .insertOperation(CurrentOperation.instanse!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        Log.i("inserted operation: ", CurrentOperation.instanse.toString())
-                        WalletDataSet.list[WalletActivity.indexWallet]
-                            .operationList.add(CurrentOperation.instanse!!)
-                        CurrentOperation.fin()
-                    }, {})
-            }
+            if (CurrentOperation.isEdit)
+                presenter.onClickedEdit()
+            else
+                presenter.onClickedAdd()
 
             startActivity(intent)
         }

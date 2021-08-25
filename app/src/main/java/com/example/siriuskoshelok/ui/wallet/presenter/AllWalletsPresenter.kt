@@ -1,14 +1,13 @@
 package com.example.siriuskoshelok.ui.wallet.presenter
 
 import android.annotation.SuppressLint
-import android.graphics.Path
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.CategoriesDataSet
-import com.example.siriuskoshelok.data.OperationDataSet
+import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Currency
 import com.example.siriuskoshelok.entity.Wallet
@@ -34,6 +33,35 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
     private lateinit var walletAdapter: WalletAdapter
     private lateinit var currAdapter: CurrencyAdapter
 
+    @SuppressLint("CheckResult", "SetTextI18n")
+    fun uploadWallets() {
+        SiriusApplication.instance.userApiService.getAllWallets(CurrentUser.login ?: "")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ res ->
+                Log.i(
+                    "api:",
+                    "getAllWallets - Success: ".plus(
+                        res.list.joinToString(
+                            ", ",
+                            "[",
+                            "]"
+                        ) { it.toString() })
+                )
+                activity.value_total_money.text = "${(res.allProfit - res.allConsumption)} $"
+                activity.value_total_income.text = "${res.allProfit} $"
+                activity.value_total_expense.text = "${res.allConsumption} $"
+                WalletDataSet.list.clear()
+                WalletDataSet.list.addAll(res.list)
+                WalletDataSet.list.forEach { wal ->
+                    uploadWalletsOperations(wal)
+                }
+            }, {
+                Log.i("api:", "getAllWallets - Fail: ".plus(it.message ?: ""))
+                uploadWalletsFromDb()
+            })
+    }
+
     @SuppressLint("CheckResult")
     fun uploadWalletsFromDb() {
         SiriusApplication.instance.appDatabase.getWalletDao().getAll()
@@ -43,25 +71,38 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 WalletDataSet.list.clear()
                 WalletDataSet.list.addAll(it)
                 WalletDataSet.list.forEach { wal ->
-                    uploadWalletsOperationListFromDb(wal)
+                    uploadWalletsOperationsFromDb(wal)
                 }
             }, {})
     }
 
     @SuppressLint("CheckResult")
-    fun uploadWalletsOperationListFromDb(wal: Wallet) {
+    fun uploadWalletsOperations(wal: Wallet) {
+        SiriusApplication.instance.walletApiService.getOperations(wal.walletId!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ res ->
+                Log.i("api:", "getOperations - Success: ".plus(res.joinToString(", ", "[", "]")))
+                wal.operationList.clear()
+                wal.operationList.addAll(res)
+                updateUI()
+                walletAdapter.setData(WalletDataSet.list)
+            }, {
+                Log.i("api:", "getOperations - Fail: ".plus(it.message ?: ""))
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun uploadWalletsOperationsFromDb(wal: Wallet) {
         SiriusApplication.instance.appDatabase.getOperationDao().getByWalletId(wal.walletId!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 wal.operationList.clear()
                 wal.operationList.addAll(it)
-                OperationDataSet.list.clear()
-                OperationDataSet.list.addAll(it)
                 updateUI()
                 walletAdapter.setData(WalletDataSet.list)
             }, {})
-
     }
 
     fun initWalletRecyclerView() {
@@ -131,6 +172,10 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
             }, {
                 Log.i("error insert categories", it.message ?: "")
             })
+    }
+
+    fun updateAdapter() {
+        walletAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("SetTextI18n")

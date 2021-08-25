@@ -16,7 +16,8 @@ data class Wallet(
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = false) @field:Json(name = "id") var walletId: Long? = null,
     @ColumnInfo(name = "name") @field:Json(name = "name") var name: String? = "",
     @ColumnInfo(name = "limit") @field:Json(name = "limit") var limit: Int? = null,
-    @Ignore val operationList: MutableList<Operation> = mutableListOf()
+    @Transient @ColumnInfo(name = "userLogin") var login: String? = null,
+    @Transient @Ignore val operationList: MutableList<Operation> = mutableListOf(),
 ) : Parcelable {
 
     @Ignore

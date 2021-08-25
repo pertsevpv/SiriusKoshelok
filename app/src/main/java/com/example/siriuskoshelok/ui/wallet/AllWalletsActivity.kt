@@ -19,6 +19,7 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
+        presenter.updateUI()
         presenter.initWalletRecyclerView()
         presenter.initCurrRecyclerView()
 
@@ -31,8 +32,9 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
 
     override fun onResume() {
         super.onResume()
-        presenter.uploadCategories()
-        presenter.uploadWalletsFromDb()
+        presenter.updateAdapter()
+        //presenter.uploadCategories()
+        presenter.uploadWallets()
     }
 
     private var backPressedQ = 0

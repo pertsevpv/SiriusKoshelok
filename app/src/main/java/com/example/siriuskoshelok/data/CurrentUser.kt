@@ -4,6 +4,6 @@ import com.example.siriuskoshelok.entity.User
 
 object CurrentUser {
 
-    var instance: User? = null
+    var login: String? = null
 
 }

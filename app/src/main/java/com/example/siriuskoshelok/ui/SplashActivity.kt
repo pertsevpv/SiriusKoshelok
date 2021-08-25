@@ -13,16 +13,22 @@ class SplashActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         /*SiriusApplication.instance.appDatabase.getOperationDao().clear()
             .subscribeOn(Schedulers.io())
-
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({}, {})
 
         SiriusApplication.instance.appDatabase.getCategoryDao().clear()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({}, {})
+
+        SiriusApplication.instance.appDatabase.getWalletDao().clear()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({}, {})*/
+
         startActivity(Intent(this@SplashActivity, GoogleAuthorizationActivity::class.java))
         finish()
     }

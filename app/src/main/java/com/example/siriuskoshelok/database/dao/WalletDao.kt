@@ -22,5 +22,5 @@ interface WalletDao {
     fun updateWallet(op: Wallet): Completable
 
     @Query("delete from ${Constants.WALLET_TABLE_NAME}")
-    fun clear()
+    fun clear(): Completable
 }

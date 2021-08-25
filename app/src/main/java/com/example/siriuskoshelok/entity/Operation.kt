@@ -7,17 +7,18 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.utils.Constants
+import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
 @Entity(tableName = Constants.OPERATION_TABLE_NAME)
 data class Operation(
-    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = false) var id: Long? = null,
-    @ColumnInfo(name = "walletId") var walletId: Long? = null,
-    @ColumnInfo(name = "amount") var amount: Int? = null,
-    @ColumnInfo(name = "categoryId") var categoryId: Long? = null,
-    @ColumnInfo(name = "time") var timeMillis: Long? = null,
+    @ColumnInfo(name = "id") @field:Json(name = "id") @PrimaryKey(autoGenerate = false) var id: Long? = null,
+    @ColumnInfo(name = "walletId") @field:Json(name = "walletId") var walletId: Long? = null,
+    @ColumnInfo(name = "amount") @field:Json(name = "amount") var amount: Int? = null,
+    @ColumnInfo(name = "categoryId") @field:Json(name = "categoryId") var categoryId: Long? = null,
+    @ColumnInfo(name = "time") @field:Json(name = "executionDateLong") var timeMillis: Long? = null,
 ) : Parcelable {
 
     @Ignore
