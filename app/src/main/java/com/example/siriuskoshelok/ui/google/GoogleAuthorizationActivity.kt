@@ -56,7 +56,7 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
         )
 
         //intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()
     }

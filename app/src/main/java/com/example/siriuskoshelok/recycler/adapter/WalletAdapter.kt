@@ -84,8 +84,8 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
                     })
                 dialog.cancel()
                 setCancelable(true)
-            }.show()
-        }
+            }
+        }.show()
     }
 
     private fun onClickedWallet(holder: WalletHolder) {

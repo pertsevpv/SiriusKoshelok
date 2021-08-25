@@ -78,7 +78,7 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
                 if (wallet.operationList.isEmpty()) {
                     recycler.isVisible = false
                     empty_view.isVisible = true
-                }else{
+                } else {
                     recycler.isVisible = true
                     empty_view.isVisible = false
                 }
@@ -117,11 +117,6 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 
 }

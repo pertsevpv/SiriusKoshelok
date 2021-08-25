@@ -1,12 +1,14 @@
 package com.example.siriuskoshelok.recycler.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
@@ -16,6 +18,8 @@ import com.example.siriuskoshelok.dayMonthYear
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
 import kotlin.collections.ArrayList
 
@@ -79,21 +83,30 @@ class OperationAdapter(private val activity: WalletActivity) :
                 dialog.cancel()
             }
             setPositiveButton("Удалить") { dialog, _ ->
-                WalletDataSet.list[WalletActivity.indexWallet]
-                    .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
-                if (data[holder.adapterPosition + 1] is HeaderItem
-                    && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
-                ) {
-                    data.removeAt(holder.adapterPosition)
-                    data.removeAt(holder.adapterPosition)
-                    if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
-                    else notifyDataSetChanged()
-                } else {
-                    data.removeAt(holder.adapterPosition)
-                    WalletDataSet.list[WalletActivity.indexWallet]
-                        .operationList.remove((data[holder.adapterPosition] as OperationItem).operation)
-                    notifyItemRemoved(holder.adapterPosition)
-                }
+                val rec = data[holder.adapterPosition] as OperationItem
+                SiriusApplication.instance.appDatabase.getOperationDao()
+                    .deleteOperation(rec.operation)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Log.i("removed from database: ", rec.operation.toString())
+                        WalletDataSet.list[WalletActivity.indexWallet]
+                            .operationList.remove(rec.operation)
+                        if (data[holder.adapterPosition + 1] is HeaderItem
+                            && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
+                        ) {
+                            data.removeAt(holder.adapterPosition)
+                            data.removeAt(holder.adapterPosition)
+                            if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
+                            else notifyDataSetChanged()
+                        } else {
+                            data.removeAt(holder.adapterPosition)
+                            WalletDataSet.list[WalletActivity.indexWallet]
+                                .operationList.remove(rec.operation)
+                            notifyItemRemoved(holder.adapterPosition)
+                        }
+                    }, {})
+
                 activity.updateUI()
                 dialog.cancel()
             }
