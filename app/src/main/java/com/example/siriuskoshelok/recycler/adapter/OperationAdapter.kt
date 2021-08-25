@@ -14,7 +14,7 @@ import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.recycler.holder.HeaderHolder
 import com.example.siriuskoshelok.recycler.holder.OperationHolder
 import com.example.siriuskoshelok.data.WalletDataSet
-import com.example.siriuskoshelok.dayMonthYear
+import com.example.siriuskoshelok.utils.dayMonthYear
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
@@ -67,8 +67,10 @@ class OperationAdapter(private val activity: WalletActivity) :
     }
 
     private fun onClickedEdit(holder: OperationHolder) {
+        val rec = (data[holder.adapterPosition] as OperationItem).operation
         CurrentOperation.isEdit = true
-        CurrentOperation.instanse = (data[holder.adapterPosition] as OperationItem).operation
+        CurrentOperation.instanse = rec
+        CurrentOperation.category = rec.getCategory()
         CurrentOperation.posInDataSet = holder.adapterPosition
         CurrentOperation.posInOperationList =
             WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOperation.instanse)

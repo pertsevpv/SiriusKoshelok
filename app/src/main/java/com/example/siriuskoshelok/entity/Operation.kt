@@ -26,6 +26,6 @@ data class Operation(
 
     @Ignore
     fun getCategory(): Category? {
-        return CategoriesDataSet.baseCategories.find { it.category.id == categoryId }?.category
+        return CategoriesDataSet.list.find { it.category.id == categoryId }?.category
     }
 }

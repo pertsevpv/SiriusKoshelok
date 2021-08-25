@@ -6,7 +6,9 @@ import com.example.siriuskoshelok.entity.Category
 
 object CategoriesDataSet {
 
-    val baseCategories: MutableList<CategoryItem> = mutableListOf(
+    val list: MutableList<CategoryItem> = mutableListOf()
+
+    val baseCategories = arrayOf(
         CategoryItem(
             Category(
                 R.drawable.ic_salary,

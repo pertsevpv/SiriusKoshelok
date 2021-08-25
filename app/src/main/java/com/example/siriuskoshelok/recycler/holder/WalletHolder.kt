@@ -25,6 +25,6 @@ class WalletHolder(root: View) : RecyclerView.ViewHolder(root) {
         if (wal.limit != null && expense > wal.limit!!)
             limit.visibility = View.VISIBLE
         else
-            limit.visibility = View.INVISIBLE
+            limit.visibility = View.GONE
     }
 }

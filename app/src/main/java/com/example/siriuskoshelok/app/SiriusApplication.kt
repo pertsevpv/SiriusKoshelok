@@ -15,10 +15,16 @@ class SiriusApplication : Application() {
 
     lateinit var currApiService: CurrencyAPI
     lateinit var currRetrofit: Retrofit
+
+    lateinit var appRetrofit: Retrofit
+    lateinit var userApiService: CurrencyAPI
+
+
     lateinit var appDatabase: AppDatabase
 
     companion object {
         const val CURR_API = "https://api.fastforex.io/"
+        const val APP_API = "http://34.88.225.219:9090/"
 
         lateinit var instance: SiriusApplication
             private set
@@ -33,6 +39,13 @@ class SiriusApplication : Application() {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
         currApiService = currRetrofit.create()
+
+        appRetrofit = Retrofit.Builder()
+            .baseUrl(APP_API)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+        userApiService = appRetrofit.create()
 
         appDatabase = Room.databaseBuilder(
             applicationContext,

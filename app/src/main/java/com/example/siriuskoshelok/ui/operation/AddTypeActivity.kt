@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.entity.Category
 import kotlinx.android.synthetic.main.activity_add_type.*
 
@@ -19,6 +20,8 @@ class AddTypeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_type)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
+        CategoriesDataSet.list.forEach { it.isSelected = false }
 
         CurrentOperation.category = Category()
         if (CurrentOperation.category?.type != null) {
