@@ -19,7 +19,7 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     @SuppressLint("SetTextI18n")
     fun bind(op: Operation) {
-        operationTypeIcon.setImageResource(op.getCategory()?.pictureId ?: R.drawable.dot_green)
+        operationTypeIcon.setImageResource(/*op.getCategory()?.pictureId?:*/R.drawable.dot_green)
         operationName.text = op.getCategory()?.name
         operationDate.text = op.getDate().hoursAndMinutes()
         if (op.getCategory()?.type == true) {

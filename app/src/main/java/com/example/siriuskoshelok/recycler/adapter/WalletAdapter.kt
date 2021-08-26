@@ -23,6 +23,7 @@ import com.example.siriuskoshelok.utils.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class WalletAdapter(private val activity: AllWalletsActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -68,23 +69,42 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
                 dialog.cancel()
             }
             setPositiveButton(activity.resources.getString(R.string.text_positive_btn)) { dialog, _ ->
-                val rec = data[holder.adapterPosition].copy()
-                SiriusApplication.instance.appDatabase.getWalletDao()
-                    .deleteWallet(rec)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        WalletDataSet.list.remove(rec)
-                        data.removeAt(holder.adapterPosition)
-                        notifyItemRemoved(holder.adapterPosition)
-                        activity.presenter.updateUI()
-                    }, {
-                        Log.i("failed to delete from database: ", it.message ?: "")
-                    })
+                deleteWallet(holder)
                 dialog.cancel()
                 setCancelable(true)
             }
         }.show()
+    }
+
+    private fun deleteWallet(holder: WalletHolder) {
+        val rec = data[holder.adapterPosition].copy()
+        SiriusApplication.instance.walletApiService
+            .deleteWallet(rec.walletId!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("api: ", "deleteWallet - Success: $rec")
+                deleteWalletDb(holder)
+            }, {
+                Log.i("api: ", "deleteWallet - Fail: $it")
+            })
+    }
+
+    private fun deleteWalletDb(holder: WalletHolder) {
+        val rec = data[holder.adapterPosition].copy()
+        SiriusApplication.instance.appDatabase.getWalletDao()
+            .deleteWallet(rec)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                WalletDataSet.list.remove(rec)
+                data.removeAt(holder.adapterPosition)
+                notifyItemRemoved(holder.adapterPosition)
+                activity.presenter.updateUI()
+                Log.i("database: ", "deleteWallet - Success: $rec")
+            }, {
+                Log.i("database: ", "deleteWallet - Fail: $it")
+            })
     }
 
     private fun onClickedWallet(holder: WalletHolder) {

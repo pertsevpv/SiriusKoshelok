@@ -1,11 +1,14 @@
 package com.example.siriuskoshelok.ui.google
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.entity.User
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.utils.dayAndMonth
@@ -15,6 +18,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_google_authorization.*
 import java.util.*
 
@@ -37,10 +42,10 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
             }
 
         sign_in_button.setOnClickListener {
-            //authorizeLauncher.launch(mGoogleSignInClient)
-            val intent = Intent(this, AllWalletsActivity::class.java)
+            authorizeLauncher.launch(mGoogleSignInClient)
+            /*val intent = Intent(this, AllWalletsActivity::class.java)
             startActivity(intent)
-            finish()
+            finish()*/
         }
     }
 
@@ -50,13 +55,24 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
         toNextActivity()
     }
 
+    @SuppressLint("CheckResult")
     private fun toNextActivity() {
         if (account == null) return
-        val user: User =
-            User(account?.email, account?.givenName, account?.familyName, Date().dayMonthYear())
+        CurrentUser.login = "pertsevpv@yandex.ru"// account?.email
+        Log.i("cur login: ", CurrentUser.login?:"null")
+        SiriusApplication.instance.userApiService
+            .register(account?.email ?: "")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("registration ", "ok")
+            }, {
+                Log.i("registration", it.message ?: "")
+            })
+
 
         val intent = Intent(this, AllWalletsActivity::class.java)
-        //intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
+        intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
         //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()

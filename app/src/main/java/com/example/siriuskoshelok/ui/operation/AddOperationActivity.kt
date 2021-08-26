@@ -5,25 +5,20 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siriuskoshelok.*
-import com.example.siriuskoshelok.app.SiriusApplication
-import com.example.siriuskoshelok.ui.wallet.WalletActivity
-import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.utils.Constants
 import com.example.siriuskoshelok.utils.dayAndMonth
 import com.example.siriuskoshelok.utils.hoursAndMinutes
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_operation.*
 import java.util.*
-import kotlin.math.absoluteValue
 
 class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) {
 
-    @SuppressLint("SetTextI18n", "CheckResult")
+    private val presenter = AddOperationPresenter(this)
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,34 +36,7 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
 
         btn_create_operation.setOnClickListener {
             CurrentOperation.instanse?.timeMillis = selectedDate.timeInMillis
-            val intent = Intent(this, WalletActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-
-            if (CurrentOperation.isEdit) {
-                SiriusApplication.instance.appDatabase.getOperationDao()
-                    .updateOperation(CurrentOperation.instanse!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        WalletDataSet.list[WalletActivity.indexWallet].operationList[CurrentOperation.posInOperationList] =
-                            CurrentOperation.instanse!!
-                        CurrentOperation.fin()
-                    }, {})
-            } else {
-                CurrentOperation.instanse?.id = Random().nextLong().absoluteValue
-                SiriusApplication.instance.appDatabase.getOperationDao()
-                    .insertOperation(CurrentOperation.instanse!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        WalletDataSet.list[WalletActivity.indexWallet]
-                            .operationList.add(CurrentOperation.instanse!!)
-                        CurrentOperation.fin()
-                    }, {})
-            }
-
-            startActivity(intent)
+            presenter.onClickedCreate()
         }
         btn_edit_sum.setOnClickListener {
             val intent = Intent(this, AddSumActivity::class.java)

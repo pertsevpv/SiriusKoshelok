@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.entity.Wallet
@@ -51,6 +52,7 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
 
         indexWallet = intent.getIntExtra(Constants.WALLET_KEY, indexWallet)
         wallet = WalletDataSet.list[indexWallet]
+
         if (wallet.limit != null && wallet.countExpense() > wallet.limit!!) {
             img_limit_error.isVisible = true
             title_money_limit.setTextColor(Color.RED)
@@ -70,27 +72,7 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
             addItemDecoration(OperationDecoration())
         }
 
-        if (wallet.operationList.isEmpty()) {
-            recycler.isVisible = false
-            empty_view.isVisible = true
-        }
-
-        SiriusApplication.instance.appDatabase.getOperationDao().getByWalletId(wallet.walletId!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.i("got operations: ", it.joinToString(", "))
-                wallet.operationList.clear()
-                wallet.operationList.addAll(it)
-                if (wallet.operationList.isEmpty()) {
-                    recycler.isVisible = false
-                    empty_view.isVisible = true
-                } else {
-                    recycler.isVisible = true
-                    empty_view.isVisible = false
-                }
-                operationAdapter.setData(it)
-            }, {})
+        updateUI()
 
         btn_add_operation.setOnClickListener {
             CurrentOperation.instanse = Operation()
@@ -110,6 +92,16 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
             title_money_limit.text = "/${wallet.limit}"
         else
             title_money_limit.visibility = View.INVISIBLE
+
+        if (wallet.operationList.isEmpty()) {
+            recycler.isVisible = false
+            empty_view.isVisible = true
+        } else {
+            recycler.isVisible = true
+            empty_view.isVisible = false
+            operationAdapter.setData(wallet.operationList)
+        }
+        CategoriesDataSet.list.forEach { cat -> cat.isSelected = false }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
