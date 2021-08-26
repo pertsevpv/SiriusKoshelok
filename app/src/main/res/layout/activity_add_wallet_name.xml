@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".ui.wallet.AddWalletNameActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/roboto_400"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:textColorHighlight="@color/gray" />
 
     </com.google.android.material.textfield.TextInputLayout>

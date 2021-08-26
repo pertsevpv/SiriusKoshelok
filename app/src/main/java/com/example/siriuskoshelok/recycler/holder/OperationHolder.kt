@@ -9,7 +9,6 @@ import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.utils.hoursAndMinutes
 
-
 class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     private val operationTypeIcon: ImageView = root.findViewById(R.id.operation_type_icon)
@@ -20,12 +19,16 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     @SuppressLint("SetTextI18n")
     fun bind(op: Operation) {
-        operationTypeIcon.setImageResource(op.getCategory()?.pictureId?:R.drawable.dot_green)
+        operationTypeIcon.setImageResource(op.getCategory()?.pictureId ?: R.drawable.dot_green)
         operationName.text = op.getCategory()?.name
-        operationType.text = if (op.getCategory()?.type == true) "Доход" else "Расход"
-        operationMoney.text = "${op.amount} ₽"
         operationDate.text = op.getDate().hoursAndMinutes()
-
+        if (op.getCategory()?.type == true) {
+            operationType.text = "Доход"
+            operationMoney.text = "${op.amount} ₽"
+        } else {
+            operationType.text = "Расход"
+            operationMoney.text = "-${op.amount} ₽"
+        }
     }
 }
 

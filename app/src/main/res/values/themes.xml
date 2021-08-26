@@ -18,6 +18,10 @@
         <item name="fontFamily">@font/roboto_400</item>
     </style>
 
+    <style name="SwitchStyle">
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
     <style name="CustomToolBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:statusBarColor">@color/white</item>
@@ -28,6 +32,7 @@
 
     <style name="CustomNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="android:statusBarColor">@color/colorAccent</item>
+        <item name="android:datePickerDialogTheme">@style/Picker</item>
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar">
@@ -35,7 +40,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:datePickerDialogTheme">@style/DatePicker</item>
+        <item name="android:datePickerDialogTheme">@style/Picker</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -43,17 +48,12 @@
         <item name="android:statusBarColor">@color/white</item>
     </style>
 
-    <style name="SwipeLayout">
-        <item name="android:paddingBottom">1px</item>
-        <item name="android:background">#e5e5e5</item>
-    </style>
-
     <style name="Theme.SiriusKoshelok.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+    <style name="Picker" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -75,5 +75,8 @@
         <item name="fontFamily">@font/roboto_400</item>
     </style>
 
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">#0000FF</item>
+    </style>
 
 </resources>
