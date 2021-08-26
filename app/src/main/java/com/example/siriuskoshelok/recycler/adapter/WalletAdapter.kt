@@ -45,8 +45,6 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
             itemView.findViewById<ImageView>(R.id.del_wal_img).setOnClickListener {
                 onClickedDelete(this)
             }
-            itemView.findViewById<ImageView>(R.id.eye_wal_img).setOnClickListener {
-            }
             itemView.findViewById<ConstraintLayout>(R.id.wallet_item_layout).setOnClickListener {
                 onClickedWallet(this)
             }
@@ -63,9 +61,10 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
         activity.startActivity(intent)
     }
 
+    @SuppressLint("CheckResult")
     private fun onClickedDelete(holder: WalletHolder) {
-        AlertDialog.Builder(activity).apply {
-            setTitle(activity.resources.getString(R.string.text_warning_delete))
+        AlertDialog.Builder(activity, R.style.AlertDialogCustom).apply {
+            setTitle(activity.resources.getString(R.string.text_warning_delete_wallet))
             setNegativeButton(activity.resources.getString(R.string.text_negative_button)) { dialog, _ ->
                 dialog.cancel()
             }

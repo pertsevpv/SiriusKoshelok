@@ -18,4 +18,5 @@
     <color name="red_text">#F52222</color>
     <color name="red_back">#17F52222</color>
     <color name="back_currency">#299C9C9C</color>
+    <color name="gray_limit">#bbbbbb</color>
 </resources>

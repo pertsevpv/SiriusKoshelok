@@ -1,5 +1,6 @@
 package com.example.siriuskoshelok.recycler.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -82,8 +83,9 @@ class OperationAdapter(private val activity: WalletActivity) :
         activity.startActivity(intent)
     }
 
+    @SuppressLint("CheckResult")
     private fun onClickedDelete(holder: OperationHolder) {
-        AlertDialog.Builder(activity).apply {
+        AlertDialog.Builder(activity, R.style.AlertDialogCustom).apply {
             setTitle(activity.resources.getString(R.string.text_warning_delete))
             setNegativeButton(activity.resources.getString(R.string.text_negative_button)) { dialog, _ ->
                 dialog.cancel()

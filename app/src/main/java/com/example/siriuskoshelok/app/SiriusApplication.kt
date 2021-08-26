@@ -31,9 +31,6 @@ class SiriusApplication : Application() {
     lateinit var appDatabase: AppDatabase
 
     companion object {
-        const val CURR_API = "https://api.fastforex.io/"
-        const val APP_API = "http://34.88.225.219:9090/"
-
         lateinit var instance: SiriusApplication
             private set
     }
@@ -42,14 +39,14 @@ class SiriusApplication : Application() {
         super.onCreate()
         instance = this
         currRetrofit = Retrofit.Builder()
-            .baseUrl(CURR_API)
+            .baseUrl(Constants.CURR_API)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
         currApiService = currRetrofit.create()
 
         appRetrofit = Retrofit.Builder()
-            .baseUrl(APP_API)
+            .baseUrl(Constants.APP_API)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
@@ -65,5 +62,4 @@ class SiriusApplication : Application() {
             Constants.APP_DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
-
 }

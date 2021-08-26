@@ -46,33 +46,42 @@
         app:layout_constraintTop_toBottomOf="@+id/wallet_recycler_view"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/roboto_400"
+        android:gravity="center"
+        android:text="@string/no_wallet_available"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wallet_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        tools:listitem="@layout/item_wallet"
         app:layout_constraintBottom_toTopOf="@+id/add_wallet_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_recycler_view" />
+        app:layout_constraintTop_toBottomOf="@+id/currency_recycler_view"
+        tools:listitem="@layout/item_wallet" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currency_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        tools:listitem="@layout/currency_item"
         android:background="@drawable/back_currency"
         android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/wallet_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        tools:listitem="@layout/currency_item" />
 
     <TextView
         android:id="@+id/text_total_money"
@@ -91,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/test_money"
+        android:text="@string/count_money"
         android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/test_money"
+        android:text="@string/count_money"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -163,7 +172,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/test_money"
+        android:text="@string/count_money"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />

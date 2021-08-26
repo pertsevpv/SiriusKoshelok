@@ -2,6 +2,7 @@ package com.example.siriuskoshelok.ui.wallet
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -51,6 +52,15 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
 
         indexWallet = intent.getIntExtra(Constants.WALLET_KEY, indexWallet)
         wallet = WalletDataSet.list[indexWallet]
+
+        if (wallet.limit != null && wallet.countExpense() > wallet.limit!!) {
+            img_limit_error.isVisible = true
+            title_money_limit.setTextColor(Color.RED)
+        } else {
+            img_limit_error.isVisible = false
+            title_money_limit.setTextColor(Color.GRAY)
+        }
+        updateUI()
 
         operationAdapter = OperationAdapter(this)
         recycler.apply {

@@ -28,16 +28,20 @@ class AddSumActivity : AppCompatActivity() {
         }
         btn_add_sum.setOnClickListener {
             if (edit_sum.text!!.isNotEmpty()) {
-                CurrentOperation.instanse?.amount = edit_sum.text.toString().toInt()
-                val intent =
-                    Intent(
-                        this,
-                        if (!isEdit) AddTypeActivity::class.java
-                        else AddOperationActivity::class.java
-                    )
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                if (isEdit) finish()
-                startActivity(intent)
+                if (!edit_sum.text!!.startsWith('0')) {
+                    CurrentOperation.instanse?.amount = edit_sum.text.toString().toInt()
+                    val intent =
+                        Intent(
+                            this,
+                            if (!isEdit) AddTypeActivity::class.java
+                            else AddOperationActivity::class.java
+                        )
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    if (isEdit) finish()
+                    startActivity(intent)
+                } else {
+                    input_sum.error = resources.getString(R.string.text_input_error)
+                }
             }
         }
         edit_sum.addTextChangedListener(object : TextWatcher {

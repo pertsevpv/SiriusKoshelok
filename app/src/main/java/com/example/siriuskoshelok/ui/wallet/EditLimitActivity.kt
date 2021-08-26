@@ -74,7 +74,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         }
     }
 
-    private fun limitButtonClicked(){
+    private fun limitButtonClicked() {
         if (limit_switch.isChecked) {
             CurrentWallet.entity?.limit = null
             val intent =
@@ -83,12 +83,16 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
             finish()
             startActivity(intent)
         } else if (edit_limit.text?.isNotEmpty() == true) {
-            CurrentWallet.entity?.limit = edit_limit.text.toString().toInt()
-            val intent =
-                Intent(this, AddWalletActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            finish()
-            startActivity(intent)
+            if (!edit_limit.text!!.startsWith('0')) {
+                CurrentWallet.entity?.limit = edit_limit.text.toString().toInt()
+                val intent =
+                    Intent(this, AddWalletActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                finish()
+                startActivity(intent)
+            } else {
+                input_limit.error = resources.getString(R.string.text_input_error)
+            }
         }
     }
 

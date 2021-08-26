@@ -58,7 +58,6 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
         btn_edit_date.setOnClickListener {
             DatePickerDialog(
                 this,
-
                 { _, y, moy, dom ->
                     selectedDate[Calendar.YEAR] = y
                     selectedDate[Calendar.MONTH] = moy
@@ -73,7 +72,7 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
 
         btn_edit_time.setOnClickListener {
             TimePickerDialog(
-                this, { _, hod, m ->
+                this, R.style.Picker, { _, hod, m ->
                     selectedDate[Calendar.HOUR_OF_DAY] = hod
                     selectedDate[Calendar.MINUTE] = m
                     time.text = selectedDate.hoursAndMinutes()

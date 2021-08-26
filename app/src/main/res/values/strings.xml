@@ -1,14 +1,11 @@
 <resources>
-    <string name="app_name">SiriusKoshelok</string>
+    <string name="app_name">КошелОК</string>
     <string name="google_button">Authorize</string>
-    <string name="hello_string1">Welcome to Koshelok</string>
-    <string name="hello_string2">Here you can manage your finance</string>
+    <string name="hello_string1">Добро пожаловать в КошелОК</string>
+    <string name="hello_string2">Тут вы можете контролировать свои доходы и расходы</string>
     <string name="title_wallet">КошелОК</string>
     <string name="title_settings">Настройки</string>
-    <string name="name_wallet">Кошелёк1</string>
     <string name="count_money">0 ₽</string>
-    <string name="count_money_income">10 ₽</string>
-    <string name="count_money_expenses">12 000 ₽</string>
     <string name="title_income">Доход</string>
     <string name="title_expenses">Расход</string>
     <string name="btn_add_operation">Добавить операцию</string>
@@ -16,12 +13,12 @@
     <string name="closing_warning">Нажмите ещё раз, чтобы выйти из приложения</string>
     <string name="salary">Salary</string>
     <string name="income">Доход</string>
+
     <string name="test_money">130 000 ₽</string>
     <string name="test_time">15:00</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="today">Today</string>
     <string name="hint_add_sum">Сумма операции</string>
     <string name="title_add_sum">Введите сумму</string>
+  
     <string name="hint_add_wallet_name">Название Кошелька</string>
     <string name="title_add_wallet_name2">Придумайте название</string>
     <string name="btn_add_type">Далее</string>
@@ -40,7 +37,7 @@
     <string name="title_rent">Квартплата</string>
     <string name="title_travel">Отпуск</string>
 
-    <string name="title_add_operation">Новая операция</string>
+    <string name="title_add_operation">Операция</string>
     <string name="btn_create_operation">Создать операцию</string>
     <string name="title_type_operation">Выберите тип операции</string>
     <string name="title_basic">Основные</string>
@@ -49,6 +46,7 @@
     <string name="title_category">Категория</string>
     <string name="title_add_settings">Дополнительные настройки</string>
     <string name="no_data_available">У вас пока нет записей</string>
+    <string name="no_wallet_available">У вас пока нет созданных кошельков</string>
     <string name="title_create_category">Создать категорию</string>
     <string name="title_new_category">Новая категория</string>
     <string name="title_name">Название</string>
@@ -56,7 +54,6 @@
     <string name="new_category">Новая категория</string>
     <string name="title_enter_name">Придумайте название</string>
     <string name="hint_enter_name">Название категории</string>
-    <string name="curr_name">USD</string>
     <string name="btn_add">Добавить</string>
     <string name="wallet">Кошелек</string>
     <string name="title_text">Название</string>
@@ -64,20 +61,24 @@
     <string name="rouble_text">Рубль</string>
     <string name="limit_text">Лимит</string>
     <string name="unlimited_text">Не установлен</string>
-    <string name="new_wallet_text">Новый Кошелек</string>
+    <string name="new_wallet_text">Кошелек</string>
     <string name="btn_create_wallet">Создать Кошелек</string>
     <string name="salary_text">Зарплата</string>
     <string name="operation_date_text">Дата операции</string>
-    <string name="test_date">21 июн</string>
     <string name="enter_sum_text">Введите сумму</string>
-    <string name="test_curr">77.77</string>
     <string name="total_money">Общий Баланс</string>
     <string name="total_income">Общий доход</string>
     <string name="total_expense">Общий расход</string>
-    <string name="operation_time">Время Операции</string>
+    <string name="operation_time">Время операции</string>
     <string name="text_error_limit">Вы превысили лимит на траты</string>
-    <string name="text_warning_delete">Вы действительно хотите удалить эту запись?</string>
+    <string name="text_warning_delete">Уверены что хотите удалить запись?</string>
+    <string name="text_warning_delete_wallet">Уверены что хотите удалить кошелёк?</string>
     <string name="text_positive_btn">Удалить</string>
     <string name="text_negative_button">Отменить</string>
     <string name="text_no_limit">Не установлен</string>
+
+    <string name="text_server_error">Что-то пошло не так</string>
+    <string name="text_internet_error">Нет соединения с интернетом</string>
+    <string name="text_ok">Готово</string>
+    <string name="text_input_error">Некорректный ввод</string>
 </resources>

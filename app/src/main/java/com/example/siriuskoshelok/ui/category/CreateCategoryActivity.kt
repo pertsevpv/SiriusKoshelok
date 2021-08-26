@@ -37,6 +37,21 @@ class CreateCategoryActivity : AppCompatActivity(R.layout.activity_create_catego
             activityLauncher.launch(1)
         }
 
+        iconAdapter = IconAdapter().apply {
+            setHasStableIds(true)
+        }
+        recycler.apply {
+            layoutManager = GridLayoutManager(this@CreateCategoryActivity, 6)
+            adapter = iconAdapter
+        }
+        iconAdapter.setData(Drawables.iconList)
+        btn_create.setOnClickListener {
+            if (iconAdapter.getPosDraw() != -1 && new_category.text != resources.getString(R.string.new_category)) {
+                createNewCategory()
+            }
+        }
+    }
+
         btn_create.setOnClickListener(presenter.onClickedCreateCategory())
 
         presenter.initIconRecycler()
