@@ -1,6 +1,7 @@
 package com.example.siriuskoshelok.database.dao
 
 import androidx.room.*
+import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.utils.Constants
 import io.reactivex.Completable
@@ -12,6 +13,9 @@ interface WalletDao {
     @Query("select * from ${Constants.WALLET_TABLE_NAME}")
     fun getAll(): Single<List<Wallet>>
 
+    @Query("select * from ${Constants.WALLET_TABLE_NAME} where userLogin=:userLogin")
+    fun getByUserLogin(userLogin: String = CurrentUser.login ?: ""): Single<List<Wallet>>
+
     @Insert
     fun insertWallet(op: Wallet): Completable
 
@@ -22,5 +26,5 @@ interface WalletDao {
     fun updateWallet(op: Wallet): Completable
 
     @Query("delete from ${Constants.WALLET_TABLE_NAME}")
-    fun clear()
+    fun clear(): Completable
 }

@@ -2,7 +2,6 @@ package com.example.siriuskoshelok.api.currency
 
 import com.example.siriuskoshelok.utils.Constants
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 
 interface CurrencyAPI {

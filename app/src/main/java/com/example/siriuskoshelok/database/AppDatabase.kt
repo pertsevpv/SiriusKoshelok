@@ -13,7 +13,7 @@ import com.example.siriuskoshelok.entity.Wallet
     entities = [Wallet::class,
         Operation::class,
         Category::class],
-    version = 1
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
 

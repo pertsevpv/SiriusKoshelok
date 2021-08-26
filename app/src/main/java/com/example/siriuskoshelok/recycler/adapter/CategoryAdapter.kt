@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
@@ -31,8 +32,6 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countItem = -1
     private fun onClicked(item: CategoryItem, position: Int) {
-        //val newList = mutableListOf<CategoryItem>()
-        //newList.addAll(data)
         if (countItem != -1) {
             data[countItem].isSelected = false
             data[position].isSelected = true
@@ -44,7 +43,6 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             CurrentOperation.instanse?.categoryId = item.category.id
         }
         notifyDataSetChanged()
-        //setData(newList)
     }
 
     fun setData(new: List<CategoryItem>) {
