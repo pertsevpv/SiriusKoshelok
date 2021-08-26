@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
 import kotlin.collections.ArrayList
 
-@Suppress("WildcardImport")
+@Suppress("WildcardImport, CheckResult")
 class OperationAdapter(private val activity: WalletActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -89,35 +89,54 @@ class OperationAdapter(private val activity: WalletActivity) :
                 dialog.cancel()
             }
             setPositiveButton(activity.resources.getString(R.string.text_positive_btn)) { dialog, _ ->
-                val rec = data[holder.adapterPosition] as OperationItem
-                SiriusApplication.instance.appDatabase.getOperationDao()
-                    .deleteOperation(rec.operation)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        Log.i("removed from database: ", rec.operation.toString())
-                        WalletDataSet.list[WalletActivity.indexWallet]
-                            .operationList.remove(rec.operation)
-                        if (data[holder.adapterPosition + 1] is HeaderItem
-                            && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
-                        ) {
-                            data.removeAt(holder.adapterPosition)
-                            data.removeAt(holder.adapterPosition)
-                            if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
-                            else notifyDataSetChanged()
-                        } else {
-                            data.removeAt(holder.adapterPosition)
-                            WalletDataSet.list[WalletActivity.indexWallet]
-                                .operationList.remove(rec.operation)
-                            notifyItemRemoved(holder.adapterPosition)
-                        }
-                    }, {})
-
-                activity.updateUI()
+                delete(holder)
                 dialog.cancel()
             }
             setCancelable(true)
         }.show()
+    }
+
+    private fun delete(holder: RecyclerView.ViewHolder) {
+        val rec = (data[holder.adapterPosition] as OperationItem).operation
+        SiriusApplication.instance.operationApiService.deleteOperation(rec.id!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("api:", "deleteOperation - Success: $rec")
+                deleteFromDb(holder)
+            }, {
+                Log.i("api:", "deleteOperation - Fail: $it")
+            })
+    }
+
+    private fun deleteFromDb(holder: RecyclerView.ViewHolder) {
+        val rec = data[holder.adapterPosition] as OperationItem
+        WalletDataSet.list[WalletActivity.indexWallet]
+            .operationList.remove(rec.operation)
+        if (data[holder.adapterPosition + 1] is HeaderItem
+            && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
+        ) {
+            data.removeAt(holder.adapterPosition)
+            data.removeAt(holder.adapterPosition)
+            if (data.isNotEmpty()) notifyItemRangeRemoved(holder.adapterPosition, 2)
+            else notifyDataSetChanged()
+        } else {
+            data.removeAt(holder.adapterPosition)
+            WalletDataSet.list[WalletActivity.indexWallet]
+                .operationList.remove(rec.operation)
+            notifyItemRemoved(holder.adapterPosition)
+        }
+        activity.updateUI()
+
+        SiriusApplication.instance.appDatabase.getOperationDao()
+            .deleteOperation(rec.operation)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("database: ", "deleteOperation - Success: ${rec.operation}")
+            }, {
+                Log.i("database: ", "deleteOperation - Fail: $it")
+            })
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

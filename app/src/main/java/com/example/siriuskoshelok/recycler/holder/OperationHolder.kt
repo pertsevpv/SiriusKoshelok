@@ -20,7 +20,7 @@ class OperationHolder(root: View) : RecyclerView.ViewHolder(root) {
 
     @SuppressLint("SetTextI18n")
     fun bind(op: Operation) {
-        operationTypeIcon.setImageResource(op.getCategory()?.pictureId?:R.drawable.dot_green)
+        operationTypeIcon.setImageResource(/*op.getCategory()?.pictureId?:*/R.drawable.dot_green)
         operationName.text = op.getCategory()?.name
         operationType.text = if (op.getCategory()?.type == true) "Доход" else "Расход"
         operationMoney.text = "${op.amount} ₽"

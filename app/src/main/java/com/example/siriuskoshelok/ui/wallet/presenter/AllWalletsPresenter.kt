@@ -9,6 +9,7 @@ import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.data.WalletDataSet
+import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.entity.Currency
 import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.recycler.adapter.CurrencyAdapter
@@ -34,7 +35,7 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
     private lateinit var currAdapter: CurrencyAdapter
 
     @SuppressLint("CheckResult", "SetTextI18n")
-    fun uploadWallets() {
+    fun getWallets() {
         SiriusApplication.instance.userApiService.getAllWallets(CurrentUser.login ?: "")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -54,30 +55,33 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 WalletDataSet.list.clear()
                 WalletDataSet.list.addAll(res.list)
                 WalletDataSet.list.forEach { wal ->
-                    uploadWalletsOperations(wal)
+                    getWalletsOperations(wal)
                 }
             }, {
                 Log.i("api:", "getAllWallets - Fail: ".plus(it.message ?: ""))
-                uploadWalletsFromDb()
+                getWalletsFromDb()
             })
     }
 
     @SuppressLint("CheckResult")
-    fun uploadWalletsFromDb() {
-        SiriusApplication.instance.appDatabase.getWalletDao().getAll()
+    fun getWalletsFromDb() {
+        SiriusApplication.instance.appDatabase.getWalletDao().getByUserLogin()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                Log.i("database: ", "getWalletsFromDb - Success ${it.joinToString(", ", "[", "]")}")
                 WalletDataSet.list.clear()
                 WalletDataSet.list.addAll(it)
                 WalletDataSet.list.forEach { wal ->
-                    uploadWalletsOperationsFromDb(wal)
+                    getWalletsOperationsFromDb(wal)
                 }
-            }, {})
+            }, {
+                Log.i("database: ", "getWalletsFromDb - Fail $it")
+            })
     }
 
     @SuppressLint("CheckResult")
-    fun uploadWalletsOperations(wal: Wallet) {
+    fun getWalletsOperations(wal: Wallet) {
         SiriusApplication.instance.walletApiService.getOperations(wal.walletId!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -93,7 +97,7 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
     }
 
     @SuppressLint("CheckResult")
-    fun uploadWalletsOperationsFromDb(wal: Wallet) {
+    fun getWalletsOperationsFromDb(wal: Wallet) {
         SiriusApplication.instance.appDatabase.getOperationDao().getByWalletId(wal.walletId!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -103,6 +107,71 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 updateUI()
                 walletAdapter.setData(WalletDataSet.list)
             }, {})
+    }
+
+    @SuppressLint("CheckResult")
+    fun getCategories() {
+        SiriusApplication.instance.categoryApiService.getCategories()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("api: ", "getCategories - Success: ${it.joinToString(", ", "[", "]")}")
+                if (it.isEmpty()) {
+                    CategoriesDataSet.baseCategories.forEach { item ->
+                        insertDefault(item.category)
+                    }
+                } else {
+                    CategoriesDataSet.list.clear()
+                    CategoriesDataSet.list.addAll(it.map { cat -> CategoryItem(cat, false) })
+                }
+            }, {
+                Log.i("api: ", "getCategories - Fail: $it")
+                getCategoriesFromDb()
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun insertDefault(cat: Category) {
+        Log.i("ins:", cat.toString())
+        SiriusApplication.instance.categoryApiService.createCategory(cat)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("api: ", "insertDefault - Success: $it")
+                insertDefaultToDb(it)
+            }, {
+                Log.i("api: ", "insertDefault - Fail: $it")
+            })
+    }
+
+
+    @SuppressLint("CheckResult")
+    private fun insertDefaultToDb(cat: Category) {
+        SiriusApplication.instance.appDatabase.getCategoryDao().insertCategory(cat)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("database: ", "insertDefault - Success: $cat")
+                CategoriesDataSet.list.addAll(CategoriesDataSet.baseCategories)
+            }, {
+                Log.i("database: ", "insertDefault - Fail: $it")
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getCategoriesFromDb() {
+        SiriusApplication.instance.appDatabase.getCategoryDao().getByUserLogin()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("database: ", "getCategories - Success: ${it.joinToString(", ", "[", "]")}")
+
+                CategoriesDataSet.list.clear()
+                CategoriesDataSet.list.addAll(it.map { el -> CategoryItem(el, false) })
+
+            }, {
+                Log.i("error get categories", it.message ?: "")
+            })
     }
 
     fun initWalletRecyclerView() {
@@ -139,39 +208,6 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 currAdapter.setData(resultList)
             }, {/*Обидно*/ })
 
-    }
-
-    @SuppressLint("CheckResult")
-    fun uploadCategories() {
-        SiriusApplication.instance.appDatabase.getCategoryDao().getAll()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.i("get categories from database", it.joinToString(", "))
-                if (it.isNullOrEmpty()) {
-                    insertDefault()
-                } else {
-                    CategoriesDataSet.list.clear()
-                    CategoriesDataSet.list.addAll(it.map { el -> CategoryItem(el, false) })
-                }
-            }, {
-                Log.i("error get categories", it.message ?: "")
-            })
-    }
-
-    @SuppressLint("CheckResult")
-    private fun insertDefault() {
-        SiriusApplication.instance.appDatabase.getCategoryDao().insertList(
-            *CategoriesDataSet.baseCategories.map { it.category }.toTypedArray()
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.i("inserted categories to database", "ok")
-                CategoriesDataSet.list.addAll(CategoriesDataSet.baseCategories)
-            }, {
-                Log.i("error insert categories", it.message ?: "")
-            })
     }
 
     fun updateAdapter() {

@@ -33,8 +33,8 @@ class AllWalletsActivity : AppCompatActivity(R.layout.activity_all_wallets) {
     override fun onResume() {
         super.onResume()
         presenter.updateAdapter()
-        //presenter.uploadCategories()
-        presenter.uploadWallets()
+        presenter.getCategories()
+        presenter.getWallets()
     }
 
     private var backPressedQ = 0

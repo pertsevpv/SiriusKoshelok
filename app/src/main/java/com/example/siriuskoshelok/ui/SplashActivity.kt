@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.ui.google.GoogleAuthorizationActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

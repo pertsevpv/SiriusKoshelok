@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
@@ -18,15 +19,11 @@ import kotlin.random.Random
 class AddWalletPresenter(private val activity: AddWalletActivity) {
 
     val clickCreate = View.OnClickListener {
-        val intent = Intent(activity, AllWalletsActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
         if (CurrentWallet.isEdit) {
             editWallet()
         } else {
             createWallet()
         }
-        activity.startActivity(intent)
     }
 
     private fun createWallet() {
@@ -40,6 +37,7 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
                 createWalletDb()
             }, {
                 Log.i("api: ", "createWallet - Fail: $it")
+                Toast.makeText(activity, it.message ?: "", Toast.LENGTH_SHORT).show()
             })
     }
 
@@ -52,9 +50,9 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
                 Log.i("database: ", "createWallet - Success: ${CurrentWallet.entity}")
                 WalletDataSet.list.add(CurrentWallet.entity!!)
                 CurrentWallet.fin()
+                toNextActivity()
             }, {
                 Log.i("database: ", "createWallet - Fail: $it")
-                CurrentWallet.fin()
             })
     }
 
@@ -79,12 +77,18 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
             .subscribe({
                 Log.i("database: ", "updateWallet - Success ${CurrentWallet.entity}")
                 WalletDataSet.list[CurrentWallet.posInOperationList] = CurrentWallet.entity!!
-
                 CurrentWallet.fin()
+                toNextActivity()
             }, {
                 Log.i("database: ", "updateWallet - Fail $it")
                 CurrentWallet.fin()
             })
+    }
+
+    private fun toNextActivity() {
+        val intent = Intent(activity, AllWalletsActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        activity.startActivity(intent)
     }
 
 }

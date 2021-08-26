@@ -9,12 +9,21 @@ import retrofit2.http.*
 interface OperationAPI {
 
     @PUT("api/transactions")
-    fun editOperation(@Header("login") login: String = CurrentUser.login ?: ""): Completable
+    fun editOperation(
+        @Body operation: Operation,
+        @Header("login") login: String = CurrentUser.login ?: ""
+    ): Completable
 
     @POST("api/transactions")
-    fun postOperation(@Header("login") login: String): Single<Operation>
+    fun postOperation(
+        @Body operation: Operation,
+        @Header("login") login: String = CurrentUser.login ?: ""
+    ): Single<Operation>
 
     @DELETE("api/transactions/delete/{id}")
-    fun deleteOperation(@Header("login") login: String, @Path("id") id: Long): Completable
+    fun deleteOperation(
+        @Path("id") id: Long,
+        @Header("login") login: String = CurrentUser.login ?: ""
+    ): Completable
 
 }
