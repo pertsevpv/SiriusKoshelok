@@ -7,11 +7,6 @@ import retrofit2.http.*
 
 interface CategoryAPI {
 
-    @GET("api/categories")
-    fun getCategories(
-        @Header("login") login: String = CurrentUser.login ?: ""
-    ): Single<List<Category>>
-
     @POST("api/categories")
     fun createCategory(
         @Body category: Category,

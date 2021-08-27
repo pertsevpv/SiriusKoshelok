@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import com.example.siriuskoshelok.app.SiriusApplication
-import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Operation
-import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
 import com.example.siriuskoshelok.ui.wallet.WalletActivity
+import com.example.siriuskoshelok.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
-import kotlin.math.absoluteValue
 
 @SuppressLint("CheckResult")
 class AddOperationPresenter(private val activity: AddOperationActivity) {
@@ -26,7 +23,7 @@ class AddOperationPresenter(private val activity: AddOperationActivity) {
 
     private fun addOperation() {
         SiriusApplication.instance.operationApiService
-            .postOperation(CurrentOperation.instanse!!)
+            .postOperation(CurrentOperation.instance!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -35,7 +32,7 @@ class AddOperationPresenter(private val activity: AddOperationActivity) {
                 CurrentOperation.fin()
             }, {
                 Log.i("api: ", "addOperation - Fail: $it")
-                //CurrentOperation.fin()
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
@@ -46,8 +43,7 @@ class AddOperationPresenter(private val activity: AddOperationActivity) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.i("database: ", "addOperation - Success: $op")
-                WalletDataSet.list[WalletActivity.indexWallet]
-                    .operationList.add(op)
+                WalletActivity.wallet.operationList.add(op)
                 toNextActivity()
             }, {
                 Log.i("database: ", "addOperation - Fail: $it")
@@ -57,33 +53,36 @@ class AddOperationPresenter(private val activity: AddOperationActivity) {
 
     private fun editOperation() {
         SiriusApplication.instance.operationApiService
-            .editOperation(CurrentOperation.instanse!!)
+            .editOperation(CurrentOperation.instance!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.i("api: ", "editOperation - Success: ${CurrentOperation.instanse}")
+                Log.i("api: ", "editOperation - Success: ${CurrentOperation.instance}")
                 editOperationDb()
+                toNextActivity()
             }, {
                 Log.i("api: ", "editOperation - Fail: $it")
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
     private fun editOperationDb() {
         SiriusApplication.instance.appDatabase.getOperationDao()
-            .updateOperation(CurrentOperation.instanse!!)
+            .updateOperation(CurrentOperation.instance!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.i("database: ", "editOperation - Success: ${CurrentOperation.instanse}")
-                WalletDataSet.list[WalletActivity.indexWallet]
+                Log.i("database: ", "editOperation - Success: ${CurrentOperation.instance}")
+                WalletActivity.wallet
                     .operationList[CurrentOperation.posInOperationList] =
-                    CurrentOperation.instanse!!
+                    CurrentOperation.instance!!
                 CurrentOperation.fin()
-                toNextActivity()
             }, {
                 Log.i("database: ", "editOperation - Fail: $it")
+                CurrentOperation.fin()
             })
     }
+
 
     private fun toNextActivity() {
         val intent = Intent(activity, WalletActivity::class.java)

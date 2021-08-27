@@ -20,6 +20,7 @@ import com.example.siriuskoshelok.utils.dayMonthYear
 import com.example.siriuskoshelok.recycler.items.*
 import com.example.siriuskoshelok.ui.operation.AddOperationActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
+import com.example.siriuskoshelok.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
@@ -71,13 +72,13 @@ class OperationAdapter(private val activity: WalletActivity) :
     private fun onClickedEdit(holder: OperationHolder) {
         val rec = (data[holder.adapterPosition] as OperationItem).operation
         CurrentOperation.isEdit = true
-        CurrentOperation.instanse = rec
+        CurrentOperation.instance = rec
         CurrentOperation.category = rec.getCategory()
         CurrentOperation.posInDataSet = holder.adapterPosition
         CurrentOperation.posInOperationList =
-            WalletDataSet.list[WalletActivity.indexWallet].operationList.indexOf(CurrentOperation.instanse)
+            WalletActivity.wallet.operationList.indexOf(CurrentOperation.instance)
         CategoriesDataSet.list.forEach { cat ->
-            cat.isSelected = cat.category.id == CurrentOperation.instanse?.categoryId
+            cat.isSelected = cat.category.id == CurrentOperation.instance?.categoryId
         }
         val intent = Intent(activity, AddOperationActivity::class.java)
         activity.startActivity(intent)
@@ -108,12 +109,13 @@ class OperationAdapter(private val activity: WalletActivity) :
                 deleteFromDb(holder)
             }, {
                 Log.i("api:", "deleteOperation - Fail: $it")
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
     private fun deleteFromDb(holder: RecyclerView.ViewHolder) {
         val rec = data[holder.adapterPosition] as OperationItem
-        WalletDataSet.list[WalletActivity.indexWallet]
+        WalletActivity.wallet
             .operationList.remove(rec.operation)
         if (data[holder.adapterPosition + 1] is HeaderItem
             && (holder.adapterPosition == 0 || data[holder.adapterPosition - 1] is HeaderItem)
@@ -124,7 +126,7 @@ class OperationAdapter(private val activity: WalletActivity) :
             else notifyDataSetChanged()
         } else {
             data.removeAt(holder.adapterPosition)
-            WalletDataSet.list[WalletActivity.indexWallet]
+            WalletActivity.wallet
                 .operationList.remove(rec.operation)
             notifyItemRemoved(holder.adapterPosition)
         }

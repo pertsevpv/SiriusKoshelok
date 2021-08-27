@@ -29,11 +29,13 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
                 true -> {
                     input_limit.visibility = View.INVISIBLE
                     btn_add_limit.isEnabled = true
+                    CurrentWallet.entity?.limit = -1
                 }
                 else -> {
                     input_limit.visibility = View.VISIBLE
                     edit_limit.setText("")
                     btn_add_limit.isEnabled = false
+                    CurrentWallet.entity?.limit = null
                 }
             }
         }
@@ -60,7 +62,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         })
     }
 
-    private fun updateUI(){
+    private fun updateUI() {
         if (CurrentWallet.entity?.limit == null) {
             limit_switch.isChecked = true
             input_limit.visibility = View.INVISIBLE
@@ -69,8 +71,8 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
         } else {
             limit_switch.isChecked = false
             findViewById<TextInputLayout>(R.id.input_limit).visibility = View.VISIBLE
-            edit_limit.setText("")
-            btn_add_limit.isEnabled = false
+            edit_limit.setText(CurrentWallet.entity?.limit.toString())
+            btn_add_limit.isEnabled = edit_limit.text.isNullOrEmpty()
         }
     }
 
@@ -99,8 +101,7 @@ class EditLimitActivity : AppCompatActivity(R.layout.activity_edit_limit) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            CurrentOperation.instanse = null
-            this.finish()
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)

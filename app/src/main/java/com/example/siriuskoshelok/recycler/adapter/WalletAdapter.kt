@@ -20,6 +20,7 @@ import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.ui.wallet.CurrentWallet
 import com.example.siriuskoshelok.recycler.holder.WalletHolder
 import com.example.siriuskoshelok.utils.Constants
+import com.example.siriuskoshelok.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -85,8 +86,10 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
             .subscribe({
                 Log.i("api: ", "deleteWallet - Success: $rec")
                 deleteWalletDb(holder)
+                activity.presenter.updateUI()
             }, {
                 Log.i("api: ", "deleteWallet - Fail: $it")
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
@@ -109,10 +112,7 @@ class WalletAdapter(private val activity: AllWalletsActivity) :
 
     private fun onClickedWallet(holder: WalletHolder) {
         val intent = Intent(activity, WalletActivity::class.java)
-        intent.putExtra(
-            Constants.WALLET_KEY,
-            WalletDataSet.list.indexOf(data[holder.adapterPosition])
-        )
+        WalletActivity.wallet = data[holder.adapterPosition]
         activity.startActivity(intent)
     }
 

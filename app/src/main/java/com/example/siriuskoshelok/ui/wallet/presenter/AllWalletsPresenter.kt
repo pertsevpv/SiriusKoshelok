@@ -2,6 +2,7 @@ package com.example.siriuskoshelok.ui.wallet.presenter
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
@@ -9,7 +10,6 @@ import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.data.WalletDataSet
-import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.entity.Currency
 import com.example.siriuskoshelok.entity.Wallet
 import com.example.siriuskoshelok.recycler.adapter.CurrencyAdapter
@@ -17,9 +17,11 @@ import com.example.siriuskoshelok.recycler.adapter.WalletAdapter
 import com.example.siriuskoshelok.recycler.decorations.WalletDecoration
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
+import com.example.siriuskoshelok.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_all_wallets.*
+import java.lang.Error
 
 class AllWalletsPresenter(private val activity: AllWalletsActivity) {
 
@@ -43,22 +45,19 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 Log.i(
                     "api:",
                     "getAllWallets - Success: ".plus(
-                        res.list.joinToString(
-                            ", ",
-                            "[",
-                            "]"
-                        ) { it.toString() })
+                        res.list.joinToString(", ", "[", "]") { it.toString() })
                 )
-                activity.value_total_money.text = "${(res.allProfit - res.allConsumption)} $"
-                activity.value_total_income.text = "${res.allProfit} $"
-                activity.value_total_expense.text = "${res.allConsumption} $"
+                activity.value_total_money.text = "${(res.allProfit - res.allConsumption)} ₽"
+                activity.value_total_income.text = "${res.allProfit} ₽"
+                activity.value_total_expense.text = "${res.allConsumption} ₽"
                 WalletDataSet.list.clear()
                 WalletDataSet.list.addAll(res.list)
                 WalletDataSet.list.forEach { wal ->
-                    getWalletsOperations(wal)
+                    getWalletOperations(wal)
                 }
             }, {
-                Log.i("api:", "getAllWallets - Fail: ".plus(it.message ?: ""))
+                Log.i("api:", "getAllWallets - Fail: ${it.message}")
+                ErrorUtils.showMessage(it, activity)
                 getWalletsFromDb()
             })
     }
@@ -81,7 +80,7 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
     }
 
     @SuppressLint("CheckResult")
-    fun getWalletsOperations(wal: Wallet) {
+    fun getWalletOperations(wal: Wallet) {
         SiriusApplication.instance.walletApiService.getOperations(wal.walletId!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -93,10 +92,11 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
                 walletAdapter.setData(WalletDataSet.list)
             }, {
                 Log.i("api:", "getOperations - Fail: ".plus(it.message ?: ""))
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     fun getWalletsOperationsFromDb(wal: Wallet) {
         SiriusApplication.instance.appDatabase.getOperationDao().getByWalletId(wal.walletId!!)
             .subscribeOn(Schedulers.io())
@@ -111,47 +111,31 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
 
     @SuppressLint("CheckResult")
     fun getCategories() {
-        SiriusApplication.instance.categoryApiService.getCategories()
+        SiriusApplication.instance.userApiService.getUserCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.i("api: ", "getCategories - Success: ${it.joinToString(", ", "[", "]")}")
-                if (it.isEmpty()) {
-                    CategoriesDataSet.baseCategories.forEach { item ->
-                        insertDefault(item.category)
-                    }
-                } else {
-                    CategoriesDataSet.list.clear()
-                    CategoriesDataSet.list.addAll(it.map { cat -> CategoryItem(cat, false) })
-                }
+                CategoriesDataSet.list.clear()
+                CategoriesDataSet.list.addAll(it.map { cat -> CategoryItem(cat, false) })
+                insertDefaultToDb()
             }, {
                 Log.i("api: ", "getCategories - Fail: $it")
+                ErrorUtils.showMessage(it, activity)
                 getCategoriesFromDb()
             })
     }
 
     @SuppressLint("CheckResult")
-    private fun insertDefault(cat: Category) {
-        Log.i("ins:", cat.toString())
-        SiriusApplication.instance.categoryApiService.createCategory(cat)
+    private fun insertDefaultToDb() {
+        val list = CategoriesDataSet.list.map { it.category }
+        list.forEach { it.userLogin = CurrentUser.login }
+        SiriusApplication.instance.appDatabase.getCategoryDao()
+            .insertList(*list.toTypedArray())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.i("api: ", "insertDefault - Success: $it")
-                insertDefaultToDb(it)
-            }, {
-                Log.i("api: ", "insertDefault - Fail: $it")
-            })
-    }
-
-
-    @SuppressLint("CheckResult")
-    private fun insertDefaultToDb(cat: Category) {
-        SiriusApplication.instance.appDatabase.getCategoryDao().insertCategory(cat)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.i("database: ", "insertDefault - Success: $cat")
+                Log.i("database: ", "insertDefault - Success: default categories")
                 CategoriesDataSet.list.addAll(CategoriesDataSet.baseCategories)
             }, {
                 Log.i("database: ", "insertDefault - Fail: $it")
@@ -216,8 +200,8 @@ class AllWalletsPresenter(private val activity: AllWalletsActivity) {
 
     @SuppressLint("SetTextI18n")
     fun updateUI() {
-        activity.value_total_money.text = "${WalletDataSet.countMoney()} $"
-        activity.value_total_expense.text = "${WalletDataSet.countExpense()} $"
-        activity.value_total_income.text = "${WalletDataSet.countIncome()} $"
+        activity.value_total_money.text = "${WalletDataSet.countMoney()} ₽"
+        activity.value_total_expense.text = "${WalletDataSet.countExpense()} ₽"
+        activity.value_total_income.text = "${WalletDataSet.countIncome()} ₽"
     }
 }

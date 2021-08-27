@@ -17,7 +17,7 @@ class IconAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val viewHolder = IconHolder(rootView)
         viewHolder.itemView.setOnClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION)
-                onClicked(data[viewHolder.adapterPosition], viewHolder.adapterPosition)
+                onClicked(viewHolder.adapterPosition)
         }
         return viewHolder
     }
@@ -29,22 +29,19 @@ class IconAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     private var countItem = -1
-    private fun onClicked(item: Icon, position: Int) {
-        val newList = mutableListOf<Icon>()
-        newList.addAll(data)
-        if (countItem != -1) {
-            newList[countItem].isSelect = false
-            newList[position].isSelect = true
-            countItem = position
-        } else {
-            newList[position].isSelect = true
-            countItem = position
-        }
-        setData(newList)
+    private fun onClicked(position: Int) {
+        reset()
+        data[position].isSelect = true
+        countItem = position
+        notifyDataSetChanged()
     }
 
-    fun getPosDraw(): Int{
+    fun getPosDraw(): Int {
         return countItem
+    }
+
+    fun reset() {
+        data.forEach { it.isSelect = false }
     }
 
     fun setData(new: List<Icon>) {

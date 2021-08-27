@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.ui.wallet.AddWalletActivity
 import com.example.siriuskoshelok.ui.wallet.AllWalletsActivity
 import com.example.siriuskoshelok.ui.wallet.CurrentWallet
+import com.example.siriuskoshelok.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlin.math.absoluteValue
@@ -22,6 +24,7 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
         if (CurrentWallet.isEdit) {
             editWallet()
         } else {
+            CurrentWallet.entity?.login = CurrentUser.login
             createWallet()
         }
     }
@@ -37,7 +40,7 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
                 createWalletDb()
             }, {
                 Log.i("api: ", "createWallet - Fail: $it")
-                Toast.makeText(activity, it.message ?: "", Toast.LENGTH_SHORT).show()
+                ErrorUtils.showMessage(it, activity)
             })
     }
 
@@ -66,6 +69,7 @@ class AddWalletPresenter(private val activity: AddWalletActivity) {
                 editWalletDb()
             }, {
                 Log.i("api: ", "editWallet - Fail $it")
+                ErrorUtils.showMessage(it, activity)
             })
     }
 

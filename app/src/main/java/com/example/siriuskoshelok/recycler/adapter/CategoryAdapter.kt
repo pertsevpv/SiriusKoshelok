@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.recycler.holder.CategoryHolder
 import com.example.siriuskoshelok.recycler.items.CategoryItem
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
@@ -32,16 +31,10 @@ class CategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var countItem = -1
     private fun onClicked(item: CategoryItem, position: Int) {
-        if (countItem != -1) {
-            data[countItem].isSelected = false
-            data[position].isSelected = true
-            countItem = position
-            CurrentOperation.instanse?.categoryId = item.category.id
-        } else {
-            data[position].isSelected = true
-            countItem = position
-            CurrentOperation.instanse?.categoryId = item.category.id
-        }
+        data.forEach { it.isSelected = false }
+        data[position].isSelected = true
+        CurrentOperation.instance?.categoryId = item.category.id
+
         notifyDataSetChanged()
     }
 

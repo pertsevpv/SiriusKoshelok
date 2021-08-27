@@ -1,10 +1,8 @@
 package com.example.siriuskoshelok.ui.operation
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +42,7 @@ class AddCategoryActivity : AppCompatActivity() {
         }
 
         btn_add_category.setOnClickListener {
-            if (CurrentOperation.instanse?.categoryId != null) {
+            if (CurrentOperation.instance?.categoryId != null) {
                 val intent =
                     Intent(
                         this,

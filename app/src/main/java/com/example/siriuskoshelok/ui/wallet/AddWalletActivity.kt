@@ -25,13 +25,6 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        value_wallet_name.text = CurrentWallet.entity?.name.toString()
-        value_wallet_limit.text =
-            if (CurrentWallet.entity?.limit != null)
-                CurrentWallet.entity?.limit.toString()
-            else
-                resources.getString(R.string.text_no_limit)
-
         findViewById<Button>(R.id.btn_create_wallet).setOnClickListener(presenter.clickCreate)
 
         findViewById<AppCompatImageView>(R.id.btn_edit_limit).setOnClickListener {
@@ -46,10 +39,20 @@ class AddWalletActivity : AppCompatActivity(R.layout.activity_add_wallet) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        value_wallet_name.text = CurrentWallet.entity?.name.toString()
+        value_wallet_limit.text =
+            if (CurrentWallet.entity?.limit != null)
+                CurrentWallet.entity?.limit.toString()
+            else
+                resources.getString(R.string.text_no_limit)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            this.finish()
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)

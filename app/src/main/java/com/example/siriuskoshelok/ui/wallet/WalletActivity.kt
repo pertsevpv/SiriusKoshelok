@@ -5,15 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siriuskoshelok.R
-import com.example.siriuskoshelok.app.SiriusApplication
 import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.data.WalletDataSet
 import com.example.siriuskoshelok.entity.Operation
@@ -24,14 +21,11 @@ import java.util.*
 import com.example.siriuskoshelok.ui.operation.AddSumActivity
 import com.example.siriuskoshelok.ui.operation.CurrentOperation
 import com.example.siriuskoshelok.utils.Constants
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_wallet.*
 
 class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
 
     companion object {
-        var indexWallet: Int = -1
         lateinit var wallet: Wallet
     }
 
@@ -50,18 +44,6 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        indexWallet = intent.getIntExtra(Constants.WALLET_KEY, indexWallet)
-        wallet = WalletDataSet.list[indexWallet]
-
-        if (wallet.limit != null && wallet.countExpense() > wallet.limit!!) {
-            img_limit_error.isVisible = true
-            title_money_limit.setTextColor(Color.RED)
-        } else {
-            img_limit_error.isVisible = false
-            title_money_limit.setTextColor(Color.GRAY)
-        }
-        updateUI()
-
         operationAdapter = OperationAdapter(this)
         recycler.apply {
             layoutManager = LinearLayoutManager(this@WalletActivity).apply {
@@ -75,8 +57,8 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         updateUI()
 
         btn_add_operation.setOnClickListener {
-            CurrentOperation.instanse = Operation()
-            CurrentOperation.instanse?.walletId = wallet.walletId
+            CurrentOperation.instance = Operation()
+            CurrentOperation.instance?.walletId = wallet.walletId
             val intent = Intent(this, AddSumActivity::class.java)
             this.startActivity(intent)
         }
@@ -88,10 +70,20 @@ class WalletActivity : AppCompatActivity(R.layout.activity_wallet) {
         title_money.text = "${wallet.countMoney()} ₽"
         title_money_income.text = "${wallet.countIncome()} ₽"
         title_money_expenses.text = "${wallet.countExpense()} ₽"
+
+        if (wallet.limit != null && wallet.countExpense() > wallet.limit!!) {
+            img_limit_error.isVisible = true
+            title_money_limit.setTextColor(Color.RED)
+        } else {
+            img_limit_error.isVisible = false
+            title_money_limit.setTextColor(Color.GRAY)
+        }
+
         if (wallet.limit != null)
             title_money_limit.text = "/${wallet.limit}"
         else
             title_money_limit.visibility = View.INVISIBLE
+
 
         if (wallet.operationList.isEmpty()) {
             recycler.isVisible = false

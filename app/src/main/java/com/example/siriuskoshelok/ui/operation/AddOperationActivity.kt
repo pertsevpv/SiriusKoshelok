@@ -17,6 +17,7 @@ import java.util.*
 class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) {
 
     private val presenter = AddOperationPresenter(this)
+    private lateinit var selectedDate: GregorianCalendar
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,28 +27,23 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        count_money.text = CurrentOperation.instanse?.amount.toString()
-        type.text = CurrentOperation.instanse?.getCategory()?.typeName() ?: ""
-        category.text = CurrentOperation.instanse?.getCategory()?.name ?: ""
-
-        val selectedDate = GregorianCalendar()
-        date.text = selectedDate.dayAndMonth()
-        time.text = selectedDate.hoursAndMinutes()
-
         btn_create_operation.setOnClickListener {
-            CurrentOperation.instanse?.timeMillis = selectedDate.timeInMillis
+            CurrentOperation.instance?.timeMillis = selectedDate.timeInMillis
             presenter.onClickedCreate()
         }
+
         btn_edit_sum.setOnClickListener {
             val intent = Intent(this, AddSumActivity::class.java)
             intent.putExtra(Constants.EDIT_FLAG, true)
             startActivity(intent)
         }
+
         btn_edit_category.setOnClickListener {
             val intent = Intent(this, AddCategoryActivity::class.java)
             intent.putExtra(Constants.EDIT_FLAG, true)
             startActivity(intent)
         }
+
         btn_edit_type.setOnClickListener {
             val intent = Intent(this, AddTypeActivity::class.java)
             intent.putExtra(Constants.EDIT_FLAG, true)
@@ -82,6 +78,28 @@ class AddOperationActivity : AppCompatActivity(R.layout.activity_add_operation) 
                 true
             ).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        count_money.text = CurrentOperation.instance?.amount.toString()
+        type.text = CurrentOperation.instance?.getCategory()?.typeName() ?: ""
+        category.text = CurrentOperation.instance?.getCategory()?.name ?: ""
+        selectedDate =
+            if (CurrentOperation.instance?.timeMillis == null)
+                GregorianCalendar()
+            else
+                GregorianCalendar().apply {
+                    timeInMillis = CurrentOperation.instance!!.timeMillis!!
+                }
+
+        date.text = selectedDate.dayAndMonth()
+        time.text = selectedDate.hoursAndMinutes()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

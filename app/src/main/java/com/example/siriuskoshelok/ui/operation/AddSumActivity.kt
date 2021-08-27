@@ -12,24 +12,27 @@ import kotlinx.android.synthetic.main.activity_add_sum.*
 
 @Suppress("EmptyFunctionBlock")
 class AddSumActivity : AppCompatActivity() {
+
+    var isEdit: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sum)
-        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
+        isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
 
         setSupportActionBar(toolbar_sum)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        if (CurrentOperation.instanse?.amount != null) {
+        if (CurrentOperation.instance?.amount != null) {
             edit_sum.text = Editable.Factory.getInstance()
-                .newEditable(CurrentOperation.instanse?.amount.toString())
+                .newEditable(CurrentOperation.instance?.amount.toString())
             btn_add_sum.isEnabled = true
         }
         btn_add_sum.setOnClickListener {
             if (edit_sum.text!!.isNotEmpty()) {
                 if (!edit_sum.text!!.startsWith('0')) {
-                    CurrentOperation.instanse?.amount = edit_sum.text.toString().toInt()
+                    CurrentOperation.instance?.amount = edit_sum.text.toString().toInt()
                     val intent =
                         Intent(
                             this,
@@ -64,8 +67,9 @@ class AddSumActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            CurrentOperation.instanse = null
-            this.finish()
+            if (!isEdit)
+                CurrentOperation.instance = null
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)

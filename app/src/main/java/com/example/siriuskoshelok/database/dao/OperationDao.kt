@@ -1,6 +1,7 @@
 package com.example.siriuskoshelok.database.dao
 
 import androidx.room.*
+import com.example.siriuskoshelok.data.CurrentUser
 import com.example.siriuskoshelok.entity.Operation
 import com.example.siriuskoshelok.utils.Constants
 import io.reactivex.Completable
@@ -18,6 +19,9 @@ interface OperationDao {
     @Insert
     fun insertOperation(op: Operation): Completable
 
+    @Insert
+    fun insertOperationList(vararg list: Operation): Completable
+
     @Delete
     fun deleteOperation(op: Operation): Completable
 
@@ -25,5 +29,8 @@ interface OperationDao {
     fun updateOperation(op: Operation): Completable
 
     @Query("delete from ${Constants.OPERATION_TABLE_NAME}")
-    fun clear():Completable
+    fun clear(): Completable
+
+    @Query("delete from ${Constants.OPERATION_TABLE_NAME} where walletId=:wallerId")
+    fun clearByWalletId(wallerId: Long): Completable
 }

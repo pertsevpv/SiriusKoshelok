@@ -26,10 +26,10 @@ class AddTypeActivity : AppCompatActivity() {
         CurrentOperation.category = Category()
         if (CurrentOperation.category?.type != null) {
             btn_add_type.isEnabled = true
-            if (CurrentOperation.instanse?.getCategory()?.type == true) {
+            if (CurrentOperation.instance?.getCategory()?.type == true) {
                 btn_income.visibility = View.VISIBLE
             }
-            if (CurrentOperation.instanse?.getCategory()?.type == false) {
+            if (CurrentOperation.instance?.getCategory()?.type == false) {
                 btn_expenses.visibility = View.VISIBLE
             }
             btn_add_type.isEnabled = true

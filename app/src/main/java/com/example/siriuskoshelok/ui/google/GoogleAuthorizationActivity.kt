@@ -38,42 +38,37 @@ class GoogleAuthorizationActivity : AppCompatActivity(R.layout.activity_google_a
         val authorizeLauncher =
             registerForActivityResult(GoogleSignInAccountResultContract()) { result ->
                 account = result?.getResult(ApiException::class.java)
-                toNextActivity()
+                CurrentUser.login = account?.email
+                SiriusApplication.instance.userApiService
+                    .register(CurrentUser.login ?: "")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Log.i("api: ", "Registration - Success ${CurrentUser.login}")
+                        toNextActivity()
+                    }, {
+                        Log.i("api: ", "Registration - Fail")
+                    })
             }
 
         sign_in_button.setOnClickListener {
             authorizeLauncher.launch(mGoogleSignInClient)
-            /*val intent = Intent(this, AllWalletsActivity::class.java)
-            startActivity(intent)
-            finish()*/
         }
     }
 
     override fun onStart() {
         super.onStart()
         account = GoogleSignIn.getLastSignedInAccount(this)
+        CurrentUser.login = account?.email
         toNextActivity()
     }
 
     @SuppressLint("CheckResult")
     private fun toNextActivity() {
-        if (account == null) return
-        CurrentUser.login = "pertsevpv@yandex.ru"// account?.email
-        Log.i("cur login: ", CurrentUser.login?:"null")
-        SiriusApplication.instance.userApiService
-            .register(account?.email ?: "")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.i("registration ", "ok")
-            }, {
-                Log.i("registration", it.message ?: "")
-            })
-
-
+        if (account == null || account?.email == null) return
+        Log.i("cur login: ", CurrentUser.login ?: "")
         val intent = Intent(this, AllWalletsActivity::class.java)
         intent.putExtra(Constants.GOOGLE_SIGN_IN_ACCOUNT_KEY, account)
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
         finish()
     }

@@ -27,4 +27,7 @@ interface CategoryDao {
     @Query("delete from ${Constants.CATEGORY_TABLE_NAME}")
     fun clear(): Completable
 
+    @Query("delete from ${Constants.CATEGORY_TABLE_NAME} where userLogin=:login")
+    fun clearByLogin(login: String = CurrentUser.login ?: "")
+
 }

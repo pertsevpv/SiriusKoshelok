@@ -19,6 +19,9 @@ interface WalletDao {
     @Insert
     fun insertWallet(op: Wallet): Completable
 
+    @Insert
+    fun insertWalletList(vararg list: Wallet): Completable
+
     @Delete
     fun deleteWallet(op: Wallet): Completable
 
@@ -27,4 +30,7 @@ interface WalletDao {
 
     @Query("delete from ${Constants.WALLET_TABLE_NAME}")
     fun clear(): Completable
+
+    @Query("delete from ${Constants.WALLET_TABLE_NAME} where userLogin=:userLogin")
+    fun clearByLogin(userLogin: String = CurrentUser.login ?: ""): Completable
 }

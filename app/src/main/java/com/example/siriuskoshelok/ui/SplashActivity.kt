@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.siriuskoshelok.R
 import com.example.siriuskoshelok.app.SiriusApplication
+import com.example.siriuskoshelok.data.CategoriesDataSet
 import com.example.siriuskoshelok.entity.Category
 import com.example.siriuskoshelok.ui.google.GoogleAuthorizationActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,17 +22,21 @@ class SplashActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({}, {})
+*/
+/*        SiriusApplication.instance.appDatabase.getCategoryDao().clear()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i("database: ", "clearAll")
+            }, {
+                Log.i("database: ", it.message ?: "")
+            })*/
 
-        SiriusApplication.instance.appDatabase.getCategoryDao().clear()
+        /*SiriusApplication.instance.appDatabase.getWalletDao().clear()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({}, {})
-
-        SiriusApplication.instance.appDatabase.getWalletDao().clear()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({}, {})*/
-
+*/
         startActivity(Intent(this@SplashActivity, GoogleAuthorizationActivity::class.java))
         finish()
     }

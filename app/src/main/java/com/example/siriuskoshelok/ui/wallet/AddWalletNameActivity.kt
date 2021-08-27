@@ -13,10 +13,12 @@ import kotlinx.android.synthetic.main.activity_add_wallet_name.*
 @Suppress("EmptyFunctionBlock")
 class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_name) {
 
+    var isEdit: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
+        isEdit = intent.getBooleanExtra(Constants.EDIT_FLAG, false)
 
         setSupportActionBar(toolbar_wallet_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -33,15 +35,14 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
                 CurrentWallet.entity?.name = edit_wal_name.text.toString().trim()
                 val intent = Intent(this, AddWalletActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                if (isEdit)
-                    finish()
+                if (isEdit) finish()
 
                 startActivity(intent)
             }
         }
         edit_wal_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                btn_add_wallet_name.isEnabled = s.isNotEmpty()
+                btn_add_wallet_name.isEnabled = s.trim().isNotBlank()
             }
 
             override fun beforeTextChanged(
@@ -61,10 +62,11 @@ class AddWalletNameActivity : AppCompatActivity(R.layout.activity_add_wallet_nam
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            CurrentWallet.fin()
+            //CurrentWallet.fin()
             finish()
             return true
         }
         return super.onOptionsItemSelected(item)
     }
+
 }
